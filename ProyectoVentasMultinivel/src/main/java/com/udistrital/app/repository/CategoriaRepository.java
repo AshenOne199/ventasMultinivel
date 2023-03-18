@@ -18,6 +18,6 @@ public interface CategoriaRepository extends JpaRepository <Categoria, Integer>{
 	@Query(value = "SELECT * FROM CATEGORIA WHERE (K_IDSUBCATEGORIA IS NULL)", nativeQuery = true)
 	List<Categoria> getCategoriasPrincipales();
 	
-	@Query(value = "SELECT * FROM CATEGORIA WHERE (K_IDSUBCATEGORIA IS :idCategoria)", nativeQuery = true)
+	@Query(value = "SELECT * FROM CATEGORIA WHERE (K_IDSUBCATEGORIA = :idCategoria)", nativeQuery = true)
 	List<Categoria> getSubCategoriasFrom(Integer idCategoria);
 }
