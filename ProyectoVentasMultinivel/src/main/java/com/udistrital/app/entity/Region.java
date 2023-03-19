@@ -8,18 +8,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data @AllArgsConstructor @NoArgsConstructor
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "REGION")
 public class Region {
-	
+
 	@Id
 	@Column(name = "K_IDREGION")
 	private Integer idRegion;
-	
+
 	@Column(name = "K_IDPAIS")
 	private Integer idPais;
-	
+
 	@Column(name = "N_NOMBRE")
 	private String nombreRegion;
 
