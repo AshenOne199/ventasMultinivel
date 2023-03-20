@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import com.udistrital.app.entity.RepresentanteVentas;
 import com.udistrital.app.services.RepresentanteVentasService;
 
 @RestController
+@CrossOrigin("http://localhost:8080")
 @RequestMapping("/api/representante")
 public class RepresentanteVentasController {
 
@@ -46,7 +48,7 @@ public class RepresentanteVentasController {
 		return new ResponseEntity<RepresentanteVentas>(representanteVentasService.get(tipoId, numeroId), HttpStatus.OK);
 	}
 
-	// retorna false para caso de violacion de integridad, true si todo sale bien
+	// retorna false para caso de violacion de integridad (referencia en tabla cliente), true si todo sale bien
 	@DeleteMapping("/delete/{tipoId}/{numeroId}")
 	public ResponseEntity delete(@PathVariable("tipoId") String tipoId, @PathVariable("numeroId") Integer numeroId) {
 		boolean transactionState = representanteVentasService.delete(tipoId, numeroId);
