@@ -50,9 +50,9 @@ public class ClienteController {
 
 	// retorna false para caso de violacion de integridad, true si todo sale bien
 	@DeleteMapping("/delete/{tipoId}/{numeroId}")
-	public ResponseEntity delete(@PathVariable("tipoId") String tipoId, @PathVariable("numeroId") Integer numeroId) {
+	public ResponseEntity<Boolean> delete(@PathVariable("tipoId") String tipoId, @PathVariable("numeroId") Integer numeroId) {
 		boolean transactionState = clienteService.delete(tipoId, numeroId);
-		return new ResponseEntity(transactionState, HttpStatus.OK);
+		return new ResponseEntity<Boolean>(transactionState, HttpStatus.OK);
 	}
 
 }

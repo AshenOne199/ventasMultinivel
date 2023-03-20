@@ -22,19 +22,14 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Entity
 @DynamicUpdate
 @Table(name = "REPRESENTANTE_VENTAS")
 public class RepresentanteVentas {
 
-	// llave compuesta
+	// Llave compuesta
 	@EmbeddedId
 	private RepresentanteVentasPrimaryKey compositeKey;
 
@@ -93,5 +88,154 @@ public class RepresentanteVentas {
 	@JoinColumns({ @JoinColumn(name = "k_tipo_id_jefe", referencedColumnName = "k_tipo_id"),
 			@JoinColumn(name = "k_numero_id_jefe", referencedColumnName = "k_numero_id") })
 	public RepresentanteVentas jefe;
+	
+	public RepresentanteVentas() {
+		
+	}
+
+	public RepresentanteVentas(RepresentanteVentasPrimaryKey compositeKey, String nombreCompleto,
+			String apellidoCompleto, Date fechaCreacion, String email, Integer telefono, String nombreRegion,
+			String genero, String password, Date fechaNacimiento, String direccion, Date fechaContrato,
+			String tipoCargo, Set<RepresentanteVentas> empleados, RepresentanteVentas jefe) {
+		super();
+		this.compositeKey = compositeKey;
+		this.nombreCompleto = nombreCompleto;
+		this.apellidoCompleto = apellidoCompleto;
+		this.fechaCreacion = fechaCreacion;
+		this.email = email;
+		this.telefono = telefono;
+		this.nombreRegion = nombreRegion;
+		this.genero = genero;
+		this.password = password;
+		this.fechaNacimiento = fechaNacimiento;
+		this.direccion = direccion;
+		this.fechaContrato = fechaContrato;
+		this.tipoCargo = tipoCargo;
+		this.empleados = empleados;
+		this.jefe = jefe;
+	}
+
+	public RepresentanteVentasPrimaryKey getCompositeKey() {
+		return compositeKey;
+	}
+
+	public void setCompositeKey(RepresentanteVentasPrimaryKey compositeKey) {
+		this.compositeKey = compositeKey;
+	}
+
+	public String getNombreCompleto() {
+		return nombreCompleto;
+	}
+
+	public void setNombreCompleto(String nombreCompleto) {
+		this.nombreCompleto = nombreCompleto;
+	}
+
+	public String getApellidoCompleto() {
+		return apellidoCompleto;
+	}
+
+	public void setApellidoCompleto(String apellidoCompleto) {
+		this.apellidoCompleto = apellidoCompleto;
+	}
+
+	public Date getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(Date fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Integer getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(Integer telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getNombreRegion() {
+		return nombreRegion;
+	}
+
+	public void setNombreRegion(String nombreRegion) {
+		this.nombreRegion = nombreRegion;
+	}
+
+	public String getGenero() {
+		return genero;
+	}
+
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	public Date getFechaContrato() {
+		return fechaContrato;
+	}
+
+	public void setFechaContrato(Date fechaContrato) {
+		this.fechaContrato = fechaContrato;
+	}
+
+	public String getTipoCargo() {
+		return tipoCargo;
+	}
+
+	public void setTipoCargo(String tipoCargo) {
+		this.tipoCargo = tipoCargo;
+	}
+
+	public Set<RepresentanteVentas> getEmpleados() {
+		return empleados;
+	}
+
+	public void setEmpleados(Set<RepresentanteVentas> empleados) {
+		this.empleados = empleados;
+	}
+
+	public RepresentanteVentas getJefe() {
+		return jefe;
+	}
+
+	public void setJefe(RepresentanteVentas jefe) {
+		this.jefe = jefe;
+	}
+	
+	
+	
 
 }

@@ -4,16 +4,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
 import com.udistrital.app.entity.RepresentanteVentas;
 import com.udistrital.app.entity.compositehandle.RepresentanteVentasPrimaryKey;
 
 import jakarta.transaction.Transactional;
 
-@Repository
-public interface RepresentanteVentasRepository
-		extends JpaRepository<RepresentanteVentas, RepresentanteVentasPrimaryKey> {
+public interface RepresentanteVentasRepository extends JpaRepository<RepresentanteVentas, RepresentanteVentasPrimaryKey> {
 
 	@Transactional
 	@Modifying
