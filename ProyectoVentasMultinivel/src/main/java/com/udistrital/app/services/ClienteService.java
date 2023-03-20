@@ -25,7 +25,7 @@ public class ClienteService {
 		return clienteRepository.save(cliente);
 	}
 
-	public boolean delete(String tipoId, Integer numeroId) {
+	public boolean delete(String tipoId, Long numeroId) {
 		try {
 			ClientePrimaryKey primaryKey = new ClientePrimaryKey(tipoId, numeroId);
 			clienteRepository.deleteById(primaryKey);
@@ -36,7 +36,7 @@ public class ClienteService {
 		}
 	}
 
-	public Cliente get(String tipoId, Integer numeroId) {
+	public Cliente get(String tipoId, Long numeroId) {
 		ClientePrimaryKey primaryKey = new ClientePrimaryKey(tipoId, numeroId);
 		Optional<Cliente> clientOptional = clienteRepository.findById(primaryKey);
 		Cliente client = clientOptional.get();

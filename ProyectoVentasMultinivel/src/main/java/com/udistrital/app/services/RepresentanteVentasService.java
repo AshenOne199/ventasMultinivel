@@ -25,10 +25,10 @@ public class RepresentanteVentasService {
 	}
 
 	public RepresentanteVentas saveWithJefe(RepresentanteVentas representanteVentas, String tipoIdJefe,
-			Integer numeroIdJefe) {
+			Long numeroIdJefe) {
 		RepresentanteVentas representante = representanteVentasRepository.save(representanteVentas);
 		String repTipoId = representante.getCompositeKey().getTipoId();
-		Integer repNumeroId = representante.getCompositeKey().getNumeroId();
+		Long repNumeroId = representante.getCompositeKey().getNumeroId();
 		if (!(repTipoId == tipoIdJefe && repNumeroId == numeroIdJefe)) {
 			representanteVentasRepository.updateJefeRepresentanteVentas(tipoIdJefe, numeroIdJefe, repTipoId,
 					repNumeroId);
@@ -37,14 +37,14 @@ public class RepresentanteVentasService {
 		return representante;
 	}
 
-	public RepresentanteVentas get(String tipoId, Integer numeroId) {
+	public RepresentanteVentas get(String tipoId, Long numeroId) {
 		RepresentanteVentasPrimaryKey primaryKey = new RepresentanteVentasPrimaryKey(tipoId, numeroId);
 		Optional<RepresentanteVentas> repOptional = representanteVentasRepository.findById(primaryKey);
 		RepresentanteVentas wantedRep = repOptional.get();
 		return wantedRep;
 	}
 
-	public boolean delete(String tipoId, Integer numeroId) {
+	public boolean delete(String tipoId, Long numeroId) {
 		try {
 			RepresentanteVentasPrimaryKey primaryKey = new RepresentanteVentasPrimaryKey(tipoId, numeroId);
 			representanteVentasRepository.deleteById(primaryKey);

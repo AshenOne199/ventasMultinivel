@@ -32,7 +32,7 @@ public class RepresentanteVentasController {
 
 	@PostMapping("/save/jefe/{tipoId}/{numeroId}")
 	public ResponseEntity<RepresentanteVentas> saveWithJefe(@RequestBody RepresentanteVentas representanteVentas,
-			@PathVariable("tipoId") String tipoId, @PathVariable("numeroId") Integer numeroId) {
+			@PathVariable("tipoId") String tipoId, @PathVariable("numeroId") Long numeroId) {
 		return new ResponseEntity<>(representanteVentasService.saveWithJefe(representanteVentas, tipoId, numeroId),
 				HttpStatus.CREATED);
 	}
@@ -44,13 +44,13 @@ public class RepresentanteVentasController {
 
 	@GetMapping("/getrep/{tipoId}/{numeroId}")
 	public ResponseEntity<RepresentanteVentas> findById(@PathVariable("tipoId") String tipoId,
-			@PathVariable("numeroId") Integer numeroId) {
+			@PathVariable("numeroId") Long numeroId) {
 		return new ResponseEntity<RepresentanteVentas>(representanteVentasService.get(tipoId, numeroId), HttpStatus.OK);
 	}
 
 	// retorna false para caso de violacion de integridad (referencia en tabla cliente), true si todo sale bien
 	@DeleteMapping("/delete/{tipoId}/{numeroId}")
-	public ResponseEntity delete(@PathVariable("tipoId") String tipoId, @PathVariable("numeroId") Integer numeroId) {
+	public ResponseEntity delete(@PathVariable("tipoId") String tipoId, @PathVariable("numeroId") Long numeroId) {
 		boolean transactionState = representanteVentasService.delete(tipoId, numeroId);
 		return new ResponseEntity(transactionState, HttpStatus.OK);
 	}

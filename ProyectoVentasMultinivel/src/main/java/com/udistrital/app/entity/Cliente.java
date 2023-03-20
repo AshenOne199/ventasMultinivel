@@ -44,7 +44,7 @@ public class Cliente {
 	private String email;
 
 	@Column(name = "q_telefono", nullable = false)
-	private Integer telefono;
+	private Long telefono;
 
 	@Column(name = "n_ciudad", nullable = false)
 	private String nombreCiudad;
@@ -69,7 +69,7 @@ public class Cliente {
 	private String tipoIdRepActual;
 
 	@Column(name = "k_id_numero_rep", nullable = false)
-	private Integer numeroIdRepActual;
+	private Long numeroIdRepActual;
 
 	@Column(name = "i_tipo_id_rep", nullable = false)
 	private String tipoIdRepInicial;

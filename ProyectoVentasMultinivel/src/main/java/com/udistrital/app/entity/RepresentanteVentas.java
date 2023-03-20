@@ -53,7 +53,7 @@ public class RepresentanteVentas {
 	private String email;
 
 	@Column(name = "q_telefono", nullable = false)
-	private Integer telefono;
+	private Long telefono;
 
 	@Column(name = "n_region", nullable = false)
 	private String nombreRegion;

@@ -25,7 +25,6 @@ public class ClienteController {
 	@Autowired
 	private ClienteService clienteService;
 
-	@CrossOrigin(origins = "http://localhost:8080")
 	@PostMapping("/save")
 	public ResponseEntity<Cliente> save(@RequestBody Cliente cliente) {
 
@@ -40,7 +39,7 @@ public class ClienteController {
 
 	@GetMapping("/getcliente/{tipoId}/{numeroId}")
 	public ResponseEntity<Cliente> findById(@PathVariable("tipoId") String tipoId,
-			@PathVariable("numeroId") Integer numeroId) {
+			@PathVariable("numeroId") Long numeroId) {
 		try {
 			return new ResponseEntity<Cliente>(clienteService.get(tipoId, numeroId), HttpStatus.OK);
 		} catch (Exception e) {
@@ -50,7 +49,7 @@ public class ClienteController {
 
 	// retorna false para caso de violacion de integridad, true si todo sale bien
 	@DeleteMapping("/delete/{tipoId}/{numeroId}")
-	public ResponseEntity delete(@PathVariable("tipoId") String tipoId, @PathVariable("numeroId") Integer numeroId) {
+	public ResponseEntity delete(@PathVariable("tipoId") String tipoId, @PathVariable("numeroId") Long numeroId) {
 		boolean transactionState = clienteService.delete(tipoId, numeroId);
 		return new ResponseEntity(transactionState, HttpStatus.OK);
 	}

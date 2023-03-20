@@ -19,6 +19,6 @@ public interface RepresentanteVentasRepository
 	@Modifying
 	@Query(value = "UPDATE REPRESENTANTE_VENTAS set k_numero_id_jefe =:numeroIdJefe, k_tipo_id_jefe =:tipoIdJefe where k_tipo_id =:tipoId and k_numero_id =:numeroId", nativeQuery = true)
 	void updateJefeRepresentanteVentas(@Param("tipoIdJefe") String tipoIdJefe,
-			@Param("numeroIdJefe") Integer numeroIdJefe, @Param("tipoId") String tipoId,
-			@Param("numeroId") Integer numeroId);
+			@Param("numeroIdJefe") Long numeroIdJefe, @Param("tipoId") String tipoId,
+			@Param("numeroId") Long numeroId);
 }

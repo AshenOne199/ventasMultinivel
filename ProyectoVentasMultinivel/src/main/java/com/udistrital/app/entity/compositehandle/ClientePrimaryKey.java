@@ -20,5 +20,5 @@ public class ClientePrimaryKey implements Serializable {
 	@Column(name = "k_tipo_id", nullable = false)
 	private String tipoId;
 	@Column(name = "k_numero_id", nullable = false)
-	private Integer numeroId;
+	private Long numeroId;
 }
