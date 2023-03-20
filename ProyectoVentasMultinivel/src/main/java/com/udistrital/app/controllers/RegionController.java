@@ -5,21 +5,23 @@ import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.udistrital.app.entity.Region;
-import com.udistrital.app.repository.RegionRepository;
+import com.udistrital.app.entity.dto.RegionDto;
+import com.udistrital.app.services.RegionService;
 
 @RestController
 public class RegionController {
-	
-	final private RegionRepository regionRepository;
-	
-	public RegionController(RegionRepository regionRepository) {
-		this.regionRepository = regionRepository;	
+
+	final private RegionService regionService;
+
+	public RegionController(RegionService regionService) {
+		this.regionService = regionService;
 	}
-	
-	@GetMapping("/getRegiones")
-	public List<Region> getRegiones() {	
-		return regionRepository.findAll();
+
+	//Obtener todas las regiones registradas
+	@GetMapping("/regiones")
+	public List<RegionDto> getAllRegiones() {
+		return regionService.getAllRegiones();		    
 	}
+
 
 }
