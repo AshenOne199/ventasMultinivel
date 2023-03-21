@@ -1,58 +1,70 @@
 package com.udistrital.app.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.udistrital.app.entity.Cliente;
+import com.udistrital.app.entity.ClienteId;
+import com.udistrital.app.entity.RepresentanteVentaId;
+import com.udistrital.app.entity.RepresentanteVentas;
+import com.udistrital.app.entity.dto.ClienteDto;
+import com.udistrital.app.entity.dto.ClienteIdDto;
+import com.udistrital.app.entity.dto.ClienteSaveDto;
 import com.udistrital.app.services.ClienteService;
+import com.udistrital.app.services.RepresentanteService;
 
 @RestController
-@CrossOrigin("http://localhost:8080")
-@RequestMapping("/api/cliente")
 public class ClienteController {
 
-	@Autowired
-	private ClienteService clienteService;
+	final private ClienteService clienteService;
+	final private RepresentanteService representanteService;
 
-	@CrossOrigin(origins = "http://localhost:8080")
-	@PostMapping("/save")
-	public ResponseEntity<Cliente> save(@RequestBody Cliente cliente) {
 
-		return new ResponseEntity<>(clienteService.save(cliente), HttpStatus.CREATED);
+	public ClienteController(ClienteService clienteService, RepresentanteService representanteService) {
+		this.clienteService = clienteService;
+		this.representanteService = representanteService;
+	}
+
+	// Traer un cliente dado un email y password
+	@GetMapping("/cliente/{email}/{password}")
+	public ResponseEntity<ClienteDto> getClienteLogin(@PathVariable(name = "email") String email, @PathVariable(name = "password") String password) {
+		ClienteDto clienteLogin = clienteService.getClienteLogin(email, password);
+		return ResponseEntity.ok(clienteLogin);
+	}
+
+	// Traer todos los clientes
+	@GetMapping("/clientes")
+	public ResponseEntity<List<ClienteDto>> getClientes() {
+		List<ClienteDto> clientes = clienteService.findAll();
+		return ResponseEntity.ok(clientes);
+	}
+
+	// Traer cliente especifico
+	@GetMapping("/cliente")
+	public ResponseEntity<ClienteDto> getCliente(@RequestBody ClienteIdDto clienteIdDto) {
+		ClienteId clienteId = new ClienteId(clienteIdDto.getTipoId(), clienteIdDto.getId());
+		ClienteDto cliente = clienteService.findByTipoIdAndId(clienteId);
+		return new ResponseEntity<ClienteDto>(cliente, HttpStatus.OK);
 	}
 	
-	
-	@GetMapping("/all")
-	public ResponseEntity<List<Cliente>> findAll() {
-		return new ResponseEntity<>(clienteService.findAll(), HttpStatus.OK);
-	}
-
-	@GetMapping("/getcliente/{tipoId}/{numeroId}")
-	public ResponseEntity<Cliente> findById(@PathVariable("tipoId") String tipoId,
-			@PathVariable("numeroId") Integer numeroId) {
-		try {
-			return new ResponseEntity<Cliente>(clienteService.get(tipoId, numeroId), HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<Cliente>(HttpStatus.BAD_REQUEST);
-		}
-	}
-
-	// retorna false para caso de violacion de integridad, true si todo sale bien
-	@DeleteMapping("/delete/{tipoId}/{numeroId}")
-	public ResponseEntity<Boolean> delete(@PathVariable("tipoId") String tipoId, @PathVariable("numeroId") Integer numeroId) {
-		boolean transactionState = clienteService.delete(tipoId, numeroId);
-		return new ResponseEntity<Boolean>(transactionState, HttpStatus.OK);
+	//Registrar un nuevo cliente
+	@PostMapping("cliente/save")
+	public ResponseEntity<Cliente> save(@RequestBody ClienteSaveDto c) {
+		RepresentanteVentaId representanteVentaId = new RepresentanteVentaId(c.getTipoIdRep(), c.getNumeroIdRep());
+		Optional<RepresentanteVentas> representante = representanteService.getRepresentante(representanteVentaId);
+		ClienteId clienteId = new ClienteId(c.getTipoId(), c.getNumeroId());
+		Cliente cliente = new Cliente(clienteId, representante.get(), c.getTipoIdRepInicial(), c.getNumeroIdRepInicial(), c.getNombreCompleto(), c.getApellidoCompleto(),
+				c.getFechaCreacion(), c.getEmail(), c.getTelefono(), c.getCiudad(), c.getGenero(), c.getPassword(), c.getfNacimiento(), c.getDireccion());
+		clienteService.save(cliente);
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
 }

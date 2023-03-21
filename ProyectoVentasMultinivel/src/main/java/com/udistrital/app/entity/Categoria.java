@@ -1,78 +1,52 @@
 package com.udistrital.app.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "CATEGORIA")
 public class Categoria {
- 
+	
     @Id
-    @Column(name = "K_IDCATEGORIA")
-    private Long idCategoria;
- 
-    @Column(name = "N_NOMBRE")
+    @Column(name = "K_IDCATEGORIA", nullable = false)
+    private Short id;
+
+    @Column(name = "K_IDSUBCATEGORIA")
+    private Short idSubcategoria;
+
+    @Size(max = 100)
+    @NotNull
+    @Column(name = "N_NOMBRE", nullable = false, length = 100)
     private String nombre;
- 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "K_IDSUBCATEGORIA")
-    private Categoria subcategoria;
- 
-    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Producto> productos = new ArrayList<>();
 
-    public Categoria() {
-		
-	}
-    
-	public Categoria(Long idCategoria, String nombre, Categoria subcategoria, List<Producto> productos) {
-		super();
-		this.idCategoria = idCategoria;
-		this.nombre = nombre;
-		this.subcategoria = subcategoria;
-		this.productos = productos;
+	public Short getId() {
+		return id;
 	}
 
-	public Long getIdCategoria() {
-		return idCategoria;
+	public void setId(Short id) {
+		this.id = id;
 	}
 
-	public void setIdCategoria(Long idCategoria) {
-		this.idCategoria = idCategoria;
+	public Short getkIdsubcategoria() {
+		return idSubcategoria;
 	}
 
-	public String getNombre() {
+	public void setkIdsubcategoria(Short kIdsubcategoria) {
+		this.idSubcategoria = kIdsubcategoria;
+	}
+
+	public String getnNombre() {
 		return nombre;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setnNombre(String nNombre) {
+		this.nombre = nNombre;
 	}
+    
+    
 
-	public Categoria getSubcategoria() {
-		return subcategoria;
-	}
-
-	public void setSubcategoria(Categoria subcategoria) {
-		this.subcategoria = subcategoria;
-	}
-
-	public List<Producto> getProductos() {
-		return productos;
-	}
-
-	public void setProductos(List<Producto> productos) {
-		this.productos = productos;
-	}
-	
 }

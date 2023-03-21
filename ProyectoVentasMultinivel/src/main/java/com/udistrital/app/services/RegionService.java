@@ -16,18 +16,16 @@ public class RegionService {
 
 	public RegionService(RegionRepository regionRepository) {
 		this.regionRepository = regionRepository;
-
 	}
 
-	public List<RegionDto> getAllRegiones() {
-
+	public List<RegionDto> getRegiones() {
+		List<RegionDto> regionDtos = new ArrayList<>();
 		List<Region> regiones = regionRepository.findAll();
-		List<RegionDto> regionesDTO = new ArrayList<>();
 		for (Region region : regiones) {
-			regionesDTO.add(new RegionDto(region.getIdRegion(), region.getNombre(), region.getPais().getIdPais()));
+			RegionDto regionDto = new RegionDto(region.getId(), region.getkIdpais().getnNombre(), region.getnNombre());
+			regionDtos.add(regionDto);
 		}
-		return regionesDTO;
-
+		return regionDtos;
 	}
 
 }

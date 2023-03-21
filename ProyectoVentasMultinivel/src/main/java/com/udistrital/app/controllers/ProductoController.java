@@ -7,12 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.udistrital.app.entity.dto.RegionProductoDto;
+import com.udistrital.app.entity.dto.ProductoPorRegionDto;
 import com.udistrital.app.services.ProductoService;
 
 @RestController
 public class ProductoController {
-	
 
 	final private ProductoService productoService;
 	
@@ -20,14 +19,12 @@ public class ProductoController {
 		this.productoService = productoService;
 	}
 	
-	//Productos de una region en especifico
+	//Traer todos los productos de una region
 	@GetMapping("/regiones/{idRegion}/productos")
-	public ResponseEntity<List<RegionProductoDto>> obtenerProductosPorRegion(@PathVariable Long idRegion) {
-	    List<RegionProductoDto> productosDto = productoService.obtenerProductosPorRegion(idRegion);
+	public ResponseEntity<List<ProductoPorRegionDto>> obtenerProductosPorRegion(@PathVariable Short idRegion) {
+	    List<ProductoPorRegionDto> productosDto = productoService.getProductosPorRegion(idRegion);
 	    return ResponseEntity.ok(productosDto);
 	}
-
 	
 	
-
 }

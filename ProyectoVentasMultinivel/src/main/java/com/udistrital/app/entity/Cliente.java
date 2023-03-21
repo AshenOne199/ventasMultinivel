@@ -2,107 +2,153 @@ package com.udistrital.app.entity;
 
 import java.util.Date;
 
-import org.hibernate.annotations.DynamicUpdate;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.udistrital.app.entity.compositehandle.ClientePrimaryKey;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.Size;
 
 @Entity
-@DynamicUpdate
 @Table(name = "CLIENTE")
 public class Cliente {
-
-	//Llave compuesta
-	@EmbeddedId
-	private ClientePrimaryKey compositeKey;
-
-	@Column(name = "n_nombrecompleto", nullable = false)
-	private String nombreCompleto;
-
-	@Column(name = "n_apellidocompleto", nullable = false)
-	private String apellidoCompleto;
-
-	@Column(name = "f_fechacreacion", nullable = false)
-	@Temporal(TemporalType.DATE)
-	@JsonFormat(pattern = "dd/MM/yy")
-	private Date fechaCreacion;
-
-	@Column(name = "o_email", nullable = false)
-	private String email;
-
-	@Column(name = "q_telefono", nullable = false)
-	private Integer telefono;
-
-	@Column(name = "n_ciudad", nullable = false)
-	private String nombreCiudad;
-
-	@Column(name = "i_genero", nullable = false)
-	private String genero;
-
-	@Column(name = "o_password", nullable = false)
-	private String password;
-
-	@Column(name = "f_nacimiento", nullable = false)
-	@Temporal(TemporalType.DATE)
-	@JsonFormat(pattern = "dd/MM/yy")
-	private Date fechaNacimiento;
-
-	@Column(name = "o_direccion", nullable = false)
-	private String direccion;
-
-	// Mapping uno a uno de cliente a representante actual
-
-	@Column(name = "k_tipo_id_rep", nullable = false)
-	private String tipoIdRepActual;
-
-	@Column(name = "k_id_numero_rep", nullable = false)
-	private Integer numeroIdRepActual;
-
-	@Column(name = "i_tipo_id_rep", nullable = false)
-	private String tipoIdRepInicial;
-
-	@Column(name = "q_numero_id_rep", nullable = false)
-	private Integer numeroIdRepInicial;
 	
-	public Cliente() {
+    @EmbeddedId
+    private ClienteId id;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+    @JoinColumns({
+            @JoinColumn(name = "K_TIPO_ID_REP", referencedColumnName = "K_TIPO_ID", nullable = false),
+            @JoinColumn(name = "K_ID_NUMERO_REP", referencedColumnName = "K_NUMERO_ID", nullable = false)
+    })
+    private RepresentanteVentas representanteVentas;
+
+    @Size(max = 200)
+    
+    @Column(name = "I_TIPO_ID_REP", nullable = false, length = 200)
+    private String tipoIdRep;
+    
+    
+    @Column(name = "Q_NUMERO_ID_REP", nullable = false, length = 200)
+    private Long idRep;
+    
+    @Size(max = 200)
+    
+    @Column(name = "N_NOMBRECOMPLETO", nullable = false, length = 200)
+    private String nombreCompleto;
+
+    @Size(max = 200)
+    
+    @Column(name = "N_APELLIDOCOMPLETO", nullable = false, length = 200)
+    private String apellidoCompleto;
+
+    
+    @Temporal(TemporalType.DATE)
+	@JsonFormat(pattern = "dd/MM/yy")
+    @Column(name = "F_FECHACREACION", nullable = false)
+    private Date fechaCreacion;
+
+    @Size(max = 150)
+    
+    @Column(name = "O_EMAIL", nullable = false, length = 150)
+    private String email;
+
+    
+    @Column(name = "Q_TELEFONO", nullable = false)
+    private Long telefono;
+
+    @Size(max = 150)
+    
+    @Column(name = "N_CIUDAD", nullable = false, length = 150)
+    private String ciudad;
+
+    @Size(max = 3)
+    
+    @Column(name = "I_GENERO", nullable = false, length = 3)
+    private String genero;
+
+    @Size(max = 100)
+    
+    @Column(name = "O_PASSWORD", nullable = false, length = 100)
+    private String password;
+
+    
+    @Temporal(TemporalType.DATE)
+	@JsonFormat(pattern = "dd/MM/yy")
+    @Column(name = "F_NACIMIENTO", nullable = false)
+    private Date fNacimiento;
+
+    @Size(max = 200)
+    
+    @Column(name = "O_DIRECCION", nullable = false, length = 200)
+    private String direccion;
+
+    public Cliente() {
 		
 	}
-	
-	public Cliente(ClientePrimaryKey compositeKey, String nombreCompleto, String apellidoCompleto, Date fechaCreacion,
-			String email, Integer telefono, String nombreCiudad, String genero, String password, Date fechaNacimiento,
-			String direccion, String tipoIdRepActual, Integer numeroIdRepActual, String tipoIdRepInicial,
-			Integer numeroIdRepInicial) {
+
+	public Cliente(ClienteId id,  RepresentanteVentas representanteVentas,
+			@Size(max = 200)  String tipoIdRep, @Size(max = 200)  Long idRep,
+			@Size(max = 200)  String nombreCompleto, @Size(max = 200)  String apellidoCompleto,
+			 Date fechaCreacion, @Size(max = 150)  String email,  Long telefono,
+			@Size(max = 150)  String ciudad, @Size(max = 3)  String genero,
+			@Size(max = 100)  String password,  Date fNacimiento,
+			@Size(max = 200)  String direccion) {
 		super();
-		this.compositeKey = compositeKey;
+		this.id = id;
+		this.representanteVentas = representanteVentas;
+		this.tipoIdRep = tipoIdRep;
+		this.idRep = idRep;
 		this.nombreCompleto = nombreCompleto;
 		this.apellidoCompleto = apellidoCompleto;
 		this.fechaCreacion = fechaCreacion;
 		this.email = email;
 		this.telefono = telefono;
-		this.nombreCiudad = nombreCiudad;
+		this.ciudad = ciudad;
 		this.genero = genero;
 		this.password = password;
-		this.fechaNacimiento = fechaNacimiento;
+		this.fNacimiento = fNacimiento;
 		this.direccion = direccion;
-		this.tipoIdRepActual = tipoIdRepActual;
-		this.numeroIdRepActual = numeroIdRepActual;
-		this.tipoIdRepInicial = tipoIdRepInicial;
-		this.numeroIdRepInicial = numeroIdRepInicial;
 	}
 
-	public ClientePrimaryKey getCompositeKey() {
-		return compositeKey;
+	public ClienteId getId() {
+		return id;
 	}
 
-	public void setCompositeKey(ClientePrimaryKey compositeKey) {
-		this.compositeKey = compositeKey;
+	public void setId(ClienteId id) {
+		this.id = id;
+	}
+
+	public RepresentanteVentas getRepresentanteVentas() {
+		return representanteVentas;
+	}
+
+	public void setRepresentanteVentas(RepresentanteVentas representanteVentas) {
+		this.representanteVentas = representanteVentas;
+	}
+
+	public String getTipoIdRep() {
+		return tipoIdRep;
+	}
+
+	public void setTipoIdRep(String tipoIdRep) {
+		this.tipoIdRep = tipoIdRep;
+	}
+
+	public Long getIdRep() {
+		return idRep;
+	}
+
+	public void setIdRep(Long idRep) {
+		this.idRep = idRep;
 	}
 
 	public String getNombreCompleto() {
@@ -137,20 +183,20 @@ public class Cliente {
 		this.email = email;
 	}
 
-	public Integer getTelefono() {
+	public Long getTelefono() {
 		return telefono;
 	}
 
-	public void setTelefono(Integer telefono) {
+	public void setTelefono(Long telefono) {
 		this.telefono = telefono;
 	}
 
-	public String getNombreCiudad() {
-		return nombreCiudad;
+	public String getCiudad() {
+		return ciudad;
 	}
 
-	public void setNombreCiudad(String nombreCiudad) {
-		this.nombreCiudad = nombreCiudad;
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
 	}
 
 	public String getGenero() {
@@ -169,12 +215,12 @@ public class Cliente {
 		this.password = password;
 	}
 
-	public Date getFechaNacimiento() {
-		return fechaNacimiento;
+	public Date getfNacimiento() {
+		return fNacimiento;
 	}
 
-	public void setFechaNacimiento(Date fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
+	public void setfNacimiento(Date fNacimiento) {
+		this.fNacimiento = fNacimiento;
 	}
 
 	public String getDireccion() {
@@ -185,38 +231,15 @@ public class Cliente {
 		this.direccion = direccion;
 	}
 
-	public String getTipoIdRepActual() {
-		return tipoIdRepActual;
+	@Override
+	public String toString() {
+		return "Cliente [id=" + id + ", representanteVentas=" + representanteVentas + ", tipoIdRep=" + tipoIdRep
+				+ ", idRep=" + idRep + ", nombreCompleto=" + nombreCompleto + ", apellidoCompleto=" + apellidoCompleto
+				+ ", fechaCreacion=" + fechaCreacion + ", email=" + email + ", telefono=" + telefono + ", ciudad="
+				+ ciudad + ", genero=" + genero + ", password=" + password + ", fNacimiento=" + fNacimiento
+				+ ", direccion=" + direccion + "]";
 	}
-
-	public void setTipoIdRepActual(String tipoIdRepActual) {
-		this.tipoIdRepActual = tipoIdRepActual;
-	}
-
-	public Integer getNumeroIdRepActual() {
-		return numeroIdRepActual;
-	}
-
-	public void setNumeroIdRepActual(Integer numeroIdRepActual) {
-		this.numeroIdRepActual = numeroIdRepActual;
-	}
-
-	public String getTipoIdRepInicial() {
-		return tipoIdRepInicial;
-	}
-
-	public void setTipoIdRepInicial(String tipoIdRepInicial) {
-		this.tipoIdRepInicial = tipoIdRepInicial;
-	}
-
-	public Integer getNumeroIdRepInicial() {
-		return numeroIdRepInicial;
-	}
-
-	public void setNumeroIdRepInicial(Integer numeroIdRepInicial) {
-		this.numeroIdRepInicial = numeroIdRepInicial;
-	}
+   
 	
 	
-
 }

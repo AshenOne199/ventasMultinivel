@@ -5,9 +5,10 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.udistrital.app.entity.Inventario;
+import com.udistrital.app.entity.InventarioId;
 
-public interface InventarioRepository extends JpaRepository<Inventario, Long>{
+public interface InventarioRepository extends JpaRepository<Inventario, InventarioId>{
 	
-	List<Inventario> findByRegion_IdRegion(Long idRegion);
+	List<Inventario> findByidRegion_id(Short id);
 
 }

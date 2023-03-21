@@ -1,91 +1,69 @@
 package com.udistrital.app.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "PRODUCTO")
 public class Producto {
- 
     @Id
-    @Column(name = "K_IDPRODUCTO")
-    private Long idProducto;
- 
-    @Column(name = "N_NOMBRE")
+    @Column(name = "K_IDPRODUCTO", nullable = false)
+    private Short id;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "K_IDCATEGORIA", nullable = false)
+    private Categoria idCategoria;
+
+    @Size(max = 100)
+    @NotNull
+    @Column(name = "N_NOMBRE", nullable = false, length = 100)
     private String nombre;
- 
-    @Column(name = "N_URLIMAGEN")
+
+    @Size(max = 200)
+    @NotNull
+    @Column(name = "N_URLIMAGEN", nullable = false, length = 200)
     private String urlImagen;
- 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "K_IDCATEGORIA")
-    private Categoria categoria;
- 
-    @ManyToMany(mappedBy = "productos")
-    private List<Region> regiones = new ArrayList<>();
- 
-    public Producto() {
-		
+
+	public Short getId() {
+		return id;
 	}
 
-	public Producto(Long idProducto, String nombre, String urlImagen, Categoria categoria, List<Region> regiones) {
-		super();
-		this.idProducto = idProducto;
-		this.nombre = nombre;
-		this.urlImagen = urlImagen;
-		this.categoria = categoria;
-		this.regiones = regiones;
+	public void setId(Short id) {
+		this.id = id;
 	}
 
-	public Long getIdProducto() {
-		return idProducto;
+	public Categoria getkIdcategoria() {
+		return idCategoria;
 	}
 
-	public void setIdProducto(Long idProducto) {
-		this.idProducto = idProducto;
+	public void setkIdcategoria(Categoria kIdcategoria) {
+		this.idCategoria = kIdcategoria;
 	}
 
-	public String getNombre() {
+	public String getnNombre() {
 		return nombre;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setnNombre(String nNombre) {
+		this.nombre = nNombre;
 	}
 
-	public String getUrlImagen() {
+	public String getnUrlimagen() {
 		return urlImagen;
 	}
 
-	public void setUrlImagen(String urlImagen) {
-		this.urlImagen = urlImagen;
+	public void setnUrlimagen(String nUrlimagen) {
+		this.urlImagen = nUrlimagen;
 	}
 
-	public Categoria getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
-	}
-
-	public List<Region> getRegiones() {
-		return regiones;
-	}
-
-	public void setRegiones(List<Region> regiones) {
-		this.regiones = regiones;
-	}
     
     
 }
-
