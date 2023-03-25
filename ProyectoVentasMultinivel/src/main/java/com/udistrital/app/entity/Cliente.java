@@ -90,18 +90,19 @@ public class Cliente {
     
     @Column(name = "O_DIRECCION", nullable = false, length = 200)
     private String direccion;
+    
+	/*
+	 * @Column(name = "I_ROL", nullable = false, length = 50) private String rol;
+	 */
 
     public Cliente() {
 		
 	}
 
-	public Cliente(ClienteId id,  RepresentanteVentas representanteVentas,
-			@Size(max = 200)  String tipoIdRep, @Size(max = 200)  Long idRep,
-			@Size(max = 200)  String nombreCompleto, @Size(max = 200)  String apellidoCompleto,
-			 Date fechaCreacion, @Size(max = 150)  String email,  Long telefono,
-			@Size(max = 150)  String ciudad, @Size(max = 3)  String genero,
-			@Size(max = 100)  String password,  Date fNacimiento,
-			@Size(max = 200)  String direccion) {
+	public Cliente(ClienteId id, RepresentanteVentas representanteVentas, @Size(max = 200) String tipoIdRep, Long idRep,
+			@Size(max = 200) String nombreCompleto, @Size(max = 200) String apellidoCompleto, Date fechaCreacion,
+			@Size(max = 150) String email, Long telefono, @Size(max = 150) String ciudad, @Size(max = 3) String genero,
+			@Size(max = 100) String password, Date fNacimiento, @Size(max = 200) String direccion) {
 		super();
 		this.id = id;
 		this.representanteVentas = representanteVentas;
@@ -231,6 +232,7 @@ public class Cliente {
 		this.direccion = direccion;
 	}
 
+
 	@Override
 	public String toString() {
 		return "Cliente [id=" + id + ", representanteVentas=" + representanteVentas + ", tipoIdRep=" + tipoIdRep
@@ -239,7 +241,5 @@ public class Cliente {
 				+ ciudad + ", genero=" + genero + ", password=" + password + ", fNacimiento=" + fNacimiento
 				+ ", direccion=" + direccion + "]";
 	}
-   
-	
-	
+
 }

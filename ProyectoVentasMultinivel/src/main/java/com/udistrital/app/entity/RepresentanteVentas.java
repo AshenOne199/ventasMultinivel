@@ -82,6 +82,7 @@ public class RepresentanteVentas {
 
     @Column(name = "F_FECHACONTRATO", nullable = false)
     private LocalDate fechaContrato;
+    
 
     public RepresentanteVentas() {
 		
@@ -220,15 +221,5 @@ public class RepresentanteVentas {
 	public void setFechaContrato(LocalDate fechaContrato) {
 		this.fechaContrato = fechaContrato;
 	}
-
-	@Override
-	public String toString() {
-		return "RepresentanteVentas [id=" + id + ", representanteVentas=" + representanteVentas + ", nombreCompleto="
-				+ nombreCompleto + ", apellidoCompleto=" + apellidoCompleto + ", fechaCreacion=" + fechaCreacion
-				+ ", email=" + email + ", telefono=" + telefono + ", region=" + region + ", genero=" + genero
-				+ ", password=" + password + ", fNacimiento=" + fNacimiento + ", direccion=" + direccion + ", tipo="
-				+ tipo + ", fechaContrato=" + fechaContrato + "]";
-	}
-    
-
+	
 }

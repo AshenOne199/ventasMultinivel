@@ -64,6 +64,9 @@ public class ClienteController {
 		Cliente cliente = new Cliente(clienteId, representante.get(), c.getTipoIdRepInicial(), c.getNumeroIdRepInicial(), c.getNombreCompleto(), c.getApellidoCompleto(),
 				c.getFechaCreacion(), c.getEmail(), c.getTelefono(), c.getCiudad(), c.getGenero(), c.getPassword(), c.getfNacimiento(), c.getDireccion());
 		clienteService.save(cliente);
+		
+		
+		
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
