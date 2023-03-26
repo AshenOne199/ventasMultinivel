@@ -18,7 +18,7 @@ public class Inventario {
     @EmbeddedId
     private InventarioId id;
 
-    @MapsId("idProducto")
+    @MapsId("IdProducto")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "K_IDPRODUCTO", nullable = false)
     private Producto idProducto;
@@ -44,38 +44,37 @@ public class Inventario {
 		this.id = id;
 	}
 
-	public Producto getkIdproducto() {
+	public Producto getIdProducto() {
 		return idProducto;
 	}
 
-	public void setkIdproducto(Producto kIdproducto) {
-		this.idProducto = kIdproducto;
+	public void setIdProducto(Producto idProducto) {
+		this.idProducto = idProducto;
 	}
 
-	public Region getkIdregion() {
+	public Region getIdRegion() {
 		return idRegion;
 	}
 
-	public void setkIdregion(Region kIdregion) {
-		this.idRegion = kIdregion;
+	public void setIdRegion(Region idRegion) {
+		this.idRegion = idRegion;
 	}
 
-	public Short getqStock() {
+	public Short getStock() {
 		return stock;
 	}
 
-	public void setqStock(Short qStock) {
-		this.stock = qStock;
+	public void setStock(Short stock) {
+		this.stock = stock;
 	}
 
-	public BigDecimal getvPrecioproducto() {
+	public BigDecimal getPrecioProducto() {
 		return precioProducto;
 	}
 
-	public void setvPrecioproducto(BigDecimal vPrecioproducto) {
-		this.precioProducto = vPrecioproducto;
+	public void setPrecioProducto(BigDecimal precioProducto) {
+		this.precioProducto = precioProducto;
 	}
-    
-    
 
+	
 }

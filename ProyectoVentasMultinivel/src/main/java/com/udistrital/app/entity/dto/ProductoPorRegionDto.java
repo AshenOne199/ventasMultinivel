@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 public class ProductoPorRegionDto {
 	
+	private Short id;
 	private String nombreProducto;
 	private Short stock;
 	private BigDecimal precio;
@@ -13,12 +14,23 @@ public class ProductoPorRegionDto {
 		
 	}
 
-	public ProductoPorRegionDto(String nombreProducto, Short stock, BigDecimal precio, String url) {
+	public ProductoPorRegionDto(Short id, String nombreProducto, Short stock, BigDecimal precio, String url) {
 		super();
+		this.id = id;
 		this.nombreProducto = nombreProducto;
 		this.stock = stock;
 		this.precio = precio;
 		this.url = url;
+	}
+
+	
+	
+	public Short getId() {
+		return id;
+	}
+
+	public void setId(Short id) {
+		this.id = id;
 	}
 
 	public String getNombreProducto() {
