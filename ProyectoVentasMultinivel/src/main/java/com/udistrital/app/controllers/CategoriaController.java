@@ -14,24 +14,24 @@ import com.udistrital.app.services.CategoriaService;
 public class CategoriaController {
 
 	final private CategoriaService categoriaService;
-	
+
 	public CategoriaController(CategoriaService categoriaService) {
 		this.categoriaService = categoriaService;
 	}
-	
+
 	@GetMapping("/categorias")
-	public List<CategoriaDto> getAllCategorias(){
+	public List<CategoriaDto> getAllCategorias() {
 		return categoriaService.findAll();
 	}
-	
+
 	@GetMapping("/categorias/{idRegion}")
-	public List<CategoriaDto> getAllCategoriasPorRegion(@PathVariable(name = "idRegion") Short idRegion){
+	public List<CategoriaDto> getAllCategoriasPorRegion(@PathVariable(name = "idRegion") Short idRegion) {
 		return categoriaService.getCategoriasPorRegion(idRegion);
 	}
-	
+
 	@GetMapping("/subcategorias/{idRegion}")
-	public List<SubCategoriaDto> getAllSubCategoriasPorRegion(@PathVariable(name = "idRegion") Short idRegion){
+	public List<SubCategoriaDto> getAllSubCategoriasPorRegion(@PathVariable(name = "idRegion") Short idRegion) {
 		return categoriaService.getSubCategoriasPorRegion(idRegion);
 	}
-	
+
 }

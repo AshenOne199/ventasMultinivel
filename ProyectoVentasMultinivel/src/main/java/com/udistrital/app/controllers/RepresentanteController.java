@@ -23,7 +23,8 @@ public class RepresentanteController {
 	// Traer cliente especifico
 	@GetMapping("/representante")
 	public ResponseEntity<RepresentanteDto> getCliente(@RequestBody RepresentanteIdDto representanteIdDto) {
-		RepresentanteVentaId representanteVentaId = new RepresentanteVentaId(representanteIdDto.getTipoId(), representanteIdDto.getNumeroId());
+		RepresentanteVentaId representanteVentaId = new RepresentanteVentaId(representanteIdDto.getTipoId(),
+				representanteIdDto.getNumeroId());
 		RepresentanteDto representanteDto = representanteService.getRepresentanteDto(representanteVentaId);
 		return new ResponseEntity<RepresentanteDto>(representanteDto, HttpStatus.OK);
 	}

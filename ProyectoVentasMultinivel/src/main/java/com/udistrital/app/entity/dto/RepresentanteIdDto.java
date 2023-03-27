@@ -3,11 +3,11 @@ package com.udistrital.app.entity.dto;
 public class RepresentanteIdDto {
 
 	private String tipoId;
-	
+
 	private Long numeroId;
-	
+
 	public RepresentanteIdDto() {
-		
+
 	}
 
 	public RepresentanteIdDto(String tipoId, Long numeroId) {
@@ -37,8 +37,4 @@ public class RepresentanteIdDto {
 		return "RepresentanteIdDto [tipoId=" + tipoId + ", numeroId=" + numeroId + "]";
 	}
 
-	
-	
-	
-	
 }

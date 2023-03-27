@@ -3,11 +3,11 @@ package com.udistrital.app.entity.dto;
 public class RepresentanteDto {
 
 	private String nombreCompleto;
-	
+
 	private String apellidoCompleto;
-	
+
 	public RepresentanteDto() {
-		
+
 	}
 
 	public RepresentanteDto(String nombreCompleto, String apellidoCompleto) {
@@ -36,6 +36,5 @@ public class RepresentanteDto {
 	public String toString() {
 		return "RepresentanteDto [nombreCompleto=" + nombreCompleto + ", apellidoCompleto=" + apellidoCompleto + "]";
 	}
-	
-	
+
 }

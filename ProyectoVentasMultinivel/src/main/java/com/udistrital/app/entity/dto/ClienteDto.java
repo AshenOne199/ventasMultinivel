@@ -4,9 +4,9 @@ public class ClienteDto {
 
 	private String nombreCompleto;
 	private String apellidoCompleto;
-	
+
 	public ClienteDto() {
-		
+
 	}
 
 	public ClienteDto(String nombreCompleto, String apellidoCompleto) {
@@ -30,7 +30,5 @@ public class ClienteDto {
 	public void setApellidoCompleto(String apellidoCompleto) {
 		this.apellidoCompleto = apellidoCompleto;
 	}
-	
-	
-	
+
 }

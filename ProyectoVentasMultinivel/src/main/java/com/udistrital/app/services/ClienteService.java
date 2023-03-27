@@ -1,9 +1,15 @@
 package com.udistrital.app.services;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.udistrital.app.entity.Cliente;
@@ -13,41 +19,44 @@ import com.udistrital.app.repository.ClienteRepository;
 
 @Service
 public class ClienteService {
-	
+
 	final private ClienteRepository clienteRepository;
-	
+
+
 	public ClienteService(ClienteRepository clienteRepository) {
 		this.clienteRepository = clienteRepository;
 	}
-	
-	public ClienteDto getClienteLogin(String email, String password){
+
+	public ClienteDto getClienteLogin(String email, String password) {
 		Optional<Cliente> cliente = clienteRepository.findByEmailAndPassword(email, password);
 		ClienteDto clienteDto = new ClienteDto();
-		if(cliente.isPresent()) {
+		if (cliente.isPresent()) {
 			clienteDto.setNombreCompleto(cliente.get().getNombreCompleto());
 			clienteDto.setApellidoCompleto(cliente.get().getApellidoCompleto());
-		}else {
+		} else {
 			clienteDto.setNombreCompleto("NN");
 			clienteDto.setApellidoCompleto("No existe");
 		}
-		
+
 		return clienteDto;
 	}
 
 	public List<ClienteDto> findAll() {
 		List<Cliente> clientes = clienteRepository.findAll();
 		List<ClienteDto> clientesDto = new ArrayList<>();
-		for(Cliente cliente : clientes) {
+		for (Cliente cliente : clientes) {
 			ClienteDto clienteDto = new ClienteDto(cliente.getNombreCompleto(), cliente.getApellidoCompleto());
 			clientesDto.add(clienteDto);
 		}
 		return clientesDto;
+		
+		
 	}
 
 	public ClienteDto findByTipoIdAndId(ClienteId clienteId) {
 		Optional<Cliente> cliente = clienteRepository.findById(clienteId);
 		ClienteDto clienteDto = new ClienteDto();
-		if(cliente.isPresent()) {
+		if (cliente.isPresent()) {
 			clienteDto = new ClienteDto(cliente.get().getNombreCompleto(), cliente.get().getApellidoCompleto());
 		}
 		return clienteDto;
@@ -56,6 +65,7 @@ public class ClienteService {
 	public void save(Cliente cliente) {
 		clienteRepository.save(cliente);
 	}
+
 	
 
 }

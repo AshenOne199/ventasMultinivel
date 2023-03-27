@@ -10,15 +10,15 @@ import com.udistrital.app.repository.PeriodoRepository;
 
 @RestController
 public class PeriodoController {
-	
+
 	final private PeriodoRepository periodoRepository;
-	
+
 	public PeriodoController(PeriodoRepository periodoRepository) {
 		this.periodoRepository = periodoRepository;
 	}
-	
+
 	@GetMapping("/periodos")
-	public List<Periodo> getPeriodos(){
+	public List<Periodo> getPeriodos() {
 		return periodoRepository.findAll();
 	}
 

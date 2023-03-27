@@ -14,29 +14,27 @@ import com.udistrital.app.repository.CategoriaRepository;
 public class CategoriaService {
 
 	final private CategoriaRepository categoriaRepository;
-	
+
 	public CategoriaService(CategoriaRepository categoriaRepository) {
 		this.categoriaRepository = categoriaRepository;
 	}
-	
-	
-	public List<CategoriaDto> getCategoriasPorRegion(Short idRegion){
-		return categoriaRepository.findAllCategoriasPorRegion(idRegion);	
-	}
-	
-	public List<SubCategoriaDto> getSubCategoriasPorRegion(Short idRegion){
-		return categoriaRepository.findAllSubCategoriasPorRegion(idRegion);	
+
+	public List<CategoriaDto> getCategoriasPorRegion(Short idRegion) {
+		return categoriaRepository.findAllCategoriasPorRegion(idRegion);
 	}
 
+	public List<SubCategoriaDto> getSubCategoriasPorRegion(Short idRegion) {
+		return categoriaRepository.findAllSubCategoriasPorRegion(idRegion);
+	}
 
 	public List<CategoriaDto> findAll() {
 		List<Categoria> categorias = categoriaRepository.findAll();
 		List<CategoriaDto> categoriasDto = new ArrayList<>();
-		for(Categoria categoria : categorias) {	
+		for (Categoria categoria : categorias) {
 			CategoriaDto categoriaDto = new CategoriaDto(categoria.getId(), categoria.getnNombre());
 			categoriasDto.add(categoriaDto);
 		}
 		return categoriasDto;
 	}
-	
+
 }

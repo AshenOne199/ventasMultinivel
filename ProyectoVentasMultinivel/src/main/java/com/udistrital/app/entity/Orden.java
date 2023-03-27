@@ -16,48 +16,42 @@ import jakarta.validation.constraints.Size;
 @Entity
 @Table(name = "ORDEN")
 public class Orden {
-    @Id
-    @Column(name = "K_IDORDEN", nullable = false)
-    private Integer id;
+	@Id
+	@Column(name = "K_IDORDEN", nullable = false)
+	private Integer id;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumns({
-            @JoinColumn(name = "K_IDPRODUCTO", referencedColumnName = "K_IDPRODUCTO", nullable = false),
-            @JoinColumn(name = "K_IDREGION", referencedColumnName = "K_IDREGION", nullable = false)
-    })
-    private Inventario inventario;
+	@NotNull
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumns({ @JoinColumn(name = "K_IDPRODUCTO", referencedColumnName = "K_IDPRODUCTO", nullable = false),
+			@JoinColumn(name = "K_IDREGION", referencedColumnName = "K_IDREGION", nullable = false) })
+	private Inventario inventario;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "K_IDPERIODO", nullable = false)
-    private Periodo kIdperiodo;
+	@NotNull
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "K_IDPERIODO", nullable = false)
+	private Periodo kIdperiodo;
 
-    @Column(name = "F_FECHAREGISTRO")
-    private LocalDate fechaRegistro;
+	@Column(name = "F_FECHAREGISTRO")
+	private LocalDate fechaRegistro;
 
-    @Size(max = 100)
-    @NotNull
-    @Column(name = "I_ESTADO", nullable = false, length = 100)
-    private String estado;
+	@Size(max = 100)
+	@NotNull
+	@Column(name = "I_ESTADO", nullable = false, length = 100)
+	private String estado;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumns({
-            @JoinColumn(name = "K_TIPO_ID", referencedColumnName = "K_TIPO_ID", nullable = false),
-            @JoinColumn(name = "K_NUMERO_ID", referencedColumnName = "K_NUMERO_ID", nullable = false)
-    })
-    private Cliente cliente;
+	@NotNull
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumns({ @JoinColumn(name = "K_TIPO_ID", referencedColumnName = "K_TIPO_ID", nullable = false),
+			@JoinColumn(name = "K_NUMERO_ID", referencedColumnName = "K_NUMERO_ID", nullable = false) })
+	private Cliente cliente;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumns({
-            @JoinColumn(name = "K_TIPO_ID_CALIF", referencedColumnName = "K_TIPO_ID"),
-            @JoinColumn(name = "K_NUMERO_ID_CALIF", referencedColumnName = "K_NUMERO_ID")
-    })
-    private Cliente clienteCalifica;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumns({ @JoinColumn(name = "K_TIPO_ID_CALIF", referencedColumnName = "K_TIPO_ID"),
+			@JoinColumn(name = "K_NUMERO_ID_CALIF", referencedColumnName = "K_NUMERO_ID") })
+	private Cliente clienteCalifica;
 
-    @Column(name = "Q_CALIFICACION")
-    private Boolean calificacion;
+	@Column(name = "Q_CALIFICACION")
+	private Boolean calificacion;
 
 	public Integer getId() {
 		return id;
@@ -123,6 +117,4 @@ public class Orden {
 		this.calificacion = qCalificacion;
 	}
 
-    
-    
 }

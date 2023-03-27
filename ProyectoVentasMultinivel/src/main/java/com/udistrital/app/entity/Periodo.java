@@ -12,18 +12,18 @@ import jakarta.validation.constraints.Size;
 @Entity
 @Table(name = "PERIODO")
 public class Periodo {
-    @Id
-    @Size(max = 50)
-    @Column(name = "K_IDPERIODO", nullable = false, length = 50)
-    private String id;
+	@Id
+	@Size(max = 50)
+	@Column(name = "K_IDPERIODO", nullable = false, length = 50)
+	private String id;
 
-    @NotNull
-    @Column(name = "F_FECHAINICIO", nullable = false)
-    private LocalDate fechaInicio;
+	@NotNull
+	@Column(name = "F_FECHAINICIO", nullable = false)
+	private LocalDate fechaInicio;
 
-    @NotNull
-    @Column(name = "F_FECHAFIN", nullable = false)
-    private LocalDate fechaFin;
+	@NotNull
+	@Column(name = "F_FECHAFIN", nullable = false)
+	private LocalDate fechaFin;
 
 	public String getId() {
 		return id;
@@ -49,7 +49,4 @@ public class Periodo {
 		this.fechaFin = fFechafin;
 	}
 
-    
-    
-    
 }

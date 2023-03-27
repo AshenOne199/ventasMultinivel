@@ -10,14 +10,14 @@ import jakarta.validation.constraints.Size;
 @Entity
 @Table(name = "PAIS")
 public class Pais {
-    @Id
-    @Column(name = "K_IDPAIS", nullable = false)
-    private Short id;
+	@Id
+	@Column(name = "K_IDPAIS", nullable = false)
+	private Short id;
 
-    @Size(max = 100)
-    @NotNull
-    @Column(name = "N_NOMBRE", nullable = false, length = 100)
-    private String nombre;
+	@Size(max = 100)
+	@NotNull
+	@Column(name = "N_NOMBRE", nullable = false, length = 100)
+	private String nombre;
 
 	public Short getId() {
 		return id;
@@ -35,6 +35,4 @@ public class Pais {
 		this.nombre = nNombre;
 	}
 
-    
-    
 }

@@ -10,35 +10,35 @@ import jakarta.persistence.TemporalType;
 public class ClienteSaveDto {
 
 	private String tipoId;
-    private Long numeroId;
+	private Long numeroId;
 
-    private String tipoIdRep;
-    private Long numeroIdRep;
-    
-    private String tipoIdRepInicial;
-    private Long numeroIdRepInicial;
+	private String tipoIdRep;
+	private Long numeroIdRep;
 
-    private String nombreCompleto;
-    private String apellidoCompleto;
-    
-    @Temporal(TemporalType.DATE)
-   	@JsonFormat(pattern = "dd/MM/yy")
-    private Date fechaCreacion;
-    private String email;
-    private Long telefono;
-    private String ciudad;
-    private String genero;
-    private String password;
-    
-    @Temporal(TemporalType.DATE)
-   	@JsonFormat(pattern = "dd/MM/yy")
-    private Date fNacimiento;
-    private String direccion;
-    private String tipo;
-    private Date fechaContrato;
-    
-    public ClienteSaveDto() {
-		
+	private String tipoIdRepInicial;
+	private Long numeroIdRepInicial;
+
+	private String nombreCompleto;
+	private String apellidoCompleto;
+
+	@Temporal(TemporalType.DATE)
+	@JsonFormat(pattern = "dd/MM/yy")
+	private Date fechaCreacion;
+	private String email;
+	private Long telefono;
+	private String ciudad;
+	private String genero;
+	private String password;
+
+	@Temporal(TemporalType.DATE)
+	@JsonFormat(pattern = "dd/MM/yy")
+	private Date fNacimiento;
+	private String direccion;
+	private String tipo;
+	private Date fechaContrato;
+
+	public ClienteSaveDto() {
+
 	}
 
 	public ClienteSaveDto(String tipoId, Long numeroId, String tipoIdRep, Long numeroIdRep, String tipoIdRepInicial,
@@ -220,6 +220,4 @@ public class ClienteSaveDto {
 				+ ", direccion=" + direccion + ", tipo=" + tipo + ", fechaContrato=" + fechaContrato + "]";
 	}
 
-	
-	
 }

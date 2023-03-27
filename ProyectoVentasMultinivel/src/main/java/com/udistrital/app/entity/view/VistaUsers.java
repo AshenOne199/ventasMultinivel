@@ -11,31 +11,27 @@ import jakarta.persistence.Table;
 @Table(name = "VISTAUSERS")
 @Immutable
 public class VistaUsers {
-	
+
 	@Id
 	@Column(name = "N_USERNAME")
 	private String username;
-	
+
 	@Column(name = "O_PASSWORD")
 	private String password;
-	
+
 	@Column(name = "I_ESTADO")
 	private String rol;
-	
+
 	public VistaUsers() {
-		
+
 	}
 
-	
-	
 	public VistaUsers(String username, String password, String rol) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.rol = rol;
 	}
-
-
 
 	public String getUsername() {
 		return username;
@@ -60,7 +56,5 @@ public class VistaUsers {
 	public void setRol(String rol) {
 		this.rol = rol;
 	}
-
-	
 
 }
