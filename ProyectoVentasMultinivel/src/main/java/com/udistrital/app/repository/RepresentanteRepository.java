@@ -7,4 +7,5 @@ import com.udistrital.app.entity.RepresentanteVentas;
 
 public interface RepresentanteRepository extends JpaRepository<RepresentanteVentas, RepresentanteVentaId> {
 
+	
 }

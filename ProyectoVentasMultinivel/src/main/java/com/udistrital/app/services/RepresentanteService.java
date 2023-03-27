@@ -9,8 +9,14 @@ import com.udistrital.app.entity.RepresentanteVentas;
 import com.udistrital.app.entity.dto.RepresentanteDto;
 import com.udistrital.app.repository.RepresentanteRepository;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+
 @Service
 public class RepresentanteService {
+
+	@PersistenceContext
+	public EntityManager entityManager;
 
 	final private RepresentanteRepository representanteRepository;
 
@@ -31,5 +37,7 @@ public class RepresentanteService {
 		Optional<RepresentanteVentas> representante = representanteRepository.findById(representanteVentaId);
 		return representante;
 	}
+	
+
 
 }

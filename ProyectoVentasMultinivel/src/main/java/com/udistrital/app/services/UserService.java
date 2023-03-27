@@ -13,11 +13,14 @@ import org.springframework.stereotype.Service;
 import com.udistrital.app.entity.view.VistaUsers;
 import com.udistrital.app.repository.UsersRepository;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+
 @Service
 public class UserService {
 
 	final private UsersRepository userRepository;
-	
+
 	@Value("${database.username}")
 	private String username;
 
@@ -31,7 +34,7 @@ public class UserService {
 	public Optional<VistaUsers> findByUsernamAndPassword(String username, String pass) {
 		return userRepository.findByUsernameAndPassword(username, pass);
 	}
-	
+
 	public Map<String, String> updateDatasource(String newUsername, String newPassword) throws IOException {
 		Properties properties = new Properties();
 		try {
@@ -47,5 +50,6 @@ public class UserService {
 			return Map.of("connection", "failed");
 		}
 	}
+
 
 }

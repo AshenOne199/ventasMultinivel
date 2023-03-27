@@ -24,6 +24,7 @@ public class Cliente {
 	@EmbeddedId
 	private ClienteId id;
 
+	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
 	@JoinColumns({ @JoinColumn(name = "K_TIPO_ID_REP", referencedColumnName = "K_TIPO_ID", nullable = false),
 			@JoinColumn(name = "K_ID_NUMERO_REP", referencedColumnName = "K_NUMERO_ID", nullable = false) })
@@ -84,6 +85,9 @@ public class Cliente {
 
 	@Column(name = "O_DIRECCION", nullable = false, length = 200)
 	private String direccion;
+	
+	@Column(name = "N_USERNAME", nullable = false, length = 200)
+	private String username;
 
 	/*
 	 * @Column(name = "I_ROL", nullable = false, length = 50) private String rol;
@@ -96,7 +100,7 @@ public class Cliente {
 	public Cliente(ClienteId id, RepresentanteVentas representanteVentas, @Size(max = 200) String tipoIdRep, Long idRep,
 			@Size(max = 200) String nombreCompleto, @Size(max = 200) String apellidoCompleto, Date fechaCreacion,
 			@Size(max = 150) String email, Long telefono, @Size(max = 150) String ciudad, @Size(max = 3) String genero,
-			@Size(max = 100) String password, Date fNacimiento, @Size(max = 200) String direccion) {
+			@Size(max = 100) String password, Date fNacimiento, @Size(max = 200) String direccion, @Size(max = 200) String username) {
 		super();
 		this.id = id;
 		this.representanteVentas = representanteVentas;
@@ -112,6 +116,7 @@ public class Cliente {
 		this.password = password;
 		this.fNacimiento = fNacimiento;
 		this.direccion = direccion;
+		this.username = username;
 	}
 
 	public ClienteId getId() {
@@ -225,6 +230,15 @@ public class Cliente {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
+	
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 
 	@Override
 	public String toString() {
@@ -232,7 +246,7 @@ public class Cliente {
 				+ ", idRep=" + idRep + ", nombreCompleto=" + nombreCompleto + ", apellidoCompleto=" + apellidoCompleto
 				+ ", fechaCreacion=" + fechaCreacion + ", email=" + email + ", telefono=" + telefono + ", ciudad="
 				+ ciudad + ", genero=" + genero + ", password=" + password + ", fNacimiento=" + fNacimiento
-				+ ", direccion=" + direccion + "]";
+				+ ", direccion=" + direccion + "]"+", username=" + username + "]";
 	}
 
 }

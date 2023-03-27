@@ -36,6 +36,7 @@ public class ClienteSaveDto {
 	private String direccion;
 	private String tipo;
 	private Date fechaContrato;
+	private String username;
 
 	public ClienteSaveDto() {
 
@@ -44,7 +45,7 @@ public class ClienteSaveDto {
 	public ClienteSaveDto(String tipoId, Long numeroId, String tipoIdRep, Long numeroIdRep, String tipoIdRepInicial,
 			Long numeroIdRepInicial, String nombreCompleto, String apellidoCompleto, Date fechaCreacion, String email,
 			Long telefono, String ciudad, String genero, String password, Date fNacimiento, String direccion,
-			String tipo, Date fechaContrato) {
+			String tipo, Date fechaContrato, String username) {
 		super();
 		this.tipoId = tipoId;
 		this.numeroId = numeroId;
@@ -64,6 +65,7 @@ public class ClienteSaveDto {
 		this.direccion = direccion;
 		this.tipo = tipo;
 		this.fechaContrato = fechaContrato;
+		this.username=username;
 	}
 
 	public String getTipoId() {
@@ -209,6 +211,15 @@ public class ClienteSaveDto {
 	public void setFechaContrato(Date fechaContrato) {
 		this.fechaContrato = fechaContrato;
 	}
+	
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
 
 	@Override
 	public String toString() {

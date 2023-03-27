@@ -27,15 +27,14 @@ public class LoginController {
 	}
 
 	@GetMapping("/getUsuario")
-	public Optional<VistaUsers> getUsuario(@RequestParam String username, @RequestParam String pass) {
-		return userService.findByUsernamAndPassword(username, pass);
-	}
-	
-	@PostMapping("/database")
-	public Map<String, String> updateDatabaseCredentials(@RequestParam String newUsername,
-			@RequestParam String newPassword) throws IOException {
-		return userService.updateDatasource(newUsername, newPassword);
+	public Optional<VistaUsers> getUsuario(@RequestParam String username, @RequestParam String password) {
+		return userService.findByUsernamAndPassword(username, password);
 	}
 
+	@PostMapping("/database")
+	public Map<String, String> updateDatabaseCredentials(@RequestParam String username, @RequestParam String password)
+			throws IOException {
+		return userService.updateDatasource(username, password);
+	}
 
 }

@@ -11,4 +11,5 @@ public interface ClienteRepository extends JpaRepository<Cliente, ClienteId> {
 
 	Optional<Cliente> findByEmailAndPassword(String oEmail, String oPassword);
 
+	
 }

@@ -1,8 +1,6 @@
 package com.udistrital.app.controllers;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.udistrital.app.entity.Cliente;
@@ -39,7 +36,6 @@ public class ClienteController {
 		this.representanteService = representanteService;
 	}
 
-	
 	// Traer un cliente dado un email y password
 	@GetMapping("/cliente/{email}/{password}")
 	public ResponseEntity<ClienteDto> getClienteLogin(@PathVariable(name = "email") String email,
@@ -64,7 +60,7 @@ public class ClienteController {
 	}
 
 	// Registrar un nuevo cliente
-	@PostMapping("cliente/save")
+	@PostMapping("/cliente/save")
 	public ResponseEntity<Cliente> save(@RequestBody ClienteSaveDto c) {
 		RepresentanteVentaId representanteVentaId = new RepresentanteVentaId(c.getTipoIdRep(), c.getNumeroIdRep());
 		Optional<RepresentanteVentas> representante = representanteService.getRepresentante(representanteVentaId);
@@ -72,9 +68,9 @@ public class ClienteController {
 		Cliente cliente = new Cliente(clienteId, representante.get(), c.getTipoIdRepInicial(),
 				c.getNumeroIdRepInicial(), c.getNombreCompleto(), c.getApellidoCompleto(), c.getFechaCreacion(),
 				c.getEmail(), c.getTelefono(), c.getCiudad(), c.getGenero(), c.getPassword(), c.getfNacimiento(),
-				c.getDireccion());
+				c.getDireccion(), c.getUsername());
 		clienteService.save(cliente);
-
+		
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
