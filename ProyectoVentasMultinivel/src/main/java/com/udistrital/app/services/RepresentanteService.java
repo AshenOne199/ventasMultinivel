@@ -23,13 +23,23 @@ public class RepresentanteService {
 		Optional<RepresentanteVentas> representante = representanteRepository.findById(representanteVentaId);
 		RepresentanteDto representanteDto = null;
 		if(representante.isPresent())
-			representanteDto = new RepresentanteDto(representante.get().getNombreCompleto(), representante.get().getApellidoCompleto());
+			representanteDto = new RepresentanteDto(new RepresentanteVentaId(representante.get().getId().getkTipoId(), representante.get().getId().getkNumeroId()), representante.get().getNombreCompleto(), representante.get().getApellidoCompleto());
 		return representanteDto;
 	}
 	
 	public Optional<RepresentanteVentas> getRepresentante(RepresentanteVentaId representanteVentaId) {
 		Optional<RepresentanteVentas> representante = representanteRepository.findById(representanteVentaId);
 		return representante;
+	}
+
+
+	public RepresentanteDto getRepresentantePorUserYPass(String username, String password) {	
+		Optional<RepresentanteVentas> representante = representanteRepository.findByUsernameAndPassword(username, password);
+		RepresentanteDto representanteDto = null;	
+		if(representante.isPresent())
+			representanteDto = new RepresentanteDto(new RepresentanteVentaId(representante.get().getId().getkTipoId(), representante.get().getId().getkNumeroId()),representante.get().getNombreCompleto(), representante.get().getApellidoCompleto());
+		return representanteDto;
+		
 	}
 
 	

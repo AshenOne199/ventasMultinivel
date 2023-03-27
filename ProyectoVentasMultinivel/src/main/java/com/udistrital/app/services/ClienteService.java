@@ -20,17 +20,14 @@ public class ClienteService {
 		this.clienteRepository = clienteRepository;
 	}
 	
-	public ClienteDto getClienteLogin(String email, String password){
-		Optional<Cliente> cliente = clienteRepository.findByEmailAndPassword(email, password);
+	public ClienteDto getClienteLogin(String username, String password){
+		Optional<Cliente> cliente = clienteRepository.findByUsernameAndPassword(username, password);
 		ClienteDto clienteDto = new ClienteDto();
 		if(cliente.isPresent()) {
+			clienteDto.setId(cliente.get().getId());
 			clienteDto.setNombreCompleto(cliente.get().getNombreCompleto());
 			clienteDto.setApellidoCompleto(cliente.get().getApellidoCompleto());
-		}else {
-			clienteDto.setNombreCompleto("NN");
-			clienteDto.setApellidoCompleto("No existe");
-		}
-		
+		}		
 		return clienteDto;
 	}
 
@@ -38,7 +35,7 @@ public class ClienteService {
 		List<Cliente> clientes = clienteRepository.findAll();
 		List<ClienteDto> clientesDto = new ArrayList<>();
 		for(Cliente cliente : clientes) {
-			ClienteDto clienteDto = new ClienteDto(cliente.getNombreCompleto(), cliente.getApellidoCompleto());
+			ClienteDto clienteDto = new ClienteDto( new ClienteId(cliente.getId().getkTipoId(), cliente.getId().getkNumeroId()), cliente.getNombreCompleto(), cliente.getApellidoCompleto());
 			clientesDto.add(clienteDto);
 		}
 		return clientesDto;
@@ -48,7 +45,7 @@ public class ClienteService {
 		Optional<Cliente> cliente = clienteRepository.findById(clienteId);
 		ClienteDto clienteDto = new ClienteDto();
 		if(cliente.isPresent()) {
-			clienteDto = new ClienteDto(cliente.get().getNombreCompleto(), cliente.get().getApellidoCompleto());
+			clienteDto = new ClienteDto(new ClienteId(cliente.get().getId().getkTipoId(), cliente.get().getId().getkNumeroId()), cliente.get().getNombreCompleto(), cliente.get().getApellidoCompleto());
 		}
 		return clienteDto;
 	}

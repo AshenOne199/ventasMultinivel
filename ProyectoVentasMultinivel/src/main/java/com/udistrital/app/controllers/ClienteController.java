@@ -34,9 +34,9 @@ public class ClienteController {
 	}
 
 	// Traer un cliente dado un email y password
-	@GetMapping("/cliente/{email}/{password}")
-	public ResponseEntity<ClienteDto> getClienteLogin(@PathVariable(name = "email") String email, @PathVariable(name = "password") String password) {
-		ClienteDto clienteLogin = clienteService.getClienteLogin(email, password);
+	@GetMapping("/cliente/{username}/{password}")
+	public ResponseEntity<ClienteDto> getClienteLogin(@PathVariable String username, @PathVariable String password) {
+		ClienteDto clienteLogin = clienteService.getClienteLogin(username, password);
 		return ResponseEntity.ok(clienteLogin);
 	}
 
@@ -47,7 +47,7 @@ public class ClienteController {
 		return ResponseEntity.ok(clientes);
 	}
 
-	// Traer cliente especifico
+	// Traer cliente especifico dado Id
 	@GetMapping("/cliente")
 	public ResponseEntity<ClienteDto> getCliente(@RequestBody ClienteIdDto clienteIdDto) {
 		ClienteId clienteId = new ClienteId(clienteIdDto.getTipoId(), clienteIdDto.getId());
@@ -62,7 +62,7 @@ public class ClienteController {
 		Optional<RepresentanteVentas> representante = representanteService.getRepresentante(representanteVentaId);
 		ClienteId clienteId = new ClienteId(c.getTipoId(), c.getNumeroId());
 		Cliente cliente = new Cliente(clienteId, representante.get(), c.getTipoIdRepInicial(), c.getNumeroIdRepInicial(), c.getNombreCompleto(), c.getApellidoCompleto(),
-				c.getFechaCreacion(), c.getEmail(), c.getTelefono(), c.getCiudad(), c.getGenero(), c.getPassword(), c.getfNacimiento(), c.getDireccion());
+				c.getFechaCreacion(), c.getEmail(), c.getTelefono(), c.getCiudad(), c.getGenero(), c.getPassword(), c.getfNacimiento(), c.getDireccion(), c.getUsername());
 		clienteService.save(cliente);
 		
 		

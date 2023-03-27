@@ -1,7 +1,11 @@
 package com.udistrital.app.entity.dto;
 
+import com.udistrital.app.entity.RepresentanteVentaId;
+
 public class RepresentanteDto {
 
+	private RepresentanteVentaId id;
+	
 	private String nombreCompleto;
 	
 	private String apellidoCompleto;
@@ -10,10 +14,19 @@ public class RepresentanteDto {
 		
 	}
 
-	public RepresentanteDto(String nombreCompleto, String apellidoCompleto) {
+	public RepresentanteDto(RepresentanteVentaId id, String nombreCompleto, String apellidoCompleto) {
 		super();
+		this.id = id;
 		this.nombreCompleto = nombreCompleto;
 		this.apellidoCompleto = apellidoCompleto;
+	}
+
+	public RepresentanteVentaId getId() {
+		return id;
+	}
+
+	public void setId(RepresentanteVentaId id) {
+		this.id = id;
 	}
 
 	public String getNombreCompleto() {
@@ -32,10 +45,6 @@ public class RepresentanteDto {
 		this.apellidoCompleto = apellidoCompleto;
 	}
 
-	@Override
-	public String toString() {
-		return "RepresentanteDto [nombreCompleto=" + nombreCompleto + ", apellidoCompleto=" + apellidoCompleto + "]";
-	}
 	
 	
 }

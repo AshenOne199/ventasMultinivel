@@ -20,22 +20,22 @@ public class VistaUsers {
 	private String password;
 	
 	@Column(name = "I_ESTADO")
+	private String estado;
+	
+	@Column(name = "ROL")
 	private String rol;
 	
 	public VistaUsers() {
 		
 	}
 
-	
-	
-	public VistaUsers(String username, String password, String rol) {
+	public VistaUsers(String username, String password, String estado, String rol) {
 		super();
 		this.username = username;
 		this.password = password;
+		this.estado = estado;
 		this.rol = rol;
 	}
-
-
 
 	public String getUsername() {
 		return username;
@@ -53,6 +53,14 @@ public class VistaUsers {
 		this.password = password;
 	}
 
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
 	public String getRol() {
 		return rol;
 	}
@@ -60,7 +68,7 @@ public class VistaUsers {
 	public void setRol(String rol) {
 		this.rol = rol;
 	}
-
+	
 	
 
 }

@@ -3,6 +3,7 @@ package com.udistrital.app.controllers;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,12 +21,18 @@ public class RepresentanteController {
 		this.representanteService = representanteService;
 	}
 
-	// Traer cliente especifico
+	// Traer representante dado un id
 	@GetMapping("/representante")
-	public ResponseEntity<RepresentanteDto> getCliente(@RequestBody RepresentanteIdDto representanteIdDto) {
+	public ResponseEntity<RepresentanteDto> getRepresentante(@RequestBody RepresentanteIdDto representanteIdDto) {
 		RepresentanteVentaId representanteVentaId = new RepresentanteVentaId(representanteIdDto.getTipoId(), representanteIdDto.getNumeroId());
 		RepresentanteDto representanteDto = representanteService.getRepresentanteDto(representanteVentaId);
 		return new ResponseEntity<RepresentanteDto>(representanteDto, HttpStatus.OK);
+	}
+	
+	@GetMapping("/representante/{username}/{password}")
+	public ResponseEntity<RepresentanteDto> getRepresentantePorUsernameYPassword(@PathVariable String username, @PathVariable String password) {
+		RepresentanteDto representante = representanteService.getRepresentantePorUserYPass(username, password);
+		return new ResponseEntity<RepresentanteDto>(representante, HttpStatus.OK);
 	}
 
 }

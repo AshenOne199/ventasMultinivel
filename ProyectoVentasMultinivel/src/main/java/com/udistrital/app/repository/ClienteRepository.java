@@ -9,6 +9,6 @@ import com.udistrital.app.entity.ClienteId;
 
 public interface ClienteRepository extends JpaRepository<Cliente, ClienteId>{
 
-	Optional<Cliente> findByEmailAndPassword(String oEmail, String oPassword);
+	Optional<Cliente> findByUsernameAndPassword(String oEmail, String oPassword);
     
 }
