@@ -42,5 +42,10 @@ public class RepresentanteService {
 		
 	}
 
+
+	public void save(RepresentanteVentas representante) {
+		representanteRepository.save(representante);
+	}
+
 	
 }

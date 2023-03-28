@@ -4,10 +4,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.udistrital.app.entity.RepresentanteVentaId;
+import com.udistrital.app.entity.RepresentanteVentas;
 import com.udistrital.app.entity.dto.RepresentanteDto;
 import com.udistrital.app.entity.dto.RepresentanteIdDto;
 import com.udistrital.app.services.RepresentanteService;
@@ -33,6 +35,12 @@ public class RepresentanteController {
 	public ResponseEntity<RepresentanteDto> getRepresentantePorUsernameYPassword(@PathVariable String username, @PathVariable String password) {
 		RepresentanteDto representante = representanteService.getRepresentantePorUserYPass(username, password);
 		return new ResponseEntity<RepresentanteDto>(representante, HttpStatus.OK);
+	}
+	
+	@PostMapping("/representante/save")
+	public ResponseEntity<RepresentanteVentas> save(@RequestBody RepresentanteVentas representante) {
+		representanteService.save(representante);
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
 }
