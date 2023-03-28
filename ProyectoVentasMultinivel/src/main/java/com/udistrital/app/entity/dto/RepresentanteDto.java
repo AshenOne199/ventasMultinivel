@@ -7,11 +7,11 @@ public class RepresentanteDto {
 	private RepresentanteVentaId id;
 	
 	private String nombreCompleto;
-	
+
 	private String apellidoCompleto;
-	
+
 	public RepresentanteDto() {
-		
+
 	}
 
 	public RepresentanteDto(RepresentanteVentaId id, String nombreCompleto, String apellidoCompleto) {

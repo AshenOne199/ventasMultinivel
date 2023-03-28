@@ -9,24 +9,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class EstadisticasController {
-	
+
 	final private JdbcTemplate jdbcTemplate;
-	
+
 	public EstadisticasController(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
-	
 
-    @GetMapping("/topRegiones")
-    public List<Map<String, Object>> getVistaTopRegion() {
-        String sql = "SELECT * FROM VISTATOPREGION";
-        return jdbcTemplate.queryForList(sql);
-    }
-    
-    @GetMapping("/topProductos")
-    public List<Map<String, Object>> getTopProductos() {
-        String sql = "SELECT * FROM VISTATOPPRODUCTO";
-        return jdbcTemplate.queryForList(sql);
-    }
+	@GetMapping("/topRegiones")
+	public List<Map<String, Object>> getVistaTopRegion() {
+		String sql = "SELECT * FROM VISTATOPREGION";
+		return jdbcTemplate.queryForList(sql);
+	}
+
+	@GetMapping("/topProductos")
+	public List<Map<String, Object>> getTopProductos() {
+		String sql = "SELECT * FROM VISTATOPPRODUCTO";
+		return jdbcTemplate.queryForList(sql);
+	}
 
 }

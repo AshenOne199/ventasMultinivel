@@ -9,16 +9,21 @@ import com.udistrital.app.entity.RepresentanteVentas;
 import com.udistrital.app.entity.dto.RepresentanteDto;
 import com.udistrital.app.repository.RepresentanteRepository;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+
 @Service
 public class RepresentanteService {
-	
+
+	@PersistenceContext
+	public EntityManager entityManager;
+
 	final private RepresentanteRepository representanteRepository;
-	
+
 	public RepresentanteService(RepresentanteRepository representanteRepository) {
 		this.representanteRepository = representanteRepository;
 	}
 
-	
 	public RepresentanteDto getRepresentanteDto(RepresentanteVentaId representanteVentaId) {
 		Optional<RepresentanteVentas> representante = representanteRepository.findById(representanteVentaId);
 		RepresentanteDto representanteDto = null;
@@ -26,11 +31,12 @@ public class RepresentanteService {
 			representanteDto = new RepresentanteDto(new RepresentanteVentaId(representante.get().getId().getkTipoId(), representante.get().getId().getkNumeroId()), representante.get().getNombreCompleto(), representante.get().getApellidoCompleto());
 		return representanteDto;
 	}
-	
+
 	public Optional<RepresentanteVentas> getRepresentante(RepresentanteVentaId representanteVentaId) {
 		Optional<RepresentanteVentas> representante = representanteRepository.findById(representanteVentaId);
 		return representante;
 	}
+	
 
 
 	public RepresentanteDto getRepresentantePorUserYPass(String username, String password) {	

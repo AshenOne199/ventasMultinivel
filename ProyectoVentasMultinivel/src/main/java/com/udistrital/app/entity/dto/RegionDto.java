@@ -1,13 +1,13 @@
 package com.udistrital.app.entity.dto;
 
 public class RegionDto {
-	
+
 	private Short idRegion;
 	private String nombrePais;
 	private String nombreRegion;
-	
+
 	public RegionDto() {
-		
+
 	}
 
 	public RegionDto(Short idRegion, String nombrePais, String nombreRegion) {

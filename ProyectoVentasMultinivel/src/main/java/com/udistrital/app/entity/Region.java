@@ -13,19 +13,19 @@ import jakarta.validation.constraints.Size;
 @Entity
 @Table(name = "REGION")
 public class Region {
-    @Id
-    @Column(name = "K_IDREGION", nullable = false)
-    private Short id;
+	@Id
+	@Column(name = "K_IDREGION", nullable = false)
+	private Short id;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "K_IDPAIS", nullable = false)
-    private Pais idPais;
+	@NotNull
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "K_IDPAIS", nullable = false)
+	private Pais idPais;
 
-    @Size(max = 50)
-    @NotNull
-    @Column(name = "N_NOMBRE", nullable = false, length = 50)
-    private String nombre;
+	@Size(max = 50)
+	@NotNull
+	@Column(name = "N_NOMBRE", nullable = false, length = 50)
+	private String nombre;
 
 	public Short getId() {
 		return id;
@@ -51,6 +51,4 @@ public class Region {
 		this.nombre = nNombre;
 	}
 
-    
-    
 }

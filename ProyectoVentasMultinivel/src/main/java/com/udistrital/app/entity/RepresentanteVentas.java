@@ -16,68 +16,68 @@ import jakarta.validation.constraints.Size;
 @Entity
 @Table(name = "REPRESENTANTE_VENTAS")
 public class RepresentanteVentas {
-	
-    @EmbeddedId
-    private RepresentanteVentaId id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumns({
-            @JoinColumn(name = "K_TIPO_ID_JEFE", referencedColumnName = "K_TIPO_ID"),
-            @JoinColumn(name = "K_NUMERO_ID_JEFE", referencedColumnName = "K_NUMERO_ID")
-    })
-    private RepresentanteVentas representanteVentas;
+	@EmbeddedId
+	private RepresentanteVentaId id;
 
-    @Size(max = 200)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumns({ @JoinColumn(name = "K_TIPO_ID_JEFE", referencedColumnName = "K_TIPO_ID"),
+			@JoinColumn(name = "K_NUMERO_ID_JEFE", referencedColumnName = "K_NUMERO_ID") })
+	private RepresentanteVentas representanteVentas;
 
-    @Column(name = "N_NOMBRECOMPLETO", nullable = false, length = 200)
-    private String nombreCompleto;
+	@Size(max = 200)
 
-    @Size(max = 200)
+	@Column(name = "N_NOMBRECOMPLETO", nullable = false, length = 200)
+	private String nombreCompleto;
 
-    @Column(name = "N_APELLIDOCOMPLETO", nullable = false, length = 200)
-    private String apellidoCompleto;
+	@Size(max = 200)
 
+	@Column(name = "N_APELLIDOCOMPLETO", nullable = false, length = 200)
+	private String apellidoCompleto;
 
-    @Column(name = "F_FECHACREACION", nullable = false)
-    private LocalDate fechaCreacion;
+	@Column(name = "F_FECHACREACION", nullable = false)
+	private LocalDate fechaCreacion;
 
-    @Size(max = 150)
+	@Size(max = 150)
 
-    @Column(name = "O_EMAIL", nullable = false, length = 150)
-    private String email;
+	@Column(name = "O_EMAIL", nullable = false, length = 150)
+	private String email;
 
+	@Column(name = "Q_TELEFONO", nullable = false)
+	private Long telefono;
 
-    @Column(name = "Q_TELEFONO", nullable = false)
-    private Long telefono;
+	@Size(max = 100)
 
-    @Size(max = 100)
+	@Column(name = "N_REGION", nullable = false, length = 100)
+	private String region;
 
-    @Column(name = "N_REGION", nullable = false, length = 100)
-    private String region;
+	@Size(max = 3)
 
-    @Size(max = 3)
+	@Column(name = "I_GENERO", nullable = false, length = 3)
+	private String genero;
 
-    @Column(name = "I_GENERO", nullable = false, length = 3)
-    private String genero;
+	@Size(max = 200)
 
-    @Size(max = 200)
+	@Column(name = "O_PASSWORD", nullable = false, length = 200)
+	private String password;
 
-    @Column(name = "O_PASSWORD", nullable = false, length = 200)
-    private String password;
+	@Column(name = "F_NACIMIENTO", nullable = false)
+	private LocalDate fNacimiento;
 
+	@Size(max = 150)
 
-    @Column(name = "F_NACIMIENTO", nullable = false)
-    private LocalDate fNacimiento;
+	@Column(name = "O_DIRECCION", nullable = false, length = 150)
+	private String direccion;
 
-    @Size(max = 150)
+	@Size(max = 10)
 
-    @Column(name = "O_DIRECCION", nullable = false, length = 150)
-    private String direccion;
+	@Column(name = "I_TIPO", nullable = false, length = 10)
+	private String tipo;
 
-    @Size(max = 10)
+	@Column(name = "F_FECHACONTRATO", nullable = false)
+	private LocalDate fechaContrato;
 
-    @Column(name = "I_TIPO", nullable = false, length = 10)
-    private String tipo;
+	public RepresentanteVentas() {
 
 
     @Column(name = "F_FECHACONTRATO", nullable = false)

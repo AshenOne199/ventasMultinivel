@@ -15,26 +15,26 @@ import jakarta.validation.constraints.NotNull;
 @Entity
 @Table(name = "INVENTARIO")
 public class Inventario {
-    @EmbeddedId
-    private InventarioId id;
+	@EmbeddedId
+	private InventarioId id;
 
     @MapsId("idProducto")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "K_IDPRODUCTO", nullable = false)
     private Producto idProducto;
 
-    @MapsId("idRegion")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "K_IDREGION", nullable = false)
-    private Region idRegion;
+	@MapsId("idRegion")
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "K_IDREGION", nullable = false)
+	private Region idRegion;
 
-    @NotNull
-    @Column(name = "Q_STOCK", nullable = false)
-    private Short stock;
+	@NotNull
+	@Column(name = "Q_STOCK", nullable = false)
+	private Short stock;
 
-    @NotNull
-    @Column(name = "V_PRECIOPRODUCTO", nullable = false, precision = 10, scale = 2)
-    private BigDecimal precioProducto;
+	@NotNull
+	@Column(name = "V_PRECIOPRODUCTO", nullable = false, precision = 10, scale = 2)
+	private BigDecimal precioProducto;
 
 	public InventarioId getId() {
 		return id;
@@ -76,5 +76,4 @@ public class Inventario {
 		this.precioProducto = precioProducto;
 	}
 
-	
 }

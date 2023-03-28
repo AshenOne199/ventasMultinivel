@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.udistrital.app.entity.Cliente;
 import com.udistrital.app.entity.ClienteId;
 
-public interface ClienteRepository extends JpaRepository<Cliente, ClienteId>{
+public interface ClienteRepository extends JpaRepository<Cliente, ClienteId> {
 
 	Optional<Cliente> findByUsernameAndPassword(String oEmail, String oPassword);
     

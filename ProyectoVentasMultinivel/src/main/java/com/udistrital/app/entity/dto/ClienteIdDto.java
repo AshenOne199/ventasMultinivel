@@ -1,10 +1,10 @@
 package com.udistrital.app.entity.dto;
 
 public class ClienteIdDto {
-	
+
 	private String tipoId;
 	private Long id;
-	
+
 	public ClienteIdDto(String tipoId, Long id) {
 		super();
 		this.tipoId = tipoId;
@@ -31,5 +31,5 @@ public class ClienteIdDto {
 	public String toString() {
 		return "ClienteIdDto [tipoId=" + tipoId + ", id=" + id + "]";
 	}
-	
+
 }

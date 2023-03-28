@@ -10,18 +10,18 @@ import jakarta.validation.constraints.Size;
 @Entity
 @Table(name = "CATEGORIA")
 public class Categoria {
-	
-    @Id
-    @Column(name = "K_IDCATEGORIA", nullable = false)
-    private Short id;
 
-    @Column(name = "K_IDSUBCATEGORIA")
-    private Short idSubcategoria;
+	@Id
+	@Column(name = "K_IDCATEGORIA", nullable = false)
+	private Short id;
 
-    @Size(max = 100)
-    @NotNull
-    @Column(name = "N_NOMBRE", nullable = false, length = 100)
-    private String nombre;
+	@Column(name = "K_IDSUBCATEGORIA")
+	private Short idSubcategoria;
+
+	@Size(max = 100)
+	@NotNull
+	@Column(name = "N_NOMBRE", nullable = false, length = 100)
+	private String nombre;
 
 	public Short getId() {
 		return id;
@@ -46,7 +46,5 @@ public class Categoria {
 	public void setnNombre(String nNombre) {
 		this.nombre = nNombre;
 	}
-    
-    
 
 }

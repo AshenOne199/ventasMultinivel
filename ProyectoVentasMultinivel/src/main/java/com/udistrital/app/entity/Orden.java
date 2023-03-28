@@ -42,13 +42,13 @@ public class Orden {
     @JoinColumn(name = "K_IDPERIODO", nullable = false)
     private Periodo idPeriodo;
 
-    @Column(name = "F_FECHAREGISTRO")
-    private LocalDate fechaRegistro;
+	@Column(name = "F_FECHAREGISTRO")
+	private LocalDate fechaRegistro;
 
-    @Size(max = 100)
-    @NotNull
-    @Column(name = "I_ESTADO", nullable = false, length = 100)
-    private String estado;
+	@Size(max = 100)
+	@NotNull
+	@Column(name = "I_ESTADO", nullable = false, length = 100)
+	private String estado;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns({

@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.udistrital.app.config.CustomQueryExecutor;
 import com.udistrital.app.entity.Cliente;
 import com.udistrital.app.entity.ClienteId;
 import com.udistrital.app.entity.dto.ClienteDto;
@@ -13,9 +15,12 @@ import com.udistrital.app.repository.ClienteRepository;
 
 @Service
 public class ClienteService {
+
+	@Autowired
+	private CustomQueryExecutor ddlExecutor;
 	
 	final private ClienteRepository clienteRepository;
-	
+
 	public ClienteService(ClienteRepository clienteRepository) {
 		this.clienteRepository = clienteRepository;
 	}
@@ -39,6 +44,7 @@ public class ClienteService {
 			clientesDto.add(clienteDto);
 		}
 		return clientesDto;
+
 	}
 
 	public ClienteDto findByTipoIdAndId(ClienteId clienteId) {
@@ -52,7 +58,11 @@ public class ClienteService {
 
 	public void save(Cliente cliente) {
 		clienteRepository.save(cliente);
+		String username=cliente.getUsername();
+		String password=cliente.getPassword();
+		ddlExecutor.executeClientCreation(username, password);
 	}
+	
 	
 
 }

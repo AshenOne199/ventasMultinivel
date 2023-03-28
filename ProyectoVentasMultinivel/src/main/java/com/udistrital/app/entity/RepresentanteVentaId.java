@@ -11,40 +11,40 @@ import jakarta.validation.constraints.Size;
 
 @Embeddable
 public class RepresentanteVentaId implements Serializable {
-	
-    private static final long serialVersionUID = 5470956872260265407L;
 
-    @Size(max = 3)
-    @Column(name = "K_TIPO_ID", nullable = false, length = 3)
-    private String tipoId;
+	private static final long serialVersionUID = 5470956872260265407L;
 
+	@Size(max = 3)
+	@Column(name = "K_TIPO_ID", nullable = false, length = 3)
+	private String tipoId;
 
-    @Column(name = "K_NUMERO_ID", nullable = false)
-    private Long numeroId;
+	@Column(name = "K_NUMERO_ID", nullable = false)
+	private Long numeroId;
 
-    public RepresentanteVentaId() {
-		
+	public RepresentanteVentaId() {
+
 	}
-    
-    public RepresentanteVentaId(@Size(max = 3) String tipoId, Long numeroId) {
+
+	public RepresentanteVentaId(@Size(max = 3) String tipoId, Long numeroId) {
 		super();
 		this.tipoId = tipoId;
 		this.numeroId = numeroId;
 	}
 
 	@Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        RepresentanteVentaId entity = (RepresentanteVentaId) o;
-        return Objects.equals(this.tipoId, entity.tipoId) &&
-                Objects.equals(this.numeroId, entity.numeroId);
-    }
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o))
+			return false;
+		RepresentanteVentaId entity = (RepresentanteVentaId) o;
+		return Objects.equals(this.tipoId, entity.tipoId) && Objects.equals(this.numeroId, entity.numeroId);
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(tipoId, numeroId);
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hash(tipoId, numeroId);
+	}
 
 	public String getkTipoId() {
 		return tipoId;

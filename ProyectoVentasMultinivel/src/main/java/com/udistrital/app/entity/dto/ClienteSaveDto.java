@@ -10,13 +10,10 @@ import jakarta.persistence.TemporalType;
 public class ClienteSaveDto {
 
 	private String tipoId;
-    private Long numeroId;
+	private Long numeroId;
 
-    private String tipoIdRep;
-    private Long numeroIdRep;
-    
-    private String tipoIdRepInicial;
-    private Long numeroIdRepInicial;
+	private String tipoIdRep;
+	private Long numeroIdRep;
 
     private String nombreCompleto;
     private String apellidoCompleto;
@@ -210,6 +207,10 @@ public class ClienteSaveDto {
 
 	public void setFechaContrato(Date fechaContrato) {
 		this.fechaContrato = fechaContrato;
+	}
+	
+	public String getUsername() {
+		return username;
 	}
 
 	public String getUsername() {

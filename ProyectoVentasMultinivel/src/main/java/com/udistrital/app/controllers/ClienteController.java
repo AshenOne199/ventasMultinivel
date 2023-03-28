@@ -5,10 +5,12 @@ import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.udistrital.app.entity.Cliente;
@@ -22,11 +24,12 @@ import com.udistrital.app.services.ClienteService;
 import com.udistrital.app.services.RepresentanteService;
 
 @RestController
+@CrossOrigin
+@RequestMapping("/api/cliente")
 public class ClienteController {
 
 	final private ClienteService clienteService;
 	final private RepresentanteService representanteService;
-
 
 	public ClienteController(ClienteService clienteService, RepresentanteService representanteService) {
 		this.clienteService = clienteService;
@@ -54,9 +57,9 @@ public class ClienteController {
 		ClienteDto cliente = clienteService.findByTipoIdAndId(clienteId);
 		return new ResponseEntity<ClienteDto>(cliente, HttpStatus.OK);
 	}
-	
-	//Registrar un nuevo cliente
-	@PostMapping("cliente/save")
+
+	// Registrar un nuevo cliente
+	@PostMapping("/cliente/save")
 	public ResponseEntity<Cliente> save(@RequestBody ClienteSaveDto c) {
 		RepresentanteVentaId representanteVentaId = new RepresentanteVentaId(c.getTipoIdRep(), c.getNumeroIdRep());
 		Optional<RepresentanteVentas> representante = representanteService.getRepresentante(representanteVentaId);
@@ -64,8 +67,6 @@ public class ClienteController {
 		Cliente cliente = new Cliente(clienteId, representante.get(), c.getTipoIdRepInicial(), c.getNumeroIdRepInicial(), c.getNombreCompleto(), c.getApellidoCompleto(),
 				c.getFechaCreacion(), c.getEmail(), c.getTelefono(), c.getCiudad(), c.getGenero(), c.getPassword(), c.getfNacimiento(), c.getDireccion(), c.getUsername());
 		clienteService.save(cliente);
-		
-		
 		
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}

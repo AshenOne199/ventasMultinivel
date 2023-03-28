@@ -3,11 +3,11 @@ package com.udistrital.app.entity.dto;
 public class SubCategoriaDto {
 
 	private Short id;
-	
+
 	private String nombreSubcategoria;
 
 	public SubCategoriaDto() {
-		
+
 	}
 
 	public SubCategoriaDto(Short id, String nombreSubcategoria) {
@@ -31,9 +31,5 @@ public class SubCategoriaDto {
 	public void setNombreSubcategoria(String nombreSubcategoria) {
 		this.nombreSubcategoria = nombreSubcategoria;
 	}
-	
 
-	
-	
-	
 }

@@ -13,24 +13,24 @@ import jakarta.validation.constraints.Size;
 @Entity
 @Table(name = "PRODUCTO")
 public class Producto {
-    @Id
-    @Column(name = "K_IDPRODUCTO", nullable = false)
-    private Short id;
+	@Id
+	@Column(name = "K_IDPRODUCTO", nullable = false)
+	private Short id;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "K_IDCATEGORIA", nullable = false)
-    private Categoria idCategoria;
+	@NotNull
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "K_IDCATEGORIA", nullable = false)
+	private Categoria idCategoria;
 
-    @Size(max = 100)
-    @NotNull
-    @Column(name = "N_NOMBRE", nullable = false, length = 100)
-    private String nombre;
+	@Size(max = 100)
+	@NotNull
+	@Column(name = "N_NOMBRE", nullable = false, length = 100)
+	private String nombre;
 
-    @Size(max = 200)
-    @NotNull
-    @Column(name = "N_URLIMAGEN", nullable = false, length = 200)
-    private String urlImagen;
+	@Size(max = 200)
+	@NotNull
+	@Column(name = "N_URLIMAGEN", nullable = false, length = 200)
+	private String urlImagen;
 
 	public Short getId() {
 		return id;
@@ -64,6 +64,4 @@ public class Producto {
 		this.urlImagen = nUrlimagen;
 	}
 
-    
-    
 }

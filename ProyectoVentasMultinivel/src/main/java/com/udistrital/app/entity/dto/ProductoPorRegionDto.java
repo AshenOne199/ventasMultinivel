@@ -3,15 +3,15 @@ package com.udistrital.app.entity.dto;
 import java.math.BigDecimal;
 
 public class ProductoPorRegionDto {
-	
+
 	private Short id;
 	private String nombreProducto;
 	private Short stock;
 	private BigDecimal precio;
 	private String url;
-	
+
 	public ProductoPorRegionDto() {
-		
+
 	}
 
 	public ProductoPorRegionDto(Short id, String nombreProducto, Short stock, BigDecimal precio, String url) {
@@ -23,8 +23,6 @@ public class ProductoPorRegionDto {
 		this.url = url;
 	}
 
-	
-	
 	public Short getId() {
 		return id;
 	}
