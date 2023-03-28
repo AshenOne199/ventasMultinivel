@@ -39,17 +39,14 @@ public class ClienteSaveDto {
 		
 	}
 
-	public ClienteSaveDto(String tipoId, Long numeroId, String tipoIdRep, Long numeroIdRep, String tipoIdRepInicial,
-			Long numeroIdRepInicial, String nombreCompleto, String apellidoCompleto, Date fechaCreacion, String email,
-			Long telefono, String ciudad, String genero, String password, Date fNacimiento, String direccion,
-			String tipo, Date fechaContrato, String username) {
+	public ClienteSaveDto(String tipoId, Long numeroId, String tipoIdRep, Long numeroIdRep, String nombreCompleto,
+			String apellidoCompleto, Date fechaCreacion, String email, Long telefono, String ciudad, String genero,
+			String password, Date fNacimiento, String direccion, String tipo, Date fechaContrato, String username) {
 		super();
 		this.tipoId = tipoId;
 		this.numeroId = numeroId;
 		this.tipoIdRep = tipoIdRep;
 		this.numeroIdRep = numeroIdRep;
-		this.tipoIdRepInicial = tipoIdRepInicial;
-		this.numeroIdRepInicial = numeroIdRepInicial;
 		this.nombreCompleto = nombreCompleto;
 		this.apellidoCompleto = apellidoCompleto;
 		this.fechaCreacion = fechaCreacion;
@@ -95,22 +92,6 @@ public class ClienteSaveDto {
 
 	public void setNumeroIdRep(Long numeroIdRep) {
 		this.numeroIdRep = numeroIdRep;
-	}
-
-	public String getTipoIdRepInicial() {
-		return tipoIdRepInicial;
-	}
-
-	public void setTipoIdRepInicial(String tipoIdRepInicial) {
-		this.tipoIdRepInicial = tipoIdRepInicial;
-	}
-
-	public Long getNumeroIdRepInicial() {
-		return numeroIdRepInicial;
-	}
-
-	public void setNumeroIdRepInicial(Long numeroIdRepInicial) {
-		this.numeroIdRepInicial = numeroIdRepInicial;
 	}
 
 	public String getNombreCompleto() {
@@ -208,10 +189,6 @@ public class ClienteSaveDto {
 	public void setFechaContrato(Date fechaContrato) {
 		this.fechaContrato = fechaContrato;
 	}
-	
-	public String getUsername() {
-		return username;
-	}
 
 	public String getUsername() {
 		return username;
@@ -221,8 +198,5 @@ public class ClienteSaveDto {
 		this.username = username;
 	}
 
-	
-
-	
 	
 }

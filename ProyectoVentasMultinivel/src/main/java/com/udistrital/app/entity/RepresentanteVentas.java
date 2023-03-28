@@ -76,12 +76,6 @@ public class RepresentanteVentas {
 
 	@Column(name = "F_FECHACONTRATO", nullable = false)
 	private LocalDate fechaContrato;
-
-	public RepresentanteVentas() {
-
-
-    @Column(name = "F_FECHACONTRATO", nullable = false)
-    private LocalDate fechaContrato;
     
     @Size(max = 100)
     @Column(name = "N_USERNAME", nullable = false, length = 100)

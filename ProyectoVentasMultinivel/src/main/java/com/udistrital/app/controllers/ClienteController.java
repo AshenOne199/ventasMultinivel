@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.udistrital.app.entity.Cliente;
@@ -25,7 +24,6 @@ import com.udistrital.app.services.RepresentanteService;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/cliente")
 public class ClienteController {
 
 	final private ClienteService clienteService;
@@ -64,7 +62,7 @@ public class ClienteController {
 		RepresentanteVentaId representanteVentaId = new RepresentanteVentaId(c.getTipoIdRep(), c.getNumeroIdRep());
 		Optional<RepresentanteVentas> representante = representanteService.getRepresentante(representanteVentaId);
 		ClienteId clienteId = new ClienteId(c.getTipoId(), c.getNumeroId());
-		Cliente cliente = new Cliente(clienteId, representante.get(), c.getTipoIdRepInicial(), c.getNumeroIdRepInicial(), c.getNombreCompleto(), c.getApellidoCompleto(),
+		Cliente cliente = new Cliente(clienteId, representante.get(), c.getTipoId(), c.getNumeroId(), c.getNombreCompleto(), c.getApellidoCompleto(),
 				c.getFechaCreacion(), c.getEmail(), c.getTelefono(), c.getCiudad(), c.getGenero(), c.getPassword(), c.getfNacimiento(), c.getDireccion(), c.getUsername());
 		clienteService.save(cliente);
 		

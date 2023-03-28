@@ -2,6 +2,7 @@ package com.udistrital.app.controllers;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,6 +10,7 @@ import com.udistrital.app.entity.Periodo;
 import com.udistrital.app.repository.PeriodoRepository;
 
 @RestController
+@CrossOrigin
 public class PeriodoController {
 
 	final private PeriodoRepository periodoRepository;

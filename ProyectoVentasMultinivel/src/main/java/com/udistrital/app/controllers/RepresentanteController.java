@@ -2,6 +2,7 @@ package com.udistrital.app.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import com.udistrital.app.entity.dto.RepresentanteIdDto;
 import com.udistrital.app.services.RepresentanteService;
 
 @RestController
+@CrossOrigin
 public class RepresentanteController {
 
 	final private RepresentanteService representanteService;
