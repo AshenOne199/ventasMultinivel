@@ -42,5 +42,11 @@ public class VistasController {
 		String sql = "SELECT * FROM VISTACALIFICACION WHERE I_TIPO_ID_REP = ? AND Q_NUMERO_ID_REP = ?";
 		return jdbcTemplate.queryForList(sql, idTipoRep, idRep);
 	}
+	
+	@GetMapping("/nomina")
+	public List<Map<String, Object>> getNomina() {
+		String sql = "SELECT * FROM VISTANOMINA";
+		return jdbcTemplate.queryForList(sql);
+	}
 
 }
