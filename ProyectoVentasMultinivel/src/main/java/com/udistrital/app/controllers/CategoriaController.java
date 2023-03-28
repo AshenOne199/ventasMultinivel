@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.udistrital.app.entity.Categoria;
 import com.udistrital.app.entity.dto.CategoriaDto;
-import com.udistrital.app.entity.dto.SubCategoriaDto;
 import com.udistrital.app.services.CategoriaService;
 
 @RestController
@@ -31,9 +31,9 @@ public class CategoriaController {
 		return categoriaService.getCategoriasPorRegion(idRegion);
 	}
 
-	@GetMapping("/subcategorias/{idRegion}")
-	public List<SubCategoriaDto> getAllSubCategoriasPorRegion(@PathVariable(name = "idRegion") Short idRegion) {
-		return categoriaService.getSubCategoriasPorRegion(idRegion);
+	@GetMapping("/subcategorias/{idCategoria}")
+	public List<Categoria> getAllSubCategoriasPorCategoria(@PathVariable Short idCategoria) {
+		return categoriaService.getSubCategoriasPorCategoria(idCategoria);
 	}
 
 }

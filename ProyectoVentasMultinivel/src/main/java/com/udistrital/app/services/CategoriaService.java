@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.udistrital.app.entity.Categoria;
 import com.udistrital.app.entity.dto.CategoriaDto;
-import com.udistrital.app.entity.dto.SubCategoriaDto;
 import com.udistrital.app.repository.CategoriaRepository;
 
 @Service
@@ -23,9 +22,6 @@ public class CategoriaService {
 		return categoriaRepository.findAllCategoriasPorRegion(idRegion);
 	}
 
-	public List<SubCategoriaDto> getSubCategoriasPorRegion(Short idRegion) {
-		return categoriaRepository.findAllSubCategoriasPorRegion(idRegion);
-	}
 
 	public List<CategoriaDto> findAll() {
 		List<Categoria> categorias = categoriaRepository.findAll();
@@ -35,6 +31,10 @@ public class CategoriaService {
 			categoriasDto.add(categoriaDto);
 		}
 		return categoriasDto;
+	}
+
+	public List<Categoria> getSubCategoriasPorCategoria(Short idCategoria) {
+		return categoriaRepository.findByidSubcategoria(idCategoria);
 	}
 
 }
