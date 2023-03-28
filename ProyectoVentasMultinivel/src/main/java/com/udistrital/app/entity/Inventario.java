@@ -18,7 +18,7 @@ public class Inventario {
     @EmbeddedId
     private InventarioId id;
 
-    @MapsId("IdProducto")
+    @MapsId("idProducto")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "K_IDPRODUCTO", nullable = false)
     private Producto idProducto;
