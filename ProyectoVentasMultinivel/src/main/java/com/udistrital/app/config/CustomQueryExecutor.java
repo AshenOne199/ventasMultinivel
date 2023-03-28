@@ -38,5 +38,18 @@ public class CustomQueryExecutor {
 	    entityManager.close();
 	}
   
+  public void executeRepresentanteMasterCreation(String username, String password) {
+		String createUserDdlStatement = "CREATE USER "+username+" IDENTIFIED BY "+password;
+		String grantUserRoleDclStatement = "GRANT R_MASTER TO "+username;
+	    EntityManager entityManager = entityManagerFactory.createEntityManager();
+	    entityManager.getTransaction().begin();
+	    entityManager.createNativeQuery(createUserDdlStatement).executeUpdate();
+	    entityManager.getTransaction().commit();
+	    entityManager.getTransaction().begin();
+	    entityManager.createNativeQuery(grantUserRoleDclStatement).executeUpdate();
+	    entityManager.getTransaction().commit();    
+	    entityManager.close();
+	}
+  
   
 }

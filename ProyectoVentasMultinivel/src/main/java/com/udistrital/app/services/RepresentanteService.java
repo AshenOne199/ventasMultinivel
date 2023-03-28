@@ -1,9 +1,11 @@
 package com.udistrital.app.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.udistrital.app.config.CustomQueryExecutor;
 import com.udistrital.app.entity.RepresentanteVentaId;
 import com.udistrital.app.entity.RepresentanteVentas;
 import com.udistrital.app.entity.dto.RepresentanteDto;
@@ -17,10 +19,13 @@ public class RepresentanteService {
 
 	@PersistenceContext
 	public EntityManager entityManager;
+	
+	final private CustomQueryExecutor ddlExecutor;
 
 	final private RepresentanteRepository representanteRepository;
 
-	public RepresentanteService(RepresentanteRepository representanteRepository) {
+	public RepresentanteService(RepresentanteRepository representanteRepository, CustomQueryExecutor ddlExecutor) {
+		this.ddlExecutor = ddlExecutor;
 		this.representanteRepository = representanteRepository;
 	}
 
@@ -51,6 +56,23 @@ public class RepresentanteService {
 
 	public void save(RepresentanteVentas representante) {
 		representanteRepository.save(representante);
+		if(representante.getTipo().equalsIgnoreCase("MASTER")) {
+			ddlExecutor.executeRepresentanteMasterCreation(representante.getUsername(), representante.getPassword());
+		}else {
+			ddlExecutor.executeRepresentanteCreation(representante.getUsername(), representante.getPassword());
+		}	
+	}
+
+	public List<RepresentanteVentas> findByregionAndTipo(String nombreRegion, String rango) {
+		return representanteRepository.findByregionAndTipo(nombreRegion, rango);
+	}
+
+	public List<RepresentanteVentas> findByTipo(String rango) {
+		return representanteRepository.findByTipo(rango);
+	}
+
+	public List<RepresentanteVentas> findAll() {
+		return representanteRepository.findAll();
 	}
 
 	

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,6 +20,8 @@ import com.udistrital.app.entity.RepresentanteVentas;
 import com.udistrital.app.entity.dto.ClienteDto;
 import com.udistrital.app.entity.dto.ClienteIdDto;
 import com.udistrital.app.entity.dto.ClienteSaveDto;
+import com.udistrital.app.entity.dto.RepresentanteIdDto;
+import com.udistrital.app.entity.dto.UpdateRVDto;
 import com.udistrital.app.services.ClienteService;
 import com.udistrital.app.services.RepresentanteService;
 
@@ -68,5 +71,28 @@ public class ClienteController {
 		
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
+	
+	@GetMapping("/cliente/representante")
+	public ResponseEntity<RepresentanteVentas> getRepresentanteActual(@RequestBody RepresentanteIdDto representanteVentaIdDto) {
+		RepresentanteVentaId representanteVentaId = new RepresentanteVentaId(representanteVentaIdDto.getTipoId(), representanteVentaIdDto.getNumeroId());
+		Optional<RepresentanteVentas> representante = representanteService.getRepresentante(representanteVentaId);
+		return new ResponseEntity<RepresentanteVentas>(representante.get(), HttpStatus.OK);
+	}
+	
+	@PutMapping("/cliente/cambioRV")
+	public ResponseEntity<ClienteDto> updateRV(@RequestBody UpdateRVDto updateRVDto) {
+		ClienteId clienteId = new ClienteId(updateRVDto.getTipoIdCliente(), updateRVDto.getIdCliente());
+		ClienteDto cliente = clienteService.findByTipoIdAndId(clienteId);
+		
+		
+		RepresentanteVentaId representanteVentaId = new RepresentanteVentaId(updateRVDto.getTipoIdRV(), updateRVDto.getIdRV());
+		Optional<RepresentanteVentas> representante = representanteService.getRepresentante(representanteVentaId);
+		if(cliente != null && representante.isPresent()) {
+			clienteService.updateActualRV(clienteId, representanteVentaId);
+		}
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	
 
 }

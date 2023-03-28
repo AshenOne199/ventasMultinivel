@@ -1,6 +1,6 @@
 package com.udistrital.app.entity;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -36,7 +36,7 @@ public class RepresentanteVentas {
 	private String apellidoCompleto;
 
 	@Column(name = "F_FECHACREACION", nullable = false)
-	private LocalDate fechaCreacion;
+	private Date fechaCreacion;
 
 	@Size(max = 150)
 
@@ -62,7 +62,7 @@ public class RepresentanteVentas {
 	private String password;
 
 	@Column(name = "F_NACIMIENTO", nullable = false)
-	private LocalDate fNacimiento;
+	private Date fNacimiento;
 
 	@Size(max = 150)
 
@@ -75,7 +75,7 @@ public class RepresentanteVentas {
 	private String tipo;
 
 	@Column(name = "F_FECHACONTRATO", nullable = false)
-	private LocalDate fechaContrato;
+	private Date fechaContrato;
     
     @Size(max = 100)
     @Column(name = "N_USERNAME", nullable = false, length = 100)
@@ -92,10 +92,10 @@ public class RepresentanteVentas {
 
 
 	public RepresentanteVentas(RepresentanteVentaId id, RepresentanteVentas representanteVentas,
-			@Size(max = 200) String nombreCompleto, @Size(max = 200) String apellidoCompleto, LocalDate fechaCreacion,
+			@Size(max = 200) String nombreCompleto, @Size(max = 200) String apellidoCompleto, Date fechaCreacion,
 			@Size(max = 150) String email, Long telefono, @Size(max = 100) String region, @Size(max = 3) String genero,
-			@Size(max = 200) String password, LocalDate fNacimiento, @Size(max = 150) String direccion,
-			@Size(max = 10) String tipo, LocalDate fechaContrato, @Size(max = 100) String username,
+			@Size(max = 200) String password, Date fNacimiento, @Size(max = 150) String direccion,
+			@Size(max = 10) String tipo, Date fechaContrato, @Size(max = 100) String username,
 			@Size(max = 50) String estado) {
 		super();
 		this.id = id;
@@ -157,12 +157,12 @@ public class RepresentanteVentas {
 	}
 
 
-	public LocalDate getFechaCreacion() {
+	public Date getFechaCreacion() {
 		return fechaCreacion;
 	}
 
 
-	public void setFechaCreacion(LocalDate fechaCreacion) {
+	public void setFechaCreacion(Date fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
 	}
 
@@ -217,12 +217,12 @@ public class RepresentanteVentas {
 	}
 
 
-	public LocalDate getfNacimiento() {
+	public Date getfNacimiento() {
 		return fNacimiento;
 	}
 
 
-	public void setfNacimiento(LocalDate fNacimiento) {
+	public void setfNacimiento(Date fNacimiento) {
 		this.fNacimiento = fNacimiento;
 	}
 
@@ -247,12 +247,12 @@ public class RepresentanteVentas {
 	}
 
 
-	public LocalDate getFechaContrato() {
+	public Date getFechaContrato() {
 		return fechaContrato;
 	}
 
 
-	public void setFechaContrato(LocalDate fechaContrato) {
+	public void setFechaContrato(Date fechaContrato) {
 		this.fechaContrato = fechaContrato;
 	}
 
@@ -276,6 +276,6 @@ public class RepresentanteVentas {
 		this.estado = estado;
 	}
 
-	
+
 	
 }
