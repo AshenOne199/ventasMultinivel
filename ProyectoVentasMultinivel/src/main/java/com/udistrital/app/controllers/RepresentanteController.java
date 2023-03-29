@@ -30,9 +30,9 @@ public class RepresentanteController {
 	}
 
 	// Traer representante dado un id
-	@GetMapping("/representante")
-	public ResponseEntity<RepresentanteDto> getRepresentante(@RequestBody RepresentanteIdDto representanteIdDto) {
-		RepresentanteVentaId representanteVentaId = new RepresentanteVentaId(representanteIdDto.getTipoId(), representanteIdDto.getNumeroId());
+	@GetMapping("/representante_por_id/{id}/{tipoId}")
+	public ResponseEntity<RepresentanteDto> getRepresentante(@PathVariable Long id, @PathVariable String tipoId) {
+		RepresentanteVentaId representanteVentaId = new RepresentanteVentaId(tipoId, id);
 		RepresentanteDto representanteDto = representanteService.getRepresentanteDto(representanteVentaId);
 		return new ResponseEntity<RepresentanteDto>(representanteDto, HttpStatus.OK);
 	}
@@ -67,13 +67,13 @@ public class RepresentanteController {
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/representantes/{nombreRegion}/{rango}")
+	@GetMapping("/representantes_por_region_rango/{nombreRegion}/{rango}")
 	public ResponseEntity<List<RepresentanteVentas>> getRepresentantesPorRegionRango(@PathVariable String nombreRegion, @PathVariable String rango) {
 		List<RepresentanteVentas> representantes = representanteService.findByregionAndTipo(nombreRegion, rango);
 		return new ResponseEntity<List<RepresentanteVentas>>(representantes, HttpStatus.OK);
 	}
 	
-	@GetMapping("/representantes/{rango}")
+	@GetMapping("/representantes_por_rango/{rango}")
 	public ResponseEntity<List<RepresentanteVentas>> getRepresentantesPorRango(@PathVariable String rango) {
 		List<RepresentanteVentas> representantes = representanteService.findByTipo(rango);
 		return new ResponseEntity<List<RepresentanteVentas>>(representantes, HttpStatus.OK);

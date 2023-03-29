@@ -38,7 +38,7 @@ public class ClienteController {
 	}
 
 	// Traer un cliente dado un email y password
-	@GetMapping("/cliente/{username}/{password}")
+	@GetMapping("/cliente_por_email_password/{username}/{password}")
 	public ResponseEntity<ClienteDto> getClienteLogin(@PathVariable String username, @PathVariable String password) {
 		ClienteDto clienteLogin = clienteService.getClienteLogin(username, password);
 		return ResponseEntity.ok(clienteLogin);
@@ -52,9 +52,9 @@ public class ClienteController {
 	}
 
 	// Traer cliente especifico dado Id
-	@GetMapping("/cliente")
-	public ResponseEntity<ClienteDto> getCliente(@RequestBody ClienteIdDto clienteIdDto) {
-		ClienteId clienteId = new ClienteId(clienteIdDto.getTipoId(), clienteIdDto.getId());
+	@GetMapping("/cliente_por_id/{id}/{tipoId}")
+	public ResponseEntity<ClienteDto> getCliente(@PathVariable Long id, @PathVariable String tipoId) {
+		ClienteId clienteId = new ClienteId(tipoId, id);
 		ClienteDto cliente = clienteService.findByTipoIdAndId(clienteId);
 		return new ResponseEntity<ClienteDto>(cliente, HttpStatus.OK);
 	}
@@ -72,9 +72,9 @@ public class ClienteController {
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/cliente/representante")
-	public ResponseEntity<RepresentanteVentas> getRepresentanteActual(@RequestBody RepresentanteIdDto representanteVentaIdDto) {
-		RepresentanteVentaId representanteVentaId = new RepresentanteVentaId(representanteVentaIdDto.getTipoId(), representanteVentaIdDto.getNumeroId());
+	@GetMapping("/cliente/representante/{id}/{tipoId}")
+	public ResponseEntity<RepresentanteVentas> getRepresentanteActual(@PathVariable Long id, @PathVariable String tipoId) {
+		RepresentanteVentaId representanteVentaId = new RepresentanteVentaId(tipoId, id);
 		Optional<RepresentanteVentas> representante = representanteService.getRepresentante(representanteVentaId);
 		return new ResponseEntity<RepresentanteVentas>(representante.get(), HttpStatus.OK);
 	}
