@@ -25,11 +25,11 @@ public class CategoriaController {
 	public List<CategoriaDto> getAllCategorias() {
 		return categoriaService.findAll();
 	}
-	/*
+	
 	@GetMapping("/categorias/{idRegion}")
 	public List<CategoriaDto> getAllCategoriasPorRegion(@PathVariable(name = "idRegion") Short idRegion) {
 		return categoriaService.getCategoriasPorRegion(idRegion);
-	}*/
+	}
 
 	@GetMapping("/subcategorias/{idCategoria}")
 	public List<Categoria> getAllSubCategoriasPorCategoria(@PathVariable Short idCategoria) {

@@ -19,14 +19,7 @@ public class CategoriaService {
 	}
 
 	public List<CategoriaDto> getCategoriasPorRegion(Short idRegion) {
-		List<CategoriaDto> categoriaDtoList= new ArrayList<>();
-		List<Categoria> categoriaList = categoriaRepository.findAllCategoriasPorRegion(idRegion);
-		for(Categoria categoria : categoriaList) {
-			String nombreCategoria = categoria.getnNombre();
-			Short id = categoria.getId();
-			categoriaDtoList.add(new CategoriaDto(id, nombreCategoria));
-		}
-		return categoriaDtoList;
+		return categoriaRepository.findAllCategoriasPorRegion(idRegion);
 	}
 
 
