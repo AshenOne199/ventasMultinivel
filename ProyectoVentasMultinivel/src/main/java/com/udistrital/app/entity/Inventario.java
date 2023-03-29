@@ -18,10 +18,10 @@ public class Inventario {
 	@EmbeddedId
 	private InventarioId id;
 
-    @MapsId("idProducto")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "K_IDPRODUCTO", nullable = false)
-    private Producto idProducto;
+	@MapsId("idProducto")
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "K_IDPRODUCTO", nullable = false)
+	private Producto idProducto;
 
 	@MapsId("idRegion")
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)

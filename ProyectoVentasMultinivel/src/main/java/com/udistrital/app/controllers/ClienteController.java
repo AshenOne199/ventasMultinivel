@@ -18,9 +18,7 @@ import com.udistrital.app.entity.ClienteId;
 import com.udistrital.app.entity.RepresentanteVentaId;
 import com.udistrital.app.entity.RepresentanteVentas;
 import com.udistrital.app.entity.dto.ClienteDto;
-import com.udistrital.app.entity.dto.ClienteIdDto;
 import com.udistrital.app.entity.dto.ClienteSaveDto;
-import com.udistrital.app.entity.dto.RepresentanteIdDto;
 import com.udistrital.app.entity.dto.UpdateRVDto;
 import com.udistrital.app.services.ClienteService;
 import com.udistrital.app.services.RepresentanteService;
@@ -65,34 +63,34 @@ public class ClienteController {
 		RepresentanteVentaId representanteVentaId = new RepresentanteVentaId(c.getTipoIdRep(), c.getNumeroIdRep());
 		Optional<RepresentanteVentas> representante = representanteService.getRepresentante(representanteVentaId);
 		ClienteId clienteId = new ClienteId(c.getTipoId(), c.getNumeroId());
-		Cliente cliente = new Cliente(clienteId, representante.get(), c.getTipoId(), c.getNumeroId(), c.getNombreCompleto(), c.getApellidoCompleto(),
-				c.getFechaCreacion(), c.getEmail(), c.getTelefono(), c.getCiudad(), c.getGenero(), c.getPassword(), c.getfNacimiento(), c.getDireccion(), c.getUsername());
+		Cliente cliente = new Cliente(clienteId, representante.get(), c.getTipoId(), c.getNumeroId(),
+				c.getNombreCompleto(), c.getApellidoCompleto(), c.getFechaCreacion(), c.getEmail(), c.getTelefono(),
+				c.getCiudad(), c.getGenero(), c.getPassword(), c.getfNacimiento(), c.getDireccion(), c.getUsername());
 		clienteService.save(cliente);
-		
+
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
-	
+
 	@GetMapping("/cliente/representante/{id}/{tipoId}")
-	public ResponseEntity<RepresentanteVentas> getRepresentanteActual(@PathVariable Long id, @PathVariable String tipoId) {
+	public ResponseEntity<RepresentanteVentas> getRepresentanteActual(@PathVariable Long id,
+			@PathVariable String tipoId) {
 		RepresentanteVentaId representanteVentaId = new RepresentanteVentaId(tipoId, id);
 		Optional<RepresentanteVentas> representante = representanteService.getRepresentante(representanteVentaId);
 		return new ResponseEntity<RepresentanteVentas>(representante.get(), HttpStatus.OK);
 	}
-	
+
 	@PutMapping("/cliente/cambioRV")
 	public ResponseEntity<ClienteDto> updateRV(@RequestBody UpdateRVDto updateRVDto) {
 		ClienteId clienteId = new ClienteId(updateRVDto.getTipoIdCliente(), updateRVDto.getIdCliente());
 		ClienteDto cliente = clienteService.findByTipoIdAndId(clienteId);
-		
-		
-		RepresentanteVentaId representanteVentaId = new RepresentanteVentaId(updateRVDto.getTipoIdRV(), updateRVDto.getIdRV());
+
+		RepresentanteVentaId representanteVentaId = new RepresentanteVentaId(updateRVDto.getTipoIdRV(),
+				updateRVDto.getIdRV());
 		Optional<RepresentanteVentas> representante = representanteService.getRepresentante(representanteVentaId);
-		if(cliente != null && representante.isPresent()) {
+		if (cliente != null && representante.isPresent()) {
 			clienteService.updateActualRV(clienteId, representanteVentaId);
 		}
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
-	
 
 }

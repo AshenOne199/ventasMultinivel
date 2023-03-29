@@ -15,28 +15,28 @@ public class ClienteSaveDto {
 	private String tipoIdRep;
 	private Long numeroIdRep;
 
-    private String nombreCompleto;
-    private String apellidoCompleto;
-    
-    @Temporal(TemporalType.DATE)
-   	@JsonFormat(pattern = "dd/MM/yy")
-    private Date fechaCreacion;
-    private String email;
-    private Long telefono;
-    private String ciudad;
-    private String genero;
-    private String password;
-    
-    @Temporal(TemporalType.DATE)
-   	@JsonFormat(pattern = "dd/MM/yy")
-    private Date fNacimiento;
-    private String direccion;
-    private String tipo;
-    private Date fechaContrato;
-    private String username;
-    
-    public ClienteSaveDto() {
-		
+	private String nombreCompleto;
+	private String apellidoCompleto;
+
+	@Temporal(TemporalType.DATE)
+	@JsonFormat(pattern = "dd/MM/yy")
+	private Date fechaCreacion;
+	private String email;
+	private Long telefono;
+	private String ciudad;
+	private String genero;
+	private String password;
+
+	@Temporal(TemporalType.DATE)
+	@JsonFormat(pattern = "dd/MM/yy")
+	private Date fNacimiento;
+	private String direccion;
+	private String tipo;
+	private Date fechaContrato;
+	private String username;
+
+	public ClienteSaveDto() {
+
 	}
 
 	public ClienteSaveDto(String tipoId, Long numeroId, String tipoIdRep, Long numeroIdRep, String nombreCompleto,
@@ -198,5 +198,4 @@ public class ClienteSaveDto {
 		this.username = username;
 	}
 
-	
 }

@@ -24,7 +24,6 @@ public class Cliente {
 	@EmbeddedId
 	private ClienteId id;
 
-	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
 	@JoinColumns({ @JoinColumn(name = "K_TIPO_ID_REP", referencedColumnName = "K_TIPO_ID", nullable = false),
 			@JoinColumn(name = "K_ID_NUMERO_REP", referencedColumnName = "K_NUMERO_ID", nullable = false) })
@@ -81,14 +80,14 @@ public class Cliente {
 	@Column(name = "F_NACIMIENTO", nullable = false)
 	private Date fNacimiento;
 
-    @Size(max = 200)
-    
-    @Column(name = "O_DIRECCION", nullable = false, length = 200)
-    private String direccion;
-    
-    @Size(max = 100)
-    @Column(name = "N_USERNAME", nullable = false, length = 100)
-    private String username;
+	@Size(max = 200)
+
+	@Column(name = "O_DIRECCION", nullable = false, length = 200)
+	private String direccion;
+
+	@Size(max = 100)
+	@Column(name = "N_USERNAME", nullable = false, length = 100)
+	private String username;
 
 	public Cliente() {
 
@@ -228,7 +227,7 @@ public class Cliente {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-	
+
 	public String getUsername() {
 		return username;
 	}
@@ -236,7 +235,5 @@ public class Cliente {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
-	
 
 }

@@ -19,7 +19,7 @@ public class RepresentanteService {
 
 	@PersistenceContext
 	public EntityManager entityManager;
-	
+
 	final private CustomQueryExecutor ddlExecutor;
 
 	final private RepresentanteRepository representanteRepository;
@@ -32,8 +32,11 @@ public class RepresentanteService {
 	public RepresentanteDto getRepresentanteDto(RepresentanteVentaId representanteVentaId) {
 		Optional<RepresentanteVentas> representante = representanteRepository.findById(representanteVentaId);
 		RepresentanteDto representanteDto = null;
-		if(representante.isPresent())
-			representanteDto = new RepresentanteDto(new RepresentanteVentaId(representante.get().getId().getkTipoId(), representante.get().getId().getkNumeroId()), representante.get().getNombreCompleto(), representante.get().getApellidoCompleto());
+		if (representante.isPresent())
+			representanteDto = new RepresentanteDto(
+					new RepresentanteVentaId(representante.get().getId().getkTipoId(),
+							representante.get().getId().getkNumeroId()),
+					representante.get().getNombreCompleto(), representante.get().getApellidoCompleto());
 		return representanteDto;
 	}
 
@@ -41,26 +44,27 @@ public class RepresentanteService {
 		Optional<RepresentanteVentas> representante = representanteRepository.findById(representanteVentaId);
 		return representante;
 	}
-	
 
-
-	public RepresentanteDto getRepresentantePorUserYPass(String username, String password) {	
-		Optional<RepresentanteVentas> representante = representanteRepository.findByUsernameAndPassword(username, password);
-		RepresentanteDto representanteDto = null;	
-		if(representante.isPresent())
-			representanteDto = new RepresentanteDto(new RepresentanteVentaId(representante.get().getId().getkTipoId(), representante.get().getId().getkNumeroId()),representante.get().getNombreCompleto(), representante.get().getApellidoCompleto());
+	public RepresentanteDto getRepresentantePorUserYPass(String username, String password) {
+		Optional<RepresentanteVentas> representante = representanteRepository.findByUsernameAndPassword(username,
+				password);
+		RepresentanteDto representanteDto = null;
+		if (representante.isPresent())
+			representanteDto = new RepresentanteDto(
+					new RepresentanteVentaId(representante.get().getId().getkTipoId(),
+							representante.get().getId().getkNumeroId()),
+					representante.get().getNombreCompleto(), representante.get().getApellidoCompleto());
 		return representanteDto;
-		
-	}
 
+	}
 
 	public void save(RepresentanteVentas representante) {
 		representanteRepository.save(representante);
-		if(representante.getTipo().equalsIgnoreCase("MASTER")) {
+		if (representante.getTipo().equalsIgnoreCase("MASTER")) {
 			ddlExecutor.executeRepresentanteMasterCreation(representante.getUsername(), representante.getPassword());
-		}else {
+		} else {
 			ddlExecutor.executeRepresentanteCreation(representante.getUsername(), representante.getPassword());
-		}	
+		}
 	}
 
 	public List<RepresentanteVentas> findByregionAndTipo(String nombreRegion, String rango) {
@@ -75,5 +79,4 @@ public class RepresentanteService {
 		return representanteRepository.findAll();
 	}
 
-	
 }

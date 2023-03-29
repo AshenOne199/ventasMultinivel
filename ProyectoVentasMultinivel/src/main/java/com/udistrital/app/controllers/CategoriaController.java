@@ -25,7 +25,7 @@ public class CategoriaController {
 	public List<CategoriaDto> getAllCategorias() {
 		return categoriaService.findAll();
 	}
-	
+
 	@GetMapping("/categorias/{idRegion}")
 	public List<CategoriaDto> getAllCategoriasPorRegion(@PathVariable(name = "idRegion") Short idRegion) {
 		return categoriaService.getCategoriasPorRegion(idRegion);

@@ -26,19 +26,20 @@ public class LoginController {
 	}
 
 	@GetMapping("/getUsuario")
-    public ResponseEntity<VistaUsers> getUsuario(@RequestParam String username, @RequestParam String pass) {
+	public ResponseEntity<VistaUsers> getUsuario(@RequestParam String username, @RequestParam String pass) {
 		Optional<VistaUsers> usuario = userService.findByUsernamAndPassword(username, pass);
-		if(usuario.isPresent()) {
+		if (usuario.isPresent()) {
 			return ResponseEntity.ok(usuario.get());
 		}
 		return ResponseEntity.notFound().build();
-    }
+	}
 
 	@PostMapping("/database")
-	public Map<String, String> updateDatabaseCredentials(@RequestParam String username, @RequestParam String password) throws IOException {
+	public Map<String, String> updateDatabaseCredentials(@RequestParam String username, @RequestParam String password)
+			throws IOException {
 		return userService.updateDatasource(username, password);
 	}
-	
+
 	@PostMapping("/database/logout")
 	public Map<String, String> setDefaultDatabaseCredentials() throws IOException {
 		return userService.updateDatasource("U_CONNECTION", "pass");

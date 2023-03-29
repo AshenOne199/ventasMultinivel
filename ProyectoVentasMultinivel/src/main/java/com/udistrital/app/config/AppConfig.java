@@ -17,15 +17,15 @@ public class AppConfig {
 	@Value("${database.password}")
 	private String password;
 
-    @Bean
-    DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
-        dataSource.setUrl("jdbc:oracle:thin:@localhost:1521/dbmultinivel");
-        dataSource.setUsername(username);
-        dataSource.setPassword(password);
+	@Bean
+	DataSource dataSource() {
+		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
+		dataSource.setUrl("jdbc:oracle:thin:@localhost:1521/dbmultinivel");
+		dataSource.setUsername(username);
+		dataSource.setPassword(password);
 
-        return dataSource;
-    }
+		return dataSource;
+	}
 
 }

@@ -5,7 +5,7 @@ import com.udistrital.app.entity.RepresentanteVentaId;
 public class RepresentanteDto {
 
 	private RepresentanteVentaId id;
-	
+
 	private String nombreCompleto;
 
 	private String apellidoCompleto;
@@ -45,6 +45,4 @@ public class RepresentanteDto {
 		this.apellidoCompleto = apellidoCompleto;
 	}
 
-	
-	
 }

@@ -17,30 +17,32 @@ import com.udistrital.app.repository.ClienteRepository;
 public class ClienteService {
 
 	final private CustomQueryExecutor ddlExecutor;
-	
+
 	final private ClienteRepository clienteRepository;
 
 	public ClienteService(ClienteRepository clienteRepository, CustomQueryExecutor ddlExecutor) {
 		this.clienteRepository = clienteRepository;
 		this.ddlExecutor = ddlExecutor;
 	}
-	
-	public ClienteDto getClienteLogin(String username, String password){
+
+	public ClienteDto getClienteLogin(String username, String password) {
 		Optional<Cliente> cliente = clienteRepository.findByUsernameAndPassword(username, password);
 		ClienteDto clienteDto = new ClienteDto();
-		if(cliente.isPresent()) {
+		if (cliente.isPresent()) {
 			clienteDto.setId(cliente.get().getId());
 			clienteDto.setNombreCompleto(cliente.get().getNombreCompleto());
 			clienteDto.setApellidoCompleto(cliente.get().getApellidoCompleto());
-		}		
+		}
 		return clienteDto;
 	}
 
 	public List<ClienteDto> findAll() {
 		List<Cliente> clientes = clienteRepository.findAll();
 		List<ClienteDto> clientesDto = new ArrayList<>();
-		for(Cliente cliente : clientes) {
-			ClienteDto clienteDto = new ClienteDto( new ClienteId(cliente.getId().getkTipoId(), cliente.getId().getkNumeroId()), cliente.getNombreCompleto(), cliente.getApellidoCompleto());
+		for (Cliente cliente : clientes) {
+			ClienteDto clienteDto = new ClienteDto(
+					new ClienteId(cliente.getId().getkTipoId(), cliente.getId().getkNumeroId()),
+					cliente.getNombreCompleto(), cliente.getApellidoCompleto());
 			clientesDto.add(clienteDto);
 		}
 		return clientesDto;
@@ -50,8 +52,10 @@ public class ClienteService {
 	public ClienteDto findByTipoIdAndId(ClienteId clienteId) {
 		Optional<Cliente> cliente = clienteRepository.findById(clienteId);
 		ClienteDto clienteDto = new ClienteDto();
-		if(cliente.isPresent()) {
-			clienteDto = new ClienteDto(new ClienteId(cliente.get().getId().getkTipoId(), cliente.get().getId().getkNumeroId()), cliente.get().getNombreCompleto(), cliente.get().getApellidoCompleto());
+		if (cliente.isPresent()) {
+			clienteDto = new ClienteDto(
+					new ClienteId(cliente.get().getId().getkTipoId(), cliente.get().getId().getkNumeroId()),
+					cliente.get().getNombreCompleto(), cliente.get().getApellidoCompleto());
 		}
 		return clienteDto;
 	}
@@ -64,8 +68,5 @@ public class ClienteService {
 	public void updateActualRV(ClienteId clienteId, RepresentanteVentaId representanteVentaId) {
 		clienteRepository.updateRV(clienteId, representanteVentaId);
 	}
-
-	
-	
 
 }

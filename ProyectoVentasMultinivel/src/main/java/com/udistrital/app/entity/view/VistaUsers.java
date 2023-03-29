@@ -21,7 +21,7 @@ public class VistaUsers {
 
 	@Column(name = "I_ESTADO")
 	private String estado;
-	
+
 	@Column(name = "ROL")
 	private String rol;
 
@@ -68,7 +68,5 @@ public class VistaUsers {
 	public void setRol(String rol) {
 		this.rol = rol;
 	}
-	
-	
 
 }

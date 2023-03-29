@@ -7,21 +7,21 @@ import jakarta.validation.constraints.Size;
 @Embeddable
 public class OrdenId {
 
-    @Column(name = "K_IDORDEN", nullable = false)
-    private Integer idOrden;
+	@Column(name = "K_IDORDEN", nullable = false)
+	private Integer idOrden;
 
-    @Column(name = "K_IDPRODUCTO", nullable = false)
-    private Short idProducto;
- 
-    @Column(name = "K_IDREGION", nullable = false)
-    private Short idRegion;
+	@Column(name = "K_IDPRODUCTO", nullable = false)
+	private Short idProducto;
 
-    @Size(max = 5)
-    @Column(name = "K_TIPO_ID", nullable = false, length = 5)
-    private String tipoId;
+	@Column(name = "K_IDREGION", nullable = false)
+	private Short idRegion;
 
-    @Column(name = "K_NUMERO_ID", nullable = false)
-    private Long numeroId;
+	@Size(max = 5)
+	@Column(name = "K_TIPO_ID", nullable = false, length = 5)
+	private String tipoId;
+
+	@Column(name = "K_NUMERO_ID", nullable = false)
+	private Long numeroId;
 
 	public OrdenId(Integer idOrden, Short idProducto, Short idRegion, @Size(max = 5) String tipoId, Long numeroId) {
 		super();
@@ -71,7 +71,5 @@ public class OrdenId {
 	public void setNumeroId(Long numeroId) {
 		this.numeroId = numeroId;
 	}
-    
-    
-	
+
 }
