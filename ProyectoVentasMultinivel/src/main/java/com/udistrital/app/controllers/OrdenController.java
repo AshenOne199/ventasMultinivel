@@ -13,9 +13,18 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.udistrital.app.entity.Cliente;
+import com.udistrital.app.entity.ClienteId;
+import com.udistrital.app.entity.Inventario;
+import com.udistrital.app.entity.InventarioId;
 import com.udistrital.app.entity.Orden;
 import com.udistrital.app.entity.OrdenId;
+import com.udistrital.app.entity.Periodo;
+import com.udistrital.app.entity.dto.OrdenSaveDto;
+import com.udistrital.app.repository.ClienteRepository;
+import com.udistrital.app.repository.InventarioRepository;
 import com.udistrital.app.repository.OrdenRepository;
+import com.udistrital.app.repository.PeriodoRepository;
 import com.udistrital.app.services.OrdenService;
 
 @RestController
@@ -24,14 +33,40 @@ public class OrdenController {
 
 	private final OrdenRepository ordenRepository;
 	private final OrdenService ordenService;
+	private final InventarioRepository inventarioRepository;
+	private final ClienteRepository clienteRepository;
+	private final PeriodoRepository periodoRepository;
 
-	public OrdenController(OrdenRepository ordenRepository, OrdenService ordenService) {
+	public OrdenController(OrdenRepository ordenRepository, OrdenService ordenService, InventarioRepository inventarioRepository, ClienteRepository clienteRepository, PeriodoRepository periodoRepository) {
 		this.ordenRepository = ordenRepository;
 		this.ordenService = ordenService;
+		this.inventarioRepository = inventarioRepository;
+		this.clienteRepository = clienteRepository;
+		this.periodoRepository = periodoRepository;
 	}
 
 	@PostMapping("/nuevaOrden")
-	public ResponseEntity<Orden> saveNuevaOrden(@RequestBody Orden orden) {
+	public ResponseEntity<Orden> saveNuevaOrden(@RequestBody OrdenSaveDto o) {
+		
+		OrdenId ordenId = new OrdenId(o.getIdOrden(), o.getIdProducto(), o.getIdRegion(), o.getTipoId(), o.getNumeroId());
+		
+		InventarioId inventarioId = new InventarioId(o.getIdProductoInv(), o.getIdRegionInv());
+		
+		Optional<Inventario> inventario = inventarioRepository.findById(inventarioId);
+			
+		ClienteId clienteId =  new ClienteId(o.getTipoIdCliente(), o.getNumeroIdCliente());
+		
+		Optional<Cliente> cliente = clienteRepository.findById(clienteId);
+		
+		Optional<Periodo> periodo = periodoRepository.findById(o.getIdPeriodo());
+		
+		ClienteId clienteIdCalifica =  new ClienteId(o.getTipoIdClienteCal(), o.getNumeroIdClienteCal());
+		
+		Optional<Cliente> clienteCalifica = clienteRepository.findById(clienteIdCalifica);
+		
+		Orden orden = new Orden(ordenId, inventario.get(), cliente.get(), periodo.get(), o.getFechaRegistro(), o.getEstado(), clienteCalifica.get(), o.getCalificacion(), o.getCantidad(), o.getTipoIdRep(), o.getNumeroIdRep());
+		
+		
 		return new ResponseEntity<Orden>(ordenRepository.save(orden), HttpStatus.CREATED);
 	}
 

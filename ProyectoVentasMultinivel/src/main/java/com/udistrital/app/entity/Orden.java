@@ -1,6 +1,6 @@
 package com.udistrital.app.entity;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -44,7 +44,7 @@ public class Orden {
 	private Periodo idPeriodo;
 
 	@Column(name = "F_FECHAREGISTRO")
-	private LocalDate fechaRegistro;
+	private Date fechaRegistro;
 
 	@Size(max = 100)
 	@NotNull
@@ -75,9 +75,9 @@ public class Orden {
 
 	}
 
-	public Orden(OrdenId id, Inventario inventario, Cliente cliente, @NotNull Periodo idPeriodo,
-			LocalDate fechaRegistro, @Size(max = 100) @NotNull String estado, Cliente clienteCalifica,
-			Short calificacion, @NotNull Short cantidad, @Size(max = 3) String tipoIdRep, Long numeroIdRep) {
+	public Orden(OrdenId id, Inventario inventario, Cliente cliente, @NotNull Periodo idPeriodo, Date fechaRegistro,
+			@Size(max = 100) @NotNull String estado, Cliente clienteCalifica, Short calificacion,
+			@NotNull Short cantidad, @Size(max = 3) String tipoIdRep, Long numeroIdRep) {
 		super();
 		this.id = id;
 		this.inventario = inventario;
@@ -124,11 +124,11 @@ public class Orden {
 		this.idPeriodo = idPeriodo;
 	}
 
-	public LocalDate getFechaRegistro() {
+	public Date getFechaRegistro() {
 		return fechaRegistro;
 	}
 
-	public void setFechaRegistro(LocalDate fechaRegistro) {
+	public void setFechaRegistro(Date fechaRegistro) {
 		this.fechaRegistro = fechaRegistro;
 	}
 
@@ -180,4 +180,5 @@ public class Orden {
 		this.numeroIdRep = numeroIdRep;
 	}
 
+	
 }
