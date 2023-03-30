@@ -58,18 +58,18 @@ public class OrdenController {
 			
 		ClienteId clienteId =  new ClienteId(o.getTipoIdCliente(), o.getNumeroIdCliente());
 		Optional<Cliente> cliente = clienteRepository.findById(clienteId);
-		if(inventario.isEmpty()) {
+		if(cliente.isEmpty()) {
 			System.out.println("NO EXISTE CLIENTE");
 		}
 		
 		Optional<Periodo> periodo = periodoRepository.findById(o.getIdPeriodo());
-		if(inventario.isEmpty()) {
+		if(periodo.isEmpty()) {
 			System.out.println("NO EXISTE PERIODO");
 		}
 		
 		ClienteId clienteIdCalifica =  new ClienteId(o.getTipoIdClienteCal(), o.getNumeroIdClienteCal());
 		Optional<Cliente> clienteCalifica = clienteRepository.findById(clienteIdCalifica);
-		if(inventario.isEmpty()) {
+		if(clienteCalifica.isEmpty()) {
 			System.out.println("NO EXISTE CLIENTE_CALIFICA");
 		}
 		
