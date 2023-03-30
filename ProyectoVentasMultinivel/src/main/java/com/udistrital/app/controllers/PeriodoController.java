@@ -26,8 +26,8 @@ public class PeriodoController {
 	}
 	
 	@GetMapping("/periodo/ultimo/{idPeriodo}")
-	public Periodo getPeriodoUltimo(@PathVariable("idPeriodo") String idPeriodo) {
-		return periodoRepository.getUltimoPeriodo(idPeriodo);
+	public String getPeriodoUltimo(@PathVariable("idPeriodo") String idPeriodo) {
+		return periodoRepository.getUltimoPeriodo(idPeriodo).getId();
 	}
 
 }
