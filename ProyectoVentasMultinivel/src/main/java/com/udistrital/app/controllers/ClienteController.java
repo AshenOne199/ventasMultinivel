@@ -74,7 +74,9 @@ public class ClienteController {
 	@GetMapping("/cliente/representante/{id}/{tipoId}")
 	public ResponseEntity<RepresentanteVentas> getRepresentanteActual(@PathVariable Long id,
 			@PathVariable String tipoId) {
-		RepresentanteVentaId representanteVentaId = new RepresentanteVentaId(tipoId, id);
+		ClienteId clienteId = new ClienteId(tipoId, id);
+		Cliente cliente = clienteService.findByTipoIdAndIdEntity(clienteId);
+		RepresentanteVentaId representanteVentaId = new RepresentanteVentaId(cliente.getTipoIdRep(), cliente.getIdRep());
 		Optional<RepresentanteVentas> representante = representanteService.getRepresentante(representanteVentaId);
 		return new ResponseEntity<RepresentanteVentas>(representante.get(), HttpStatus.OK);
 	}
