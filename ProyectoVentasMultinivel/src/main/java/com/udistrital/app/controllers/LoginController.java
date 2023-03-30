@@ -41,7 +41,7 @@ public class LoginController {
 	
 	@PostMapping("/database/logout")
 	public Map<String, String> setDefaultDatabaseCredentials() throws IOException {
-		return userService.updateDatasource("U_CONNECTION", "pass");
+		return userService.updateDatasource("U_ADMIN", "pass");
 	}
 
 }
