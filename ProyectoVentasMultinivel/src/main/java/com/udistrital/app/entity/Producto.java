@@ -32,6 +32,19 @@ public class Producto {
 	@Column(name = "N_URLIMAGEN", nullable = false, length = 200)
 	private String urlImagen;
 
+	public Producto() {
+		
+	}
+	
+	public Producto(Short id, @NotNull Categoria idCategoria, @Size(max = 100) @NotNull String nombre,
+			@Size(max = 200) @NotNull String urlImagen) {
+		super();
+		this.id = id;
+		this.idCategoria = idCategoria;
+		this.nombre = nombre;
+		this.urlImagen = urlImagen;
+	}
+
 	public Short getId() {
 		return id;
 	}

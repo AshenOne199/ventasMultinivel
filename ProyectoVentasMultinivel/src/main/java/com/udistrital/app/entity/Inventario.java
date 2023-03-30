@@ -36,6 +36,24 @@ public class Inventario {
 	@Column(name = "V_PRECIOPRODUCTO", nullable = false, precision = 10, scale = 2)
 	private BigDecimal precioProducto;
 
+	public Inventario() {
+		
+	}
+	
+	
+	
+	public Inventario(InventarioId id, Producto idProducto, Region idRegion, @NotNull Short stock,
+			@NotNull BigDecimal precioProducto) {
+		super();
+		this.id = id;
+		this.idProducto = idProducto;
+		this.idRegion = idRegion;
+		this.stock = stock;
+		this.precioProducto = precioProducto;
+	}
+
+
+
 	public InventarioId getId() {
 		return id;
 	}

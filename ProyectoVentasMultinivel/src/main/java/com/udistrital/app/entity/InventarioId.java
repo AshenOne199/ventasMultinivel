@@ -34,6 +34,14 @@ public class InventarioId implements Serializable {
 	public int hashCode() {
 		return Objects.hash(idProducto, idRegion);
 	}
+	
+	
+
+	public InventarioId(@NotNull Short idProducto, @NotNull Short idRegion) {
+		super();
+		this.idProducto = idProducto;
+		this.idRegion = idRegion;
+	}
 
 	public Short getkIdproducto() {
 		return idProducto;

@@ -35,6 +35,17 @@ public class Categoria {
 	@Column(name = "N_NOMBRE", nullable = false, length = 100)
 	private String nombre;
 
+	public Categoria() {
+		
+	}
+	
+	public Categoria(Short id, Short idSubcategoria, @Size(max = 100) @NotNull String nombre) {
+		super();
+		this.id = id;
+		this.idSubcategoria = idSubcategoria;
+		this.nombre = nombre;
+	}
+
 	public Short getId() {
 		return id;
 	}
