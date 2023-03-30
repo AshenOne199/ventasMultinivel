@@ -19,6 +19,7 @@ public class RegionDto {
 	}
 
 	public Short getIdRegion() {
+		
 		return idRegion;
 	}
 
