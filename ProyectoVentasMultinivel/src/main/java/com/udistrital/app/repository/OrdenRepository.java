@@ -24,4 +24,9 @@ public interface OrdenRepository extends JpaRepository<Orden, OrdenId> {
 
 	List<Orden> findByid_idOrdenAndEstado(Integer idOrden, String estado);
 
+	@Transactional
+	@Modifying
+	@Query("update Orden o set o.cantidad = ?1 where o.id = ?2")
+	void updateCantidad(Short cantidad, OrdenId id);
+
 }
