@@ -51,6 +51,7 @@ public class Orden {
 	@Column(name = "I_ESTADO", nullable = false, length = 100)
 	private String estado;
 
+	@JsonIgnore
 	@MapsId("id")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(name = "K_TIPO_ID_CALIF", referencedColumnName = "K_TIPO_ID"),

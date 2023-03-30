@@ -18,12 +18,12 @@ public class Inventario {
 	@EmbeddedId
 	private InventarioId id;
 
-	@MapsId("idProducto")
+	@MapsId("id")
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "K_IDPRODUCTO", nullable = false)
 	private Producto idProducto;
 
-	@MapsId("idRegion")
+	@MapsId("id")
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "K_IDREGION", nullable = false)
 	private Region idRegion;
