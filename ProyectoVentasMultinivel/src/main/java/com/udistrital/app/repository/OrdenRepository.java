@@ -1,5 +1,7 @@
 package com.udistrital.app.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -19,5 +21,7 @@ public interface OrdenRepository extends JpaRepository<Orden, OrdenId> {
 	@Modifying
 	@Query("update Orden o set o.calificacion = ?1 where o.id = ?2")
 	void updateCalificacion(Short calificacion, OrdenId id);
+
+	List<Orden> findByid_idOrdenAndEstado(Integer idOrden, String estado);
 
 }
