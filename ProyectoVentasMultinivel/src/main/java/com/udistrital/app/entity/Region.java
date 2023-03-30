@@ -26,10 +26,11 @@ public class Region {
 	@NotNull
 	@Column(name = "N_NOMBRE", nullable = false, length = 50)
 	private String nombre;
-	
-	public Region() {
-	}
 
+	public Region() {
+		
+	}
+	
 	public Region(Short id, @NotNull Pais idPais, @Size(max = 50) @NotNull String nombre) {
 		super();
 		this.id = id;

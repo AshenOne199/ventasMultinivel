@@ -99,7 +99,11 @@ public class OrdenId implements Serializable{
 	public void setNumeroId(Long numeroId) {
 		this.numeroId = numeroId;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "OrdenId [idOrden=" + idOrden + ", idProducto=" + idProducto + ", idRegion=" + idRegion + ", tipoId="
+				+ tipoId + ", numeroId=" + numeroId + "]";
+	}
 
 }

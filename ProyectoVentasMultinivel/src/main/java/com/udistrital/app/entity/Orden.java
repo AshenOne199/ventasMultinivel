@@ -51,7 +51,7 @@ public class Orden {
 	@Column(name = "I_ESTADO", nullable = false, length = 100)
 	private String estado;
 
-
+	@MapsId("id")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(name = "K_TIPO_ID_CALIF", referencedColumnName = "K_TIPO_ID"),
 			@JoinColumn(name = "K_NUMERO_ID_CALIF", referencedColumnName = "K_NUMERO_ID") })
@@ -178,6 +178,14 @@ public class Orden {
 
 	public void setNumeroIdRep(Long numeroIdRep) {
 		this.numeroIdRep = numeroIdRep;
+	}
+
+	@Override
+	public String toString() {
+		return "Orden [id=" + id.toString() + ", inventario=" + inventario + ", cliente=" + cliente + ", idPeriodo=" + idPeriodo
+				+ ", fechaRegistro=" + fechaRegistro + ", estado=" + estado + ", clienteCalifica=" + clienteCalifica
+				+ ", calificacion=" + calificacion + ", cantidad=" + cantidad + ", tipoIdRep=" + tipoIdRep
+				+ ", numeroIdRep=" + numeroIdRep + "]";
 	}
 
 	
