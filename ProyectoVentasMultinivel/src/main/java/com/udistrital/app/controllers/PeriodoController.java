@@ -25,9 +25,9 @@ public class PeriodoController {
 		return periodoRepository.findAll();
 	}
 	
-	@GetMapping("/periodo/ultimo/{idPeriodo}")
-	public String getPeriodoUltimo(@PathVariable("idPeriodo") String idPeriodo) {
-		return periodoRepository.getUltimoPeriodo(idPeriodo).getId();
+	@GetMapping("/periodo/ultimo")
+	public Periodo getPeriodoUltimo() {
+		return periodoRepository.getUltimoPeriodo();
 	}
 
 }

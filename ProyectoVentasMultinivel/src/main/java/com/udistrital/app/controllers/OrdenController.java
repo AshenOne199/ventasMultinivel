@@ -59,5 +59,11 @@ public class OrdenController {
 		List<Orden> ordenesEnCarrito = ordenService.findByid_idOrdenAndEstado(idOrden, "EN PROCESO");
 		return ResponseEntity.ok(ordenesEnCarrito);
 	}
+	
+	@PutMapping("/orden/cantidad/{cantidad}")
+	public ResponseEntity<Optional<Orden>> setCantidad(@PathVariable Short cantidad, @RequestBody OrdenId id) {
+		ordenRepository.updateCantidad(cantidad, id);
+		return ResponseEntity.ok().build();
+	}
 
 }
