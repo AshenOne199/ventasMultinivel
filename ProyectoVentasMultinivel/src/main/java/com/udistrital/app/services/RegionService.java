@@ -20,9 +20,9 @@ public class RegionService {
 
 	public List<Region> getRegiones() {
 		
-		List<Region> regiones = regionRepository.findAll();
+		List<Region> regionesAll = regionRepository.findAll();
 		
-		return regiones;
+		return regionesAll;
 	}
 
 }
