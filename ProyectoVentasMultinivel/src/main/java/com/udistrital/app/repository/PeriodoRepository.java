@@ -12,7 +12,7 @@ import com.udistrital.app.entity.dto.CategoriaDto;
 
 public interface PeriodoRepository extends JpaRepository<Periodo, String> {
 
-	@Query(nativeQuery = true, value = "SELECT * FROM PERIODO WHERE K_IDPERIODO = :idPeriodo")
-	public Periodo getUltimoPeriodo(@Param("idPeriodo") String idPeriodo);
+	@Query(nativeQuery = true, value = "SELECT DISTINCT * FROM PERIODO WHERE F_FECHAFIN=(SELECT MAX(F_FECHAFIN) FROM PERIODO)")
+	public Periodo getUltimoPeriodo();
 	
 }
