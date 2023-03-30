@@ -12,6 +12,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -24,6 +25,7 @@ public class Cliente {
 	@EmbeddedId
 	private ClienteId id;
 
+	@MapsId("id")
 	@ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
 	@JoinColumns({ @JoinColumn(name = "K_TIPO_ID_REP", referencedColumnName = "K_TIPO_ID", nullable = false),
 			@JoinColumn(name = "K_ID_NUMERO_REP", referencedColumnName = "K_NUMERO_ID", nullable = false) })

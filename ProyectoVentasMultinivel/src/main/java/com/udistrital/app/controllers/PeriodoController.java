@@ -1,6 +1,7 @@
 package com.udistrital.app.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,11 @@ public class PeriodoController {
 	@GetMapping("/periodo/ultimo")
 	public Periodo getPeriodoUltimo() {
 		return periodoRepository.getUltimoPeriodo();
+	}
+	
+	@GetMapping("/periodo/{periodo}")
+	public Optional<Periodo> getPeriodos(@PathVariable String periodo) {
+		return periodoRepository.findById(periodo);
 	}
 
 }
