@@ -2,6 +2,11 @@ package com.udistrital.app.entity.dto;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+
 public class OrdenSaveDto {
 	
 	private Integer idOrden;
@@ -18,6 +23,8 @@ public class OrdenSaveDto {
 	
 	private String idPeriodo;
 	
+	@Temporal(TemporalType.DATE)
+	@JsonFormat(pattern = "dd/MM/yy")
 	private Date fechaRegistro;
 	
 	private String estado;

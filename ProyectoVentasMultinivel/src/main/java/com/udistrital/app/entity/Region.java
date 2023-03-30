@@ -27,6 +27,17 @@ public class Region {
 	@Column(name = "N_NOMBRE", nullable = false, length = 50)
 	private String nombre;
 
+	public Region() {
+		
+	}
+	
+	public Region(Short id, @NotNull Pais idPais, @Size(max = 50) @NotNull String nombre) {
+		super();
+		this.id = id;
+		this.idPais = idPais;
+		this.nombre = nombre;
+	}
+
 	public Short getId() {
 		return id;
 	}

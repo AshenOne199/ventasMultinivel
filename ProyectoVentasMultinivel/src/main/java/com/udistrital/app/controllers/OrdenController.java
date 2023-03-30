@@ -51,18 +51,27 @@ public class OrdenController {
 		OrdenId ordenId = new OrdenId(o.getIdOrden(), o.getIdProducto(), o.getIdRegion(), o.getTipoId(), o.getNumeroId());
 		
 		InventarioId inventarioId = new InventarioId(o.getIdProductoInv(), o.getIdRegionInv());
-		
 		Optional<Inventario> inventario = inventarioRepository.findById(inventarioId);
+		if(inventario.isEmpty()) {
+			System.out.println("NO EXISTE INVENTARIO");
+		}
 			
 		ClienteId clienteId =  new ClienteId(o.getTipoIdCliente(), o.getNumeroIdCliente());
-		
 		Optional<Cliente> cliente = clienteRepository.findById(clienteId);
+		if(inventario.isEmpty()) {
+			System.out.println("NO EXISTE CLIENTE");
+		}
 		
 		Optional<Periodo> periodo = periodoRepository.findById(o.getIdPeriodo());
+		if(inventario.isEmpty()) {
+			System.out.println("NO EXISTE PERIODO");
+		}
 		
 		ClienteId clienteIdCalifica =  new ClienteId(o.getTipoIdClienteCal(), o.getNumeroIdClienteCal());
-		
 		Optional<Cliente> clienteCalifica = clienteRepository.findById(clienteIdCalifica);
+		if(inventario.isEmpty()) {
+			System.out.println("NO EXISTE CLIENTE_CALIFICA");
+		}
 		
 		Orden orden = new Orden(ordenId, inventario.get(), cliente.get(), periodo.get(), o.getFechaRegistro(), o.getEstado(), clienteCalifica.get(), o.getCalificacion(), o.getCantidad(), o.getTipoIdRep(), o.getNumeroIdRep());
 		
