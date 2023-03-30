@@ -45,9 +45,10 @@ public class OrdenController {
 	}
 	
 	@GetMapping("/orden/maxima")
-	public ResponseEntity<List<Orden>> getPrimeraOrden() {
+	public ResponseEntity<Orden> getPrimeraOrden() {
 		List<Orden> ordenes = ordenRepository.findAll();
-		return ResponseEntity.ok(ordenes);
+		Optional<Orden> ordenMaxima = ordenes.stream().reduce((first, second) -> second);
+		return ResponseEntity.ok(ordenMaxima.get());
 	}
 
 }
