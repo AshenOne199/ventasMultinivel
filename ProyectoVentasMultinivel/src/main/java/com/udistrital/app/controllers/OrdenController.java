@@ -16,15 +16,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.udistrital.app.entity.Orden;
 import com.udistrital.app.entity.OrdenId;
 import com.udistrital.app.repository.OrdenRepository;
+import com.udistrital.app.services.OrdenService;
 
 @RestController
 @CrossOrigin
 public class OrdenController {
 
 	private final OrdenRepository ordenRepository;
+	private final OrdenService ordenService;
 
-	public OrdenController(OrdenRepository ordenRepository) {
+	public OrdenController(OrdenRepository ordenRepository, OrdenService ordenService) {
 		this.ordenRepository = ordenRepository;
+		this.ordenService = ordenService;
 	}
 
 	@PostMapping("/nuevaOrden")
@@ -49,6 +52,12 @@ public class OrdenController {
 		List<Orden> ordenes = ordenRepository.findAll();
 		Optional<Orden> ordenMaxima = ordenes.stream().reduce((first, second) -> second);
 		return ResponseEntity.ok(ordenMaxima.get());
+	}
+	
+	@GetMapping("/orden/enCarrito/{idOrden}")
+	public ResponseEntity<List<Orden>> getAllOrdenesCarrito(@PathVariable Integer idOrden){
+		List<Orden> ordenesEnCarrito = ordenService.findByid_idOrdenAndEstado(idOrden, "EN PROCESO");
+		return ResponseEntity.ok(ordenesEnCarrito);
 	}
 
 }
