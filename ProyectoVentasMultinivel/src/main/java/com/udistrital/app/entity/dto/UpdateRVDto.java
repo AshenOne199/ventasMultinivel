@@ -4,12 +4,12 @@ public class UpdateRVDto {
 
 	private String tipoIdCliente;
 	private Long idCliente;
-	
+
 	private String tipoIdRV;
 	private Long idRV;
-	
+
 	public UpdateRVDto() {
-		
+
 	}
 
 	public UpdateRVDto(String tipoIdCliente, Long idCliente, String tipoIdRV, Long idRV) {
@@ -51,6 +51,5 @@ public class UpdateRVDto {
 	public void setIdRV(Long idRV) {
 		this.idRV = idRV;
 	}
-	
-	
+
 }

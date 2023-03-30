@@ -22,7 +22,6 @@ public class CategoriaService {
 		return categoriaRepository.findAllCategoriasPorRegion(idRegion);
 	}
 
-
 	public List<CategoriaDto> findAll() {
 		List<Categoria> categorias = categoriaRepository.findAll();
 		List<CategoriaDto> categoriasDto = new ArrayList<>();

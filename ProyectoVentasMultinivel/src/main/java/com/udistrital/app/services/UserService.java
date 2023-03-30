@@ -16,9 +16,7 @@ import com.udistrital.app.repository.UsersRepository;
 @Service
 public class UserService {
 
-final private UsersRepository userRepository;
-	
-	
+	final private UsersRepository userRepository;
 
 	@Value("${database.username}")
 	private String username;
@@ -35,7 +33,7 @@ final private UsersRepository userRepository;
 	}
 
 	public Map<String, String> updateDatasource(String newUsername, String newPassword) throws IOException {
-		
+
 		Properties properties = new Properties();
 		try {
 			properties.load(new FileInputStream("src/main/resources/application.properties"));
@@ -50,6 +48,5 @@ final private UsersRepository userRepository;
 			return Map.of("connection", "failed");
 		}
 	}
-	
 
 }

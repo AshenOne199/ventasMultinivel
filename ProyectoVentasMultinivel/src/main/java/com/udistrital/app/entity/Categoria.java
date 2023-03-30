@@ -1,12 +1,24 @@
 package com.udistrital.app.entity;
 
+import com.udistrital.app.entity.dto.CategoriaDto;
+
 import jakarta.persistence.Column;
+import jakarta.persistence.ColumnResult;
+import jakarta.persistence.ConstructorResult;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedNativeQuery;
+import jakarta.persistence.SqlResultSetMapping;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+@SqlResultSetMapping(name = "CategoryResult", classes = {
+		@ConstructorResult(targetClass = CategoriaDto.class, columns = { @ColumnResult(name = "K_IDCATEGORIA"),
+				@ColumnResult(name = "N_NOMBRE") }) })
+
+@NamedNativeQuery(name = "CategoryResult", resultClass = CategoriaDto.class, resultSetMapping = "CategoryResult", query = "SELECT DISTINCT C.K_IDCATEGORIA, C.N_NOMBRE FROM Categoria C, Region R, Inventario I, Producto P WHERE R.K_IDREGION = :idRegion AND C.K_IDSUBCATEGORIA IS NULL OR (SELECT DISTINCT CS.K_IDSUBCATEGORIA FROM CATEGORIA CS WHERE CS.K_IDSUBCATEGORIA=C.K_IDCATEGORIA AND P.K_IDCATEGORIA = CS.K_IDCATEGORIA AND I.K_IDPRODUCTO = P.K_IDPRODUCTO AND R.K_IDREGION = I.K_IDREGION AND R.K_IDREGION = :idRegion)=C.K_IDCATEGORIA AND R.K_IDREGION = I.K_IDREGION AND I.K_IDPRODUCTO = P.K_IDPRODUCTO AND P.K_IDCATEGORIA = C.K_IDCATEGORIA ORDER BY C.K_IDCATEGORIA"
+		+ "")
 @Entity
 @Table(name = "CATEGORIA")
 public class Categoria {
