@@ -63,7 +63,7 @@ public class ClienteController {
 		RepresentanteVentaId representanteVentaId = new RepresentanteVentaId(c.getTipoIdRep(), c.getNumeroIdRep());
 		Optional<RepresentanteVentas> representante = representanteService.getRepresentante(representanteVentaId);
 		ClienteId clienteId = new ClienteId(c.getTipoId(), c.getNumeroId());
-		Cliente cliente = new Cliente(clienteId, representante.get(), c.getTipoId(), c.getNumeroId(),
+		Cliente cliente = new Cliente(clienteId, representante.get(), c.getTipoIdRep(), c.getNumeroIdRep(),
 				c.getNombreCompleto(), c.getApellidoCompleto(), c.getFechaCreacion(), c.getEmail(), c.getTelefono(),
 				c.getCiudad(), c.getGenero(), c.getPassword(), c.getfNacimiento(), c.getDireccion(), c.getUsername());
 		clienteService.save(cliente);
@@ -76,7 +76,7 @@ public class ClienteController {
 			@PathVariable String tipoId) {
 		ClienteId clienteId = new ClienteId(tipoId, id);
 		Cliente cliente = clienteService.findByTipoIdAndIdEntity(clienteId);
-		RepresentanteVentaId representanteVentaId = new RepresentanteVentaId(cliente.getTipoIdRep(), cliente.getIdRep());
+		RepresentanteVentaId representanteVentaId = new RepresentanteVentaId(cliente.getRepresentanteVentas().getId().getkTipoId(), cliente.getRepresentanteVentas().getId().getkNumeroId());
 		Optional<RepresentanteVentas> representante = representanteService.getRepresentante(representanteVentaId);
 		return new ResponseEntity<RepresentanteVentas>(representante.get(), HttpStatus.OK);
 	}
