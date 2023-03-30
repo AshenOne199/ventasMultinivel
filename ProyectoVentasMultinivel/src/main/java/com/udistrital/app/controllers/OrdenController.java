@@ -1,10 +1,12 @@
 package com.udistrital.app.controllers;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -40,6 +42,13 @@ public class OrdenController {
 	public ResponseEntity<Optional<Orden>> setCalificacion(@PathVariable Short calificacion, @RequestBody OrdenId id) {
 		ordenRepository.updateCalificacion(calificacion, id);
 		return ResponseEntity.ok().build();
+	}
+	
+	@GetMapping("/orden/maxima")
+	public ResponseEntity<Orden> getPrimeraOrden() {
+		List<Orden> ordenes = ordenRepository.findAll();
+		Optional<Orden> ordenMaxima = ordenes.stream().reduce((first, second) -> second);
+		return ResponseEntity.ok(ordenMaxima.get());
 	}
 
 }

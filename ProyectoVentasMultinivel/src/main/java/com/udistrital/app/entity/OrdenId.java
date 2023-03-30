@@ -1,11 +1,16 @@
 package com.udistrital.app.entity;
 
+import java.io.Serializable;
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.Size;
 
 @Embeddable
-public class OrdenId {
+public class OrdenId implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	@Column(name = "K_IDORDEN", nullable = false)
 	private Integer idOrden;
@@ -22,6 +27,29 @@ public class OrdenId {
 
 	@Column(name = "K_NUMERO_ID", nullable = false)
 	private Long numeroId;
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(idOrden, idProducto, idRegion, numeroId, tipoId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		OrdenId other = (OrdenId) obj;
+		return Objects.equals(idOrden, other.idOrden) && Objects.equals(idProducto, other.idProducto)
+				&& Objects.equals(idRegion, other.idRegion) && Objects.equals(numeroId, other.numeroId)
+				&& Objects.equals(tipoId, other.tipoId);
+	}
+
+	public OrdenId() {
+		
+	}
 
 	public OrdenId(Integer idOrden, Short idProducto, Short idRegion, @Size(max = 5) String tipoId, Long numeroId) {
 		super();
@@ -71,5 +99,7 @@ public class OrdenId {
 	public void setNumeroId(Long numeroId) {
 		this.numeroId = numeroId;
 	}
+	
+	
 
 }
