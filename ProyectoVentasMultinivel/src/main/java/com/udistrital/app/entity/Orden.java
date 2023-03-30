@@ -23,21 +23,20 @@ public class Orden {
 	@EmbeddedId
 	private OrdenId id;
 
-	@JsonIgnore
 	@MapsId("id")
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumns({ @JoinColumn(name = "K_IDPRODUCTO", referencedColumnName = "K_IDPRODUCTO", nullable = false),
 			@JoinColumn(name = "K_IDREGION", referencedColumnName = "K_IDREGION", nullable = false) })
 	private Inventario inventario;
 
-	@JsonIgnore
+
 	@MapsId("id")
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumns({ @JoinColumn(name = "K_TIPO_ID", referencedColumnName = "K_TIPO_ID", nullable = false),
 			@JoinColumn(name = "K_NUMERO_ID", referencedColumnName = "K_NUMERO_ID", nullable = false) })
 	private Cliente cliente;
 
-	@JsonIgnore
+
 	@MapsId("id")
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -52,7 +51,7 @@ public class Orden {
 	@Column(name = "I_ESTADO", nullable = false, length = 100)
 	private String estado;
 
-	@JsonIgnore
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(name = "K_TIPO_ID_CALIF", referencedColumnName = "K_TIPO_ID"),
 			@JoinColumn(name = "K_NUMERO_ID_CALIF", referencedColumnName = "K_NUMERO_ID") })
