@@ -62,10 +62,12 @@ public class ClienteController {
 	public ResponseEntity<Cliente> save(@RequestBody ClienteSaveDto c) {
 		RepresentanteVentaId representanteVentaId = new RepresentanteVentaId(c.getTipoIdRep(), c.getNumeroIdRep());
 		Optional<RepresentanteVentas> representante = representanteService.getRepresentante(representanteVentaId);
+		System.out.println(representante.toString());
 		ClienteId clienteId = new ClienteId(c.getTipoId(), c.getNumeroId());
 		Cliente cliente = new Cliente(clienteId, representante.get(), c.getTipoIdRep(), c.getNumeroIdRep(),
 				c.getNombreCompleto(), c.getApellidoCompleto(), c.getFechaCreacion(), c.getEmail(), c.getTelefono(),
 				c.getCiudad(), c.getGenero(), c.getPassword(), c.getfNacimiento(), c.getDireccion(), c.getUsername());
+		System.out.println(cliente.toString());
 		clienteService.save(cliente);
 
 		return new ResponseEntity<>(HttpStatus.CREATED);
