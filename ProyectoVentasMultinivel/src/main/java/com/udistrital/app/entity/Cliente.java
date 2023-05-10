@@ -3,6 +3,7 @@ package com.udistrital.app.entity;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -12,7 +13,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -25,7 +25,7 @@ public class Cliente {
 	@EmbeddedId
 	private ClienteId id;
 
-	@MapsId("id")
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
 	@JoinColumns({ @JoinColumn(name = "K_TIPO_ID_REP", referencedColumnName = "K_TIPO_ID", nullable = false),
 			@JoinColumn(name = "K_ID_NUMERO_REP", referencedColumnName = "K_NUMERO_ID", nullable = false) })
@@ -238,4 +238,22 @@ public class Cliente {
 		this.username = username;
 	}
 
+	@Override
+	public String toString() {
+		return "Cliente [id=" + id.toString() + ", representanteVentas=" + representanteVentas.toString() + ", tipoIdRep=" + tipoIdRep
+				+ ", idRep=" + idRep + ", nombreCompleto=" + nombreCompleto + ", apellidoCompleto=" + apellidoCompleto
+				+ ", fechaCreacion=" + fechaCreacion + ", email=" + email + ", telefono=" + telefono + ", ciudad="
+				+ ciudad + ", genero=" + genero + ", password=" + password + ", fNacimiento=" + fNacimiento
+				+ ", direccion=" + direccion + ", username=" + username + ", getId()=" + getId()
+				+ ", getRepresentanteVentas()=" + getRepresentanteVentas() + ", getTipoIdRep()=" + getTipoIdRep()
+				+ ", getIdRep()=" + getIdRep() + ", getNombreCompleto()=" + getNombreCompleto()
+				+ ", getApellidoCompleto()=" + getApellidoCompleto() + ", getFechaCreacion()=" + getFechaCreacion()
+				+ ", getEmail()=" + getEmail() + ", getTelefono()=" + getTelefono() + ", getCiudad()=" + getCiudad()
+				+ ", getGenero()=" + getGenero() + ", getPassword()=" + getPassword() + ", getfNacimiento()="
+				+ getfNacimiento() + ", getDireccion()=" + getDireccion() + ", getUsername()=" + getUsername()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+				+ "]";
+	}
+
+	
 }

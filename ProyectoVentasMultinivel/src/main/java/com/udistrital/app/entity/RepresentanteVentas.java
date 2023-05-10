@@ -244,4 +244,14 @@ public class RepresentanteVentas {
 		this.estado = estado;
 	}
 
+	@Override
+	public String toString() {
+		return "RepresentanteVentas [id=" + id.toString() + ", representanteVentas=" + representanteVentas + ", nombreCompleto="
+				+ nombreCompleto + ", apellidoCompleto=" + apellidoCompleto + ", fechaCreacion=" + fechaCreacion
+				+ ", email=" + email + ", telefono=" + telefono + ", region=" + region + ", genero=" + genero
+				+ ", password=" + password + ", fNacimiento=" + fNacimiento + ", direccion=" + direccion + ", tipo="
+				+ tipo + ", fechaContrato=" + fechaContrato + ", username=" + username + ", estado=" + estado + "]";
+	}
+
+	
 }

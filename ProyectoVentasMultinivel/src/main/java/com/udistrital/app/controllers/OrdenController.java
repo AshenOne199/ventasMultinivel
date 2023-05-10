@@ -53,6 +53,8 @@ public class OrdenController {
 
 	@PostMapping("/nuevaOrden")
 	public ResponseEntity<Orden> saveNuevaOrden(@RequestBody OrdenSaveDto o) {
+		
+		System.out.println(o.toString());
 
 		OrdenId ordenId = new OrdenId(o.getIdOrden(), o.getIdProducto(), o.getIdRegion(), o.getTipoId(),
 				o.getNumeroId());

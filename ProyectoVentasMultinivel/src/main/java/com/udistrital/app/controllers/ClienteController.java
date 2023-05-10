@@ -61,6 +61,7 @@ public class ClienteController {
 	@PostMapping("/cliente/save")
 	public ResponseEntity<Cliente> save(@RequestBody ClienteSaveDto c) {
 		RepresentanteVentaId representanteVentaId = new RepresentanteVentaId(c.getTipoIdRep(), c.getNumeroIdRep());
+		System.out.println(representanteVentaId.toString());
 		Optional<RepresentanteVentas> representante = representanteService.getRepresentante(representanteVentaId);
 		System.out.println(representante.toString());
 		ClienteId clienteId = new ClienteId(c.getTipoId(), c.getNumeroId());
