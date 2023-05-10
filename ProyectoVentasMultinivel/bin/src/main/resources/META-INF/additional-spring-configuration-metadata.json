@@ -1,0 +1,22 @@
+{"properties": [
+  {
+    "name": "database.password",
+    "type": "java.lang.String",
+    "description": "A description for 'database.password'"
+  },
+  {
+    "name": "database.password",
+    "type": "java.lang.String",
+    "description": "A description for 'database.password'"
+  },
+  {
+    "name": "database.password",
+    "type": "java.lang.String",
+    "description": "A description for 'database.password'"
+  },
+  {
+    "name": "database.username.config",
+    "type": "java.lang.String",
+    "description": "A description for 'database.username.config'"
+  }
+]}
