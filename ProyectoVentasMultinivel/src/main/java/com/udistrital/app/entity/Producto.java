@@ -35,9 +35,9 @@ public class Producto {
 	private String urlImagen;
 
 	public Producto() {
-		
+
 	}
-	
+
 	public Producto(Short id, @NotNull Categoria idCategoria, @Size(max = 100) @NotNull String nombre,
 			@Size(max = 200) @NotNull String urlImagen) {
 		super();

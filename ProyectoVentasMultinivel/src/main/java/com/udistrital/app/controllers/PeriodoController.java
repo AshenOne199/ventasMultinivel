@@ -25,12 +25,12 @@ public class PeriodoController {
 	public List<Periodo> getPeriodos() {
 		return periodoRepository.findAll();
 	}
-	
+
 	@GetMapping("/periodo/ultimo")
 	public Periodo getPeriodoUltimo() {
 		return periodoRepository.getUltimoPeriodo();
 	}
-	
+
 	@GetMapping("/periodo/{periodo}")
 	public Optional<Periodo> getPeriodos(@PathVariable String periodo) {
 		return periodoRepository.findById(periodo);

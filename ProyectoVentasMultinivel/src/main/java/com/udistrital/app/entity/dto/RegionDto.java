@@ -5,7 +5,6 @@ public class RegionDto {
 	private Short idRegion;
 	private String nombrePais;
 	private String nombreRegion;
-	
 
 	public RegionDto() {
 
@@ -19,7 +18,7 @@ public class RegionDto {
 	}
 
 	public Short getIdRegion() {
-		
+
 		return idRegion;
 	}
 

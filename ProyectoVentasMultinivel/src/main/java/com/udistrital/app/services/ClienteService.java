@@ -48,8 +48,7 @@ public class ClienteService {
 		return clientesDto;
 
 	}
-	
-	
+
 	public Cliente findByTipoIdAndIdEntity(ClienteId clienteId) {
 		Optional<Cliente> cliente = clienteRepository.findById(clienteId);
 		return cliente.get();

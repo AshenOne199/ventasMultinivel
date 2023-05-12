@@ -29,13 +29,11 @@ public class Orden {
 			@JoinColumn(name = "K_IDREGION", referencedColumnName = "K_IDREGION", nullable = false) })
 	private Inventario inventario;
 
-
 	@MapsId("id")
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumns({ @JoinColumn(name = "K_TIPO_ID", referencedColumnName = "K_TIPO_ID", nullable = false),
 			@JoinColumn(name = "K_NUMERO_ID", referencedColumnName = "K_NUMERO_ID", nullable = false) })
 	private Cliente cliente;
-
 
 	@MapsId("id")
 	@NotNull
@@ -183,11 +181,10 @@ public class Orden {
 
 	@Override
 	public String toString() {
-		return "Orden [id=" + id.toString() + ", inventario=" + inventario + ", cliente=" + cliente + ", idPeriodo=" + idPeriodo
-				+ ", fechaRegistro=" + fechaRegistro + ", estado=" + estado + ", clienteCalifica=" + clienteCalifica
-				+ ", calificacion=" + calificacion + ", cantidad=" + cantidad + ", tipoIdRep=" + tipoIdRep
-				+ ", numeroIdRep=" + numeroIdRep + "]";
+		return "Orden [id=" + id.toString() + ", inventario=" + inventario + ", cliente=" + cliente + ", idPeriodo="
+				+ idPeriodo + ", fechaRegistro=" + fechaRegistro + ", estado=" + estado + ", clienteCalifica="
+				+ clienteCalifica + ", calificacion=" + calificacion + ", cantidad=" + cantidad + ", tipoIdRep="
+				+ tipoIdRep + ", numeroIdRep=" + numeroIdRep + "]";
 	}
 
-	
 }

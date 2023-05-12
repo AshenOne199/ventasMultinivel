@@ -240,13 +240,13 @@ public class Cliente {
 
 	@Override
 	public String toString() {
-		return "Cliente [id=" + id.toString() + ", representanteVentas=" + representanteVentas.toString() + ", tipoIdRep=" + tipoIdRep
-				+ ", idRep=" + idRep + ", nombreCompleto=" + nombreCompleto + ", apellidoCompleto=" + apellidoCompleto
-				+ ", fechaCreacion=" + fechaCreacion + ", email=" + email + ", telefono=" + telefono + ", ciudad="
-				+ ciudad + ", genero=" + genero + ", password=" + password + ", fNacimiento=" + fNacimiento
-				+ ", direccion=" + direccion + ", username=" + username + ", getId()=" + getId()
-				+ ", getRepresentanteVentas()=" + getRepresentanteVentas() + ", getTipoIdRep()=" + getTipoIdRep()
-				+ ", getIdRep()=" + getIdRep() + ", getNombreCompleto()=" + getNombreCompleto()
+		return "Cliente [id=" + id.toString() + ", representanteVentas=" + representanteVentas.toString()
+				+ ", tipoIdRep=" + tipoIdRep + ", idRep=" + idRep + ", nombreCompleto=" + nombreCompleto
+				+ ", apellidoCompleto=" + apellidoCompleto + ", fechaCreacion=" + fechaCreacion + ", email=" + email
+				+ ", telefono=" + telefono + ", ciudad=" + ciudad + ", genero=" + genero + ", password=" + password
+				+ ", fNacimiento=" + fNacimiento + ", direccion=" + direccion + ", username=" + username + ", getId()="
+				+ getId() + ", getRepresentanteVentas()=" + getRepresentanteVentas() + ", getTipoIdRep()="
+				+ getTipoIdRep() + ", getIdRep()=" + getIdRep() + ", getNombreCompleto()=" + getNombreCompleto()
 				+ ", getApellidoCompleto()=" + getApellidoCompleto() + ", getFechaCreacion()=" + getFechaCreacion()
 				+ ", getEmail()=" + getEmail() + ", getTelefono()=" + getTelefono() + ", getCiudad()=" + getCiudad()
 				+ ", getGenero()=" + getGenero() + ", getPassword()=" + getPassword() + ", getfNacimiento()="
@@ -255,5 +255,4 @@ public class Cliente {
 				+ "]";
 	}
 
-	
 }

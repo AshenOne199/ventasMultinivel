@@ -13,7 +13,12 @@ public class CustomQueryExecutor {
 	private EntityManagerFactory entityManagerFactory;
 
 	public void executeClientCreation(String username, String password) {
-		String createUserDdlStatement = "CREATE USER " + username + " IDENTIFIED BY " + password;
+		String tablespaceName = "";
+		String tmpTableSpaceName = "";
+		String quota = "";
+		String createUserDdlStatement = "CREATE USER " + username + " IDENTIFIED BY " + password + " DEFAULT TABLESPACE "
+				+ tablespaceName + " TEMPORARY TABLESPACE " + tmpTableSpaceName + " QUOTA "+ quota + " ON " + tablespaceName
+				+ " PASSWORD EXPIRE";
 		String grantUserRoleDclStatement = "GRANT R_CLIENTE TO " + username;
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
@@ -26,7 +31,12 @@ public class CustomQueryExecutor {
 	}
 
 	public void executeRepresentanteCreation(String username, String password) {
-		String createUserDdlStatement = "CREATE USER " + username + " IDENTIFIED BY " + password;
+		String tablespaceName = "";
+		String tmpTableSpaceName = "";
+		String quota = "";
+		String createUserDdlStatement = "CREATE USER " + username + " IDENTIFIED BY " + password + " DEFAULT TABLESPACE "
+				+ tablespaceName + " TEMPORARY TABLESPACE " + tmpTableSpaceName + " QUOTA "+ quota + " ON " + tablespaceName
+				+ " PASSWORD EXPIRE";
 		String grantUserRoleDclStatement = "GRANT R_REPRESENTANTE TO " + username;
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
@@ -39,7 +49,13 @@ public class CustomQueryExecutor {
 	}
 
 	public void executeRepresentanteMasterCreation(String username, String password) {
-		String createUserDdlStatement = "CREATE USER " + username + " IDENTIFIED BY " + password;
+		String tablespaceName = "";
+		String tmpTableSpaceName = "";
+		String quota = "";
+		String createUserDdlStatement = "CREATE USER " + username + " IDENTIFIED BY " + password + " DEFAULT TABLESPACE "
+				+ tablespaceName + " TEMPORARY TABLESPACE " + tmpTableSpaceName + " QUOTA "+ quota +" ON " + tablespaceName
+				+ " PASSWORD EXPIRE";
+
 		String grantUserRoleDclStatement = "GRANT R_MASTER TO " + username;
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();

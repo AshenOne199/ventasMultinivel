@@ -79,7 +79,9 @@ public class ClienteController {
 			@PathVariable String tipoId) {
 		ClienteId clienteId = new ClienteId(tipoId, id);
 		Cliente cliente = clienteService.findByTipoIdAndIdEntity(clienteId);
-		RepresentanteVentaId representanteVentaId = new RepresentanteVentaId(cliente.getRepresentanteVentas().getId().getkTipoId(), cliente.getRepresentanteVentas().getId().getkNumeroId());
+		RepresentanteVentaId representanteVentaId = new RepresentanteVentaId(
+				cliente.getRepresentanteVentas().getId().getkTipoId(),
+				cliente.getRepresentanteVentas().getId().getkNumeroId());
 		Optional<RepresentanteVentas> representante = representanteService.getRepresentante(representanteVentaId);
 		return new ResponseEntity<RepresentanteVentas>(representante.get(), HttpStatus.OK);
 	}

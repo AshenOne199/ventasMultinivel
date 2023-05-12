@@ -37,11 +37,9 @@ public class Inventario {
 	private BigDecimal precioProducto;
 
 	public Inventario() {
-		
+
 	}
-	
-	
-	
+
 	public Inventario(InventarioId id, Producto idProducto, Region idRegion, @NotNull Short stock,
 			@NotNull BigDecimal precioProducto) {
 		super();
@@ -51,8 +49,6 @@ public class Inventario {
 		this.stock = stock;
 		this.precioProducto = precioProducto;
 	}
-
-
 
 	public InventarioId getId() {
 		return id;

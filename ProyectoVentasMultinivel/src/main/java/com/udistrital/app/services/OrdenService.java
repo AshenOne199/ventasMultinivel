@@ -9,7 +9,7 @@ import com.udistrital.app.repository.OrdenRepository;
 
 @Service
 public class OrdenService {
-	
+
 	private final OrdenRepository ordenRepository;
 
 	public OrdenService(OrdenRepository ordenRepository) {
@@ -20,8 +20,5 @@ public class OrdenService {
 
 		return ordenRepository.findByid_idOrdenAndEstado(idOrden, estado);
 	}
-	
-
-	
 
 }

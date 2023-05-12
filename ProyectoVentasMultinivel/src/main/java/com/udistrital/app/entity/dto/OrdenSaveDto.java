@@ -8,40 +8,40 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 public class OrdenSaveDto {
-	
+
 	private Integer idOrden;
 	private Short idProducto;
 	private Short idRegion;
 	private String tipoId;
 	private Long numeroId;
-	
+
 	private Short idProductoInv;
 	private Short idRegionInv;
-	
+
 	private String tipoIdCliente;
 	private Long numeroIdCliente;
-	
+
 	private String idPeriodo;
-	
+
 	@Temporal(TemporalType.DATE)
 	@JsonFormat(pattern = "dd/MM/yy")
 	private Date fechaRegistro;
-	
+
 	private String estado;
-	
+
 	private String tipoIdClienteCal;
 	private Long numeroIdClienteCal;
-	
+
 	private Short calificacion;
-	
+
 	private Short cantidad;
 
 	private String tipoIdRep;
 
 	private Long numeroIdRep;
-	
+
 	public OrdenSaveDto() {
-		
+
 	}
 
 	public OrdenSaveDto(Integer idOrden, Short idProducto, Short idRegion, String tipoId, Long numeroId,
@@ -213,5 +213,4 @@ public class OrdenSaveDto {
 		this.numeroIdRep = numeroIdRep;
 	}
 
-	
 }

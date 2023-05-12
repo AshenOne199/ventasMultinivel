@@ -8,7 +8,7 @@ import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.Size;
 
 @Embeddable
-public class OrdenId implements Serializable{
+public class OrdenId implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -27,7 +27,7 @@ public class OrdenId implements Serializable{
 
 	@Column(name = "K_NUMERO_ID", nullable = false)
 	private Long numeroId;
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(idOrden, idProducto, idRegion, numeroId, tipoId);
@@ -48,7 +48,7 @@ public class OrdenId implements Serializable{
 	}
 
 	public OrdenId() {
-		
+
 	}
 
 	public OrdenId(Integer idOrden, Short idProducto, Short idRegion, @Size(max = 5) String tipoId, Long numeroId) {

@@ -30,9 +30,9 @@ public class Region {
 	private String nombre;
 
 	public Region() {
-		
+
 	}
-	
+
 	public Region(Short id, @NotNull Pais idPais, @Size(max = 50) @NotNull String nombre) {
 		super();
 		this.id = id;

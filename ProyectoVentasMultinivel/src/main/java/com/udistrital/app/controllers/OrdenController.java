@@ -3,7 +3,6 @@ package com.udistrital.app.controllers;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,7 +52,7 @@ public class OrdenController {
 
 	@PostMapping("/nuevaOrden")
 	public ResponseEntity<Orden> saveNuevaOrden(@RequestBody OrdenSaveDto o) {
-		
+
 		System.out.println(o.toString());
 
 		OrdenId ordenId = new OrdenId(o.getIdOrden(), o.getIdProducto(), o.getIdRegion(), o.getTipoId(),
@@ -87,17 +86,19 @@ public class OrdenController {
 				o.getNumeroIdRep());
 
 		someUpdate(o);
-		
+
 		return ResponseEntity.ok().build();
 	}
 
-	@Transactional 
+	@Transactional
 	public int someUpdate(OrdenSaveDto o) {
-		
+
 		String sql = "INSERT INTO orden (k_idorden, k_idproducto, k_idregion, k_idperiodo, f_fecharegistro, i_estado, k_tipo_id, k_numero_id, k_tipo_id_calif, k_numero_id_calif, q_calificacion, q_cantidad, i_tipo_id_rep, q_numero_id_rep) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		
-	    return jdbcTemplate.update(sql, o.getIdOrden(), o.getIdProducto(), o.getIdRegion(), o.getIdPeriodo(), o.getFechaRegistro(), o.getEstado(), o.getTipoId(), o.getNumeroId(), o.getTipoIdClienteCal(), o.getNumeroIdClienteCal(), o.getCalificacion(), o.getCantidad(), o.getTipoIdRep(), o.getNumeroIdRep());
+
+		return jdbcTemplate.update(sql, o.getIdOrden(), o.getIdProducto(), o.getIdRegion(), o.getIdPeriodo(),
+				o.getFechaRegistro(), o.getEstado(), o.getTipoId(), o.getNumeroId(), o.getTipoIdClienteCal(),
+				o.getNumeroIdClienteCal(), o.getCalificacion(), o.getCantidad(), o.getTipoIdRep(), o.getNumeroIdRep());
 	}
 
 	@PutMapping("/orden/estado/{estado}")

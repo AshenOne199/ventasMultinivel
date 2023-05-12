@@ -36,9 +36,9 @@ public class Categoria {
 	private String nombre;
 
 	public Categoria() {
-		
+
 	}
-	
+
 	public Categoria(Short id, Short idSubcategoria, @Size(max = 100) @NotNull String nombre) {
 		super();
 		this.id = id;
