@@ -34,16 +34,21 @@ public class Categoria {
 	@NotNull
 	@Column(name = "N_NOMBRE", nullable = false, length = 100)
 	private String nombre;
+	
+	@NotNull
+	@Column(name = "Q_IVA", nullable = false)
+	private Long iva;
 
 	public Categoria() {
 
 	}
 
-	public Categoria(Short id, Short idSubcategoria, @Size(max = 100) @NotNull String nombre) {
+	public Categoria(Short id, Short idSubcategoria, @Size(max = 100) @NotNull String nombre, @NotNull Long iva) {
 		super();
 		this.id = id;
 		this.idSubcategoria = idSubcategoria;
 		this.nombre = nombre;
+		this.iva = iva;
 	}
 
 	public Short getId() {
@@ -70,4 +75,11 @@ public class Categoria {
 		this.nombre = nNombre;
 	}
 
+	public Long getIva() {
+		return iva;
+	}
+
+	public void setIva(Long iva) {
+		this.iva = iva;
+	}
 }

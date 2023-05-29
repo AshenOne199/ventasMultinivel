@@ -26,7 +26,7 @@ public class CategoriaService {
 		List<Categoria> categorias = categoriaRepository.findAll();
 		List<CategoriaDto> categoriasDto = new ArrayList<>();
 		for (Categoria categoria : categorias) {
-			CategoriaDto categoriaDto = new CategoriaDto(categoria.getId(), categoria.getnNombre());
+			CategoriaDto categoriaDto = new CategoriaDto(categoria.getId(), categoria.getnNombre(), categoria.getIva());
 			categoriasDto.add(categoriaDto);
 		}
 		return categoriasDto;

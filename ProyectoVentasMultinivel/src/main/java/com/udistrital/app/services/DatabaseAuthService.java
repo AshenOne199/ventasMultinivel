@@ -32,7 +32,7 @@ public class DatabaseAuthService {
 		String finalMessage = null;
 
 		try {
-			String dbURL = "jdbc:oracle:thin:@localhost:1521/";
+			String dbURL = "jdbc:oracle:thin:@localhost:1521/dbmultinivel";
 			String username = newUsername;
 			String password = newPassword;
 			Connection conn = DriverManager.getConnection(dbURL, username, password);
@@ -115,7 +115,7 @@ public class DatabaseAuthService {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			Properties props = new Properties();
 
-			String dbURL = "jdbc:oracle:oci:@localhost:1521/";
+			String dbURL = "jdbc:oracle:oci:@localhost:1521/dbmultinivel";
 			props.put("user", username);
 			props.put("password", oldPassword);
 

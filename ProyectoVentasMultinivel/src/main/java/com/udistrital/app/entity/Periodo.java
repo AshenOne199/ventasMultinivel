@@ -24,6 +24,10 @@ public class Periodo {
 	@NotNull
 	@Column(name = "F_FECHAFIN", nullable = false)
 	private LocalDate fechaFin;
+	
+	@NotNull
+	@Column(name = "Q_COMISION", nullable = false, length = 50)
+	private String comision;
 
 	public String getId() {
 		return id;
@@ -33,20 +37,28 @@ public class Periodo {
 		this.id = id;
 	}
 
-	public LocalDate getfFechainicio() {
+	public LocalDate getFechaInicio() {
 		return fechaInicio;
 	}
 
-	public void setfFechainicio(LocalDate fFechainicio) {
-		this.fechaInicio = fFechainicio;
+	public void setFechaInicio(LocalDate fechaInicio) {
+		this.fechaInicio = fechaInicio;
 	}
 
-	public LocalDate getfFechafin() {
+	public LocalDate getFechaFin() {
 		return fechaFin;
 	}
 
-	public void setfFechafin(LocalDate fFechafin) {
-		this.fechaFin = fFechafin;
+	public void setFechaFin(LocalDate fechaFin) {
+		this.fechaFin = fechaFin;
+	}
+
+	public String getComision() {
+		return comision;
+	}
+
+	public void setComision(String comision) {
+		this.comision = comision;
 	}
 
 }
