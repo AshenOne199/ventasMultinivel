@@ -1,64 +1,41 @@
 package com.udistrital.app.entity;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.Hibernate;
+
 import java.io.Serializable;
 import java.util.Objects;
 
-import org.hibernate.Hibernate;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
-import jakarta.validation.constraints.NotNull;
-
+@Getter
+@Setter
 @Embeddable
 public class InventarioId implements Serializable {
-	private static final long serialVersionUID = -6877415164709982226L;
-	@NotNull
-	@Column(name = "K_IDPRODUCTO", nullable = false)
-	private Short idProducto;
+    private static final long serialVersionUID = 3995260559747321056L;
+    @NotNull
+    @Column(name = "K_IDPRODUCTO", nullable = false)
+    private Short kIdproducto;
 
-	@NotNull
-	@Column(name = "K_IDREGION", nullable = false)
-	private Short idRegion;
+    @NotNull
+    @Column(name = "K_IDREGION", nullable = false)
+    private Short kIdregion;
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o)
-			return true;
-		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o))
-			return false;
-		InventarioId entity = (InventarioId) o;
-		return Objects.equals(this.idProducto, entity.idProducto) && Objects.equals(this.idRegion, entity.idRegion);
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        InventarioId entity = (InventarioId) o;
+        return Objects.equals(this.kIdproducto, entity.kIdproducto) &&
+                Objects.equals(this.kIdregion, entity.kIdregion);
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(idProducto, idRegion);
-	}
-
-	public InventarioId() {
-
-	}
-
-	public InventarioId(@NotNull Short idProducto, @NotNull Short idRegion) {
-		super();
-		this.idProducto = idProducto;
-		this.idRegion = idRegion;
-	}
-
-	public Short getkIdproducto() {
-		return idProducto;
-	}
-
-	public void setkIdproducto(Short kIdproducto) {
-		this.idProducto = kIdproducto;
-	}
-
-	public Short getkIdregion() {
-		return idRegion;
-	}
-
-	public void setkIdregion(Short kIdregion) {
-		this.idRegion = kIdregion;
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(kIdproducto, kIdregion);
+    }
 
 }

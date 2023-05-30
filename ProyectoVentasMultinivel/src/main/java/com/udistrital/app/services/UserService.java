@@ -4,33 +4,20 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.udistrital.app.entity.view.VistaUsers;
-import com.udistrital.app.repository.UsersRepository;
-
 @Service
 public class UserService {
 
-	final private UsersRepository userRepository;
 
 	@Value("${database.username}")
 	private String username;
 
 	@Value("${database.password}")
 	private String password;
-
-	public UserService(UsersRepository userRepository) {
-		this.userRepository = userRepository;
-	}
-
-	public Optional<VistaUsers> findByUsernamAndPassword(String username, String pass) {
-		return userRepository.findByUsernameAndPassword(username, pass);
-	}
 
 	public Map<String, String> updateDatasource(String newUsername, String newPassword) throws IOException {
 

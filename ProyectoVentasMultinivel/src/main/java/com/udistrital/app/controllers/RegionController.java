@@ -20,10 +20,10 @@ public class RegionController {
 		this.regionService = regionService;
 	}
 
-	// Traer todas las regiones
-	@GetMapping("/regiones")
-	public ResponseEntity<List<RegionDto>> getRegiones() {
-		return ResponseEntity.ok(regionService.getRegiones());
-	}
+//	// Traer todas las regiones
+//	@GetMapping("/regiones")
+//	public ResponseEntity<List<RegionDto>> getRegiones() {
+//		return ResponseEntity.ok(regionService.getRegiones());
+//	}
 
 }

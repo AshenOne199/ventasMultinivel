@@ -7,64 +7,39 @@ import org.hibernate.Hibernate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
+@AllArgsConstructor
 @Embeddable
 public class RepresentanteVentaId implements Serializable {
+    private static final long serialVersionUID = -8125150056503229823L;
+    @Size(max = 3)
+    @NotNull
+    @Column(name = "K_TIPO_ID", nullable = false, length = 3)
+    private String kTipoId;
 
-	private static final long serialVersionUID = 5470956872260265407L;
+    @NotNull
+    @Column(name = "K_NUMERO_ID", nullable = false)
+    private Long kNumeroId;
 
-	@Size(max = 3)
-	@Column(name = "K_TIPO_ID", nullable = false, length = 3)
-	private String tipoId;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        RepresentanteVentaId entity = (RepresentanteVentaId) o;
+        return Objects.equals(this.kTipoId, entity.kTipoId) &&
+                Objects.equals(this.kNumeroId, entity.kNumeroId);
+    }
 
-	@Column(name = "K_NUMERO_ID", nullable = false)
-	private Long numeroId;
-
-	public RepresentanteVentaId() {
-
-	}
-
-	public RepresentanteVentaId(@Size(max = 3) String tipoId, Long numeroId) {
-		super();
-		this.tipoId = tipoId;
-		this.numeroId = numeroId;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o)
-			return true;
-		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o))
-			return false;
-		RepresentanteVentaId entity = (RepresentanteVentaId) o;
-		return Objects.equals(this.tipoId, entity.tipoId) && Objects.equals(this.numeroId, entity.numeroId);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(tipoId, numeroId);
-	}
-
-	public String getkTipoId() {
-		return tipoId;
-	}
-
-	public void setkTipoId(String kTipoId) {
-		this.tipoId = kTipoId;
-	}
-
-	public Long getkNumeroId() {
-		return numeroId;
-	}
-
-	public void setkNumeroId(Long kNumeroId) {
-		this.numeroId = kNumeroId;
-	}
-
-	@Override
-	public String toString() {
-		return "RepresentanteVentaId [tipoId=" + tipoId + ", numeroId=" + numeroId + "]";
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(kTipoId, kNumeroId);
+    }
 
 }

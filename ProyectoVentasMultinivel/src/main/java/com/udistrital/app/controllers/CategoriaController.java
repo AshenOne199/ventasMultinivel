@@ -21,11 +21,10 @@ public class CategoriaController {
 		this.categoriaService = categoriaService;
 	}
 
-	@GetMapping("/categorias")
-	public List<CategoriaDto> getAllCategorias() {
-		return categoriaService.findAll();
-		
-	}
+//	@GetMapping("/categorias")
+//	public List<CategoriaDto> getAllCategorias() {
+//		return categoriaService.findAll();
+//	}
 
 	@GetMapping("/categorias/{idRegion}")
 	public List<CategoriaDto> getAllCategoriasPorRegion(@PathVariable(name = "idRegion") Short idRegion) {

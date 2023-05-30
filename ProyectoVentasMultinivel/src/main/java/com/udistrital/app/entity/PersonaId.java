@@ -1,24 +1,22 @@
 package com.udistrital.app.entity;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.Hibernate;
+
 import java.io.Serializable;
 import java.util.Objects;
 
-import org.hibernate.Hibernate;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-
 @Getter
 @Setter
-@AllArgsConstructor
 @Embeddable
-public class ClienteId implements Serializable {
-    private static final long serialVersionUID = 789389564724503516L;
+public class PersonaId implements Serializable {
+    private static final long serialVersionUID = -2714467248349022237L;
     @Size(max = 3)
     @NotNull
     @Column(name = "K_TIPO_ID", nullable = false, length = 3)
@@ -32,7 +30,7 @@ public class ClienteId implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        ClienteId entity = (ClienteId) o;
+        PersonaId entity = (PersonaId) o;
         return Objects.equals(this.kTipoId, entity.kTipoId) &&
                 Objects.equals(this.kNumeroId, entity.kNumeroId);
     }

@@ -50,45 +50,45 @@ public class OrdenController {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-	@PostMapping("/nuevaOrden")
-	public ResponseEntity<Orden> saveNuevaOrden(@RequestBody OrdenSaveDto o) {
-
-		System.out.println(o.toString());
-
-		OrdenId ordenId = new OrdenId(o.getIdOrden(), o.getIdProducto(), o.getIdRegion(), o.getTipoId(),
-				o.getNumeroId());
-
-		InventarioId inventarioId = new InventarioId(o.getIdProductoInv(), o.getIdRegionInv());
-		Optional<Inventario> inventario = inventarioRepository.findById(inventarioId);
-		if (inventario.isEmpty()) {
-			System.out.println("NO EXISTE INVENTARIO");
-		}
-
-		ClienteId clienteId = new ClienteId(o.getTipoIdCliente(), o.getNumeroIdCliente());
-		Optional<Cliente> cliente = clienteRepository.findById(clienteId);
-		if (cliente.isEmpty()) {
-			System.out.println("NO EXISTE CLIENTE");
-		}
-
-		Optional<Periodo> periodo = periodoRepository.findById(o.getIdPeriodo());
-		if (periodo.isEmpty()) {
-			System.out.println("NO EXISTE PERIODO");
-		}
-
-		ClienteId clienteIdCalifica = new ClienteId(o.getTipoIdClienteCal(), o.getNumeroIdClienteCal());
-		Optional<Cliente> clienteCalifica = clienteRepository.findById(clienteIdCalifica);
-		if (clienteCalifica.isEmpty()) {
-			System.out.println("NO EXISTE CLIENTE_CALIFICA");
-		}
-
-		Orden orden = new Orden(ordenId, inventario.get(), cliente.get(), periodo.get(), o.getFechaRegistro(),
-				o.getEstado(), clienteCalifica.get(), o.getCalificacion(), o.getCantidad(), o.getTipoIdRep(),
-				o.getNumeroIdRep());
-
-		someUpdate(o);
-
-		return ResponseEntity.ok().build();
-	}
+//	@PostMapping("/nuevaOrden")
+//	public ResponseEntity<Orden> saveNuevaOrden(@RequestBody OrdenSaveDto o) {
+//
+//		System.out.println(o.toString());
+//
+//		OrdenId ordenId = new OrdenId(o.getIdOrden(), o.getIdProducto(), o.getIdRegion(), o.getTipoId(),
+//				o.getNumeroId());
+//
+//		InventarioId inventarioId = new InventarioId(o.getIdProductoInv(), o.getIdRegionInv());
+//		Optional<Inventario> inventario = inventarioRepository.findById(inventarioId);
+//		if (inventario.isEmpty()) {
+//			System.out.println("NO EXISTE INVENTARIO");
+//		}
+//
+//		ClienteId clienteId = new ClienteId(o.getTipoIdCliente(), o.getNumeroIdCliente());
+//		Optional<Cliente> cliente = clienteRepository.findById(clienteId);
+//		if (cliente.isEmpty()) {
+//			System.out.println("NO EXISTE CLIENTE");
+//		}
+//
+//		Optional<Periodo> periodo = periodoRepository.findById(o.getIdPeriodo());
+//		if (periodo.isEmpty()) {
+//			System.out.println("NO EXISTE PERIODO");
+//		}
+//
+//		ClienteId clienteIdCalifica = new ClienteId(o.getTipoIdClienteCal(), o.getNumeroIdClienteCal());
+//		Optional<Cliente> clienteCalifica = clienteRepository.findById(clienteIdCalifica);
+//		if (clienteCalifica.isEmpty()) {
+//			System.out.println("NO EXISTE CLIENTE_CALIFICA");
+//		}
+//
+//		Orden orden = new Orden(ordenId, inventario.get(), cliente.get(), periodo.get(), o.getFechaRegistro(),
+//				o.getEstado(), clienteCalifica.get(), o.getCalificacion(), o.getCantidad(), o.getTipoIdRep(),
+//				o.getNumeroIdRep());
+//
+//		someUpdate(o);
+//
+//		return ResponseEntity.ok().build();
+//	}
 
 	@Transactional
 	public int someUpdate(OrdenSaveDto o) {

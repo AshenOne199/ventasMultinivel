@@ -1,64 +1,37 @@
 package com.udistrital.app.entity;
 
-import java.time.LocalDate;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "PERIODO")
 public class Periodo {
-	@Id
-	@Size(max = 50)
-	@Column(name = "K_IDPERIODO", nullable = false, length = 50)
-	private String id;
+    @Id
+    @Size(max = 50)
+    @Column(name = "K_IDPERIODO", nullable = false, length = 50)
+    private String kIdperiodo;
 
-	@NotNull
-	@Column(name = "F_FECHAINICIO", nullable = false)
-	private LocalDate fechaInicio;
+    @NotNull
+    @Column(name = "F_FECHAINICIO", nullable = false)
+    private LocalDate fFechainicio;
 
-	@NotNull
-	@Column(name = "F_FECHAFIN", nullable = false)
-	private LocalDate fechaFin;
-	
-	@NotNull
-	@Column(name = "Q_COMISION", nullable = false, length = 50)
-	private String comision;
+    @NotNull
+    @Column(name = "F_FECHAFIN", nullable = false)
+    private LocalDate fFechafin;
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public LocalDate getFechaInicio() {
-		return fechaInicio;
-	}
-
-	public void setFechaInicio(LocalDate fechaInicio) {
-		this.fechaInicio = fechaInicio;
-	}
-
-	public LocalDate getFechaFin() {
-		return fechaFin;
-	}
-
-	public void setFechaFin(LocalDate fechaFin) {
-		this.fechaFin = fechaFin;
-	}
-
-	public String getComision() {
-		return comision;
-	}
-
-	public void setComision(String comision) {
-		this.comision = comision;
-	}
+    @NotNull
+    @Column(name = "Q_COMISION", nullable = false, precision = 4, scale = 2)
+    private BigDecimal qComision;
 
 }

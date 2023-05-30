@@ -29,44 +29,44 @@ public class RepresentanteController {
 	}
 
 	// Traer representante dado un id
-	@GetMapping("/representante_por_id/{id}/{tipoId}")
-	public ResponseEntity<RepresentanteDto> getRepresentante(@PathVariable Long id, @PathVariable String tipoId) {
-		RepresentanteVentaId representanteVentaId = new RepresentanteVentaId(tipoId, id);
-		RepresentanteDto representanteDto = representanteService.getRepresentanteDto(representanteVentaId);
-		return new ResponseEntity<RepresentanteDto>(representanteDto, HttpStatus.OK);
-	}
+//	@GetMapping("/representante_por_id/{id}/{tipoId}")
+//	public ResponseEntity<RepresentanteDto> getRepresentante(@PathVariable Long id, @PathVariable String tipoId) {
+//		RepresentanteVentaId representanteVentaId = new RepresentanteVentaId(tipoId, id);
+//		RepresentanteDto representanteDto = representanteService.getRepresentanteDto(representanteVentaId);
+//		return new ResponseEntity<RepresentanteDto>(representanteDto, HttpStatus.OK);
+//	}
+//
+//	@GetMapping("/representante/{username}/{password}")
+//	public ResponseEntity<RepresentanteDto> getRepresentantePorUsernameYPassword(@PathVariable String username,
+//			@PathVariable String password) {
+//		RepresentanteDto representante = representanteService.getRepresentantePorUserYPass(username, password);
+//		return new ResponseEntity<RepresentanteDto>(representante, HttpStatus.OK);
+//	}
 
-	@GetMapping("/representante/{username}/{password}")
-	public ResponseEntity<RepresentanteDto> getRepresentantePorUsernameYPassword(@PathVariable String username,
-			@PathVariable String password) {
-		RepresentanteDto representante = representanteService.getRepresentantePorUserYPass(username, password);
-		return new ResponseEntity<RepresentanteDto>(representante, HttpStatus.OK);
-	}
-
-	@PostMapping("/representante/save")
-	public ResponseEntity<RepresentanteVentas> save(@RequestBody RepresentanteSaveDto r) {
-		RepresentanteVentaId representanteVentaId = new RepresentanteVentaId(r.getTipoId(), r.getNumeroId());
-
-		RepresentanteVentaId representanteVentaIdJefe = new RepresentanteVentaId(r.getTipoIdJefe(),
-				r.getNumeroIdJefe());
-		Optional<RepresentanteVentas> representanteJefe = representanteService
-				.getRepresentante(representanteVentaIdJefe);
-		RepresentanteVentas representanteFinal = null;
-		if (representanteJefe.isEmpty()) {
-			representanteFinal = new RepresentanteVentas(representanteVentaId, null, r.getNombreCompleto(),
-					r.getApellidoCompleto(), r.getFechaCreacion(), r.getEmail(), r.getTelefono(), r.getRegion(),
-					r.getGenero(), r.getPassword(), r.getfNacimiento(), r.getDireccion(), r.getTipo(),
-					r.getFechaContrato(), r.getUsername(), r.getEstado());
-		} else {
-			representanteFinal = new RepresentanteVentas(representanteVentaId, representanteJefe.get(),
-					r.getNombreCompleto(), r.getApellidoCompleto(), r.getFechaCreacion(), r.getEmail(), r.getTelefono(),
-					r.getRegion(), r.getGenero(), r.getPassword(), r.getfNacimiento(), r.getDireccion(), r.getTipo(),
-					r.getFechaContrato(), r.getUsername(), r.getEstado());
-		}
-
-		representanteService.save(representanteFinal);
-		return new ResponseEntity<>(HttpStatus.CREATED);
-	}
+//	@PostMapping("/representante/save")
+//	public ResponseEntity<RepresentanteVentas> save(@RequestBody RepresentanteSaveDto r) {
+//		RepresentanteVentaId representanteVentaId = new RepresentanteVentaId(r.getTipoId(), r.getNumeroId());
+//
+//		RepresentanteVentaId representanteVentaIdJefe = new RepresentanteVentaId(r.getTipoIdJefe(),
+//				r.getNumeroIdJefe());
+//		Optional<RepresentanteVentas> representanteJefe = representanteService
+//				.getRepresentante(representanteVentaIdJefe);
+//		RepresentanteVentas representanteFinal = null;
+//		if (representanteJefe.isEmpty()) {
+//			representanteFinal = new RepresentanteVentas(representanteVentaId, null, r.getNombreCompleto(),
+//					r.getApellidoCompleto(), r.getFechaCreacion(), r.getEmail(), r.getTelefono(), r.getRegion(),
+//					r.getGenero(), r.getPassword(), r.getfNacimiento(), r.getDireccion(), r.getTipo(),
+//					r.getFechaContrato(), r.getUsername(), r.getEstado());
+//		} else {
+//			representanteFinal = new RepresentanteVentas(representanteVentaId, representanteJefe.get(),
+//					r.getNombreCompleto(), r.getApellidoCompleto(), r.getFechaCreacion(), r.getEmail(), r.getTelefono(),
+//					r.getRegion(), r.getGenero(), r.getPassword(), r.getfNacimiento(), r.getDireccion(), r.getTipo(),
+//					r.getFechaContrato(), r.getUsername(), r.getEstado());
+//		}
+//
+//		representanteService.save(representanteFinal);
+//		return new ResponseEntity<>(HttpStatus.CREATED);
+//	}
 
 	@GetMapping("/representantes_por_region_rango/{nombreRegion}/{rango}")
 	public ResponseEntity<List<RepresentanteVentas>> getRepresentantesPorRegionRango(@PathVariable String nombreRegion,

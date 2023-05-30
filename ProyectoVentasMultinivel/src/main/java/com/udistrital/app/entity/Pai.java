@@ -6,23 +6,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @Entity
-@Table(name = "REGION")
-public class Region {
+@Table(name = "PAIS")
+public class Pai {
     @Id
-    @Column(name = "K_IDREGION", nullable = false)
-    private Short id;
-
-    @NotNull
     @Column(name = "K_IDPAIS", nullable = false)
-    private Short kIdpais;
+    private Short id;
 
     @Size(max = 50)
     @NotNull
