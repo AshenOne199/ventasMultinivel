@@ -11,8 +11,9 @@ import com.udistrital.app.entity.dto.CategoriaDto;
 
 public interface CategoriaRepository extends JpaRepository<Categoria, Short> {
 
-	@Query(nativeQuery = true, name = "CategoryResult")
-	public List<CategoriaDto> findAllCategoriasPorRegion(@Param("idRegion") Short idRegion);
+
+	@Query(value = "SELECT * FROM CATEGORIA WHERE K_IDCATEGORIA IN (SELECT P.K_IDCATEGORIA FROM PRODUCTO P, INVENTARIO I WHERE P.K_IDPRODUCTO = I.K_IDPRODUCTO AND I.K_IDREGION = :idRegion)", nativeQuery = true)
+	List<Categoria> findAllCategoriasPorRegion(@Param("idRegion") Short idRegion);
 
 	List<Categoria> findByidSubcategoria(Short kIdsubcategoria);
 

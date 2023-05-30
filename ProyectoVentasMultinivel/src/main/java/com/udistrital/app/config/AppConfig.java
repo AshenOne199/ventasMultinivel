@@ -21,7 +21,7 @@ public class AppConfig {
 	DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
-		dataSource.setUrl("jdbc:oracle:thin:@localhost:1521/dbmultinivel");
+		dataSource.setUrl("jdbc:oracle:thin:@localhost:1521/orcl");
 		dataSource.setUsername(username);
 		dataSource.setPassword(password);
 
