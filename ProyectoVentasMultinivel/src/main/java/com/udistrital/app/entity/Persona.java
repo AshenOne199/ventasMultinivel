@@ -1,21 +1,27 @@
 package com.udistrital.app.entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDate;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "PERSONA")
 public class Persona {
+	
     @EmbeddedId
     private PersonaId id;
 
@@ -67,5 +73,11 @@ public class Persona {
     @NotNull
     @Column(name = "O_DIRECCION", nullable = false, length = 150)
     private String oDireccion;
+
+    @OneToOne(mappedBy = "persona")
+    private Cliente cliente;
+
+    @OneToOne(mappedBy = "persona")
+    private RepresentanteVenta representanteVenta;
 
 }

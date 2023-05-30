@@ -1,21 +1,27 @@
 package com.udistrital.app.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.Entity;
-import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.Hibernate;
-
 import java.io.Serializable;
 import java.util.Objects;
 
+import org.hibernate.Hibernate;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Embeddable
 public class InventarioId implements Serializable {
+	
     private static final long serialVersionUID = 3995260559747321056L;
+    
     @NotNull
     @Column(name = "K_IDPRODUCTO", nullable = false)
     private Short kIdproducto;

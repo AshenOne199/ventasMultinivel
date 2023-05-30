@@ -1,19 +1,23 @@
 package com.udistrital.app.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.Entity;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.Hibernate;
-
 import java.io.Serializable;
 import java.util.Objects;
 
+import org.hibernate.Hibernate;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Embeddable
 public class PersonaId implements Serializable {
     private static final long serialVersionUID = -2714467248349022237L;

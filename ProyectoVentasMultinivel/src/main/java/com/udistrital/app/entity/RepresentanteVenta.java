@@ -11,6 +11,7 @@ import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,11 +22,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "CLIENTE")
-public class Cliente {
+@Table(name = "REPRESENTANTE_VENTAS")
+public class RepresentanteVenta {
 	
     @EmbeddedId
-    private ClienteId id;
+    private RepresentanteVentaId id;
 
     @MapsId("id")
     @OneToOne(fetch = FetchType.LAZY, optional = false)
@@ -35,17 +36,22 @@ public class Cliente {
     })
     private Persona persona;
 
-    @NotNull
-    @Column(name = "Q_CUENTA", nullable = false)
-    private Long qCuenta;
-
     @MapsId("id")
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns({
-            @JoinColumn(name = "I_TIPO_ID_REP", referencedColumnName = "K_TIPO_ID", nullable = false),
-            @JoinColumn(name = "Q_NUMERO_ID_REP", referencedColumnName = "K_NUMERO_ID", nullable = false)
+            @JoinColumn(name = "K_TIPO_ID_JEFE", referencedColumnName = "K_TIPO_ID"),
+            @JoinColumn(name = "K_NUMERO_ID_JEFE", referencedColumnName = "K_NUMERO_ID")
     })
     private RepresentanteVenta representanteVentas;
+
+    @Size(max = 15)
+    @NotNull
+    @Column(name = "I_TIPO", nullable = false, length = 15)
+    private String iTipo;
+
+    @Size(max = 15)
+    @NotNull
+    @Column(name = "I_ESTADO", nullable = false, length = 15)
+    private String iEstado;
 
 }

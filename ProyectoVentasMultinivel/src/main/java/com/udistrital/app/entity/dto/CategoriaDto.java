@@ -1,48 +1,23 @@
 package com.udistrital.app.entity.dto;
 
-public class CategoriaDto {
+import java.math.BigDecimal;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class CategoriaDTO {
 
 	private Short id;
 
 	private String nombreCategoria;
 	
-	private Long iva;
+	private BigDecimal iva;
 
-	public CategoriaDto() {
-
-	}
-
-	public CategoriaDto(Short id, String nombreCategoria, Long iva) {
-		super();
-		this.id = id;
-		this.nombreCategoria = nombreCategoria;
-		this.iva = iva;
-	}
-
-	public Short getId() {
-		return id;
-	}
-
-	public void setId(Short id) {
-		this.id = id;
-	}
-
-	public String getNombreCategoria() {
-		return nombreCategoria;
-	}
-
-	public void setNombreCategoria(String nombreCategoria) {
-		this.nombreCategoria = nombreCategoria;
-	}
-
-	public Long getIva() {
-		return iva;
-	}
-
-	public void setIva(Long iva) {
-		this.iva = iva;
-	}
-	
-	
 
 }

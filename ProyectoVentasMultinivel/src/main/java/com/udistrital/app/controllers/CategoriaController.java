@@ -2,17 +2,15 @@ package com.udistrital.app.controllers;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.udistrital.app.entity.Categoria;
-import com.udistrital.app.entity.dto.CategoriaDto;
+import com.udistrital.app.entity.dto.CategoriaDTO;
 import com.udistrital.app.services.CategoriaService;
 
 @RestController
 @CrossOrigin
+@RequestMapping("/categorias")
 public class CategoriaController {
 
 	final private CategoriaService categoriaService;
@@ -21,13 +19,13 @@ public class CategoriaController {
 		this.categoriaService = categoriaService;
 	}
 
-//	@GetMapping("/categorias")
-//	public List<CategoriaDto> getAllCategorias() {
-//		return categoriaService.findAll();
-//	}
+	@GetMapping("/all")
+	public List<CategoriaDTO> getAllCategorias() {
+		return categoriaService.findAll();
+	}
 
-	@GetMapping("/categorias/{idRegion}")
-	public List<CategoriaDto> getAllCategoriasPorRegion(@PathVariable(name = "idRegion") Short idRegion) {
+	@GetMapping("/region/{idRegion}")
+	public List<CategoriaDTO> getAllCategoriasPorRegion(@PathVariable(name = "idRegion") Short idRegion) {
 		return categoriaService.getCategoriasPorRegion(idRegion);
 	}
 

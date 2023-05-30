@@ -11,14 +11,18 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Embeddable
 public class ClienteId implements Serializable {
+	
     private static final long serialVersionUID = 789389564724503516L;
+    
     @Size(max = 3)
     @NotNull
     @Column(name = "K_TIPO_ID", nullable = false, length = 3)

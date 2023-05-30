@@ -6,34 +6,33 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.udistrital.app.entity.Categoria;
-import com.udistrital.app.entity.dto.CategoriaDto;
+import com.udistrital.app.entity.dto.CategoriaDTO;
 import com.udistrital.app.repository.CategoriaRepository;
 
 @Service
 public class CategoriaService {
 
 	final private CategoriaRepository categoriaRepository;
-
 	public CategoriaService(CategoriaRepository categoriaRepository) {
 		this.categoriaRepository = categoriaRepository;
 	}
 
-	public List<CategoriaDto> getCategoriasPorRegion(Short idRegion) {
+	public List<CategoriaDTO> getCategoriasPorRegion(Short idRegion) {
 		return categoriaRepository.findAllCategoriasPorRegion(idRegion);
 	}
 
-//	public List<CategoriaDto> findAll() {
-//		List<Categoria> categorias = categoriaRepository.findAll();
-//		List<CategoriaDto> categoriasDto = new ArrayList<>();
-//		for (Categoria categoria : categorias) {
-//			CategoriaDto categoriaDto = new CategoriaDto(categoria.getId(), categoria.getnNombre(), categoria.getIva());
-//			categoriasDto.add(categoriaDto);
-//		}
-//		return categoriasDto;
-//	}
+	public List<CategoriaDTO> findAll() {
+		List<Categoria> categorias = categoriaRepository.findAll();
+		List<CategoriaDTO> categoriasDto = new ArrayList<>();
+		for (Categoria categoria : categorias) {
+			CategoriaDTO categoriaDto = new CategoriaDTO(categoria.getId(), categoria.getNombre(), categoria.getIva());
+			categoriasDto.add(categoriaDto);
+		}
+		return categoriasDto;
+	}
 
 	public List<Categoria> getSubCategoriasPorCategoria(Short idCategoria) {
-		return categoriaRepository.findByidSubcategoria(idCategoria);
+		return categoriaRepository.findByIdSubcategoria(idCategoria);
 	}
 
 }

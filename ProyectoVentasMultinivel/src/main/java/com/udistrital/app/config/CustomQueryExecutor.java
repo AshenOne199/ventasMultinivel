@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.PersistenceUnit;
+import jakarta.transaction.Transactional;
 
 @Component
 public class CustomQueryExecutor {
@@ -12,6 +13,7 @@ public class CustomQueryExecutor {
 	@PersistenceUnit
 	private EntityManagerFactory entityManagerFactory;
 
+	@Transactional
 	public void executeClientCreation(String username, String password) {
 		String tablespaceName = "";
 		String tmpTableSpaceName = "";
@@ -30,6 +32,7 @@ public class CustomQueryExecutor {
 		entityManager.close();
 	}
 
+	@Transactional
 	public void executeRepresentanteCreation(String username, String password) {
 		String tablespaceName = "";
 		String tmpTableSpaceName = "";
@@ -48,6 +51,7 @@ public class CustomQueryExecutor {
 		entityManager.close();
 	}
 
+	@Transactional
 	public void executeRepresentanteMasterCreation(String username, String password) {
 		String tablespaceName = "";
 		String tmpTableSpaceName = "";

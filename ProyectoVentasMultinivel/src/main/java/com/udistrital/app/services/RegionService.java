@@ -1,31 +1,30 @@
 package com.udistrital.app.services;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.udistrital.app.entity.Region;
+import com.udistrital.app.entity.dto.RegionDTO;
+import com.udistrital.app.repository.RegionRepository;
 import org.springframework.stereotype.Service;
 
-import com.udistrital.app.entity.Region;
-import com.udistrital.app.entity.dto.RegionDto;
-import com.udistrital.app.repository.RegionRepository;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class RegionService {
 
-	final private RegionRepository regionRepository;
+    final private RegionRepository regionRepository;
 
-	public RegionService(RegionRepository regionRepository) {
-		this.regionRepository = regionRepository;
-	}
+    public RegionService(RegionRepository regionRepository) {
+        this.regionRepository = regionRepository;
+    }
 
-//	public List<RegionDto> getRegiones() {
-//		List<RegionDto> regionDtos = new ArrayList<>();
-//		List<Region> regiones = regionRepository.findAll();
-//		for (Region region : regiones) {
-//			RegionDto regionDto = new RegionDto(region.getId(), region.getKIdpais().getNNombre(), region.getNNombre());
-//			regionDtos.add(regionDto);
-//		}
-//		return regionDtos;
-//	}
+    public List<RegionDTO> getRegiones() {
+        List<RegionDTO> regionDtos = new ArrayList<>();
+        List<Region> regiones = regionRepository.findAll();
+        for (Region region : regiones) {
+            RegionDTO regionDto = new RegionDTO(region.getId(), region.getIdPais().getNNombre(), region.getNombre());
+            regionDtos.add(regionDto);
+        }
+        return regionDtos;
+    }
 
 }
