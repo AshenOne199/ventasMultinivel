@@ -18,7 +18,7 @@ public class ExceptionHandlerApp extends ResponseEntityExceptionHandler{
     public ResponseEntity<Map<String, String>> handleSQLException(SQLException ex) {
 
 		Map<String, String> map = new HashMap<>();
-		map.put("message", ex.getMessage());
+		map.put("message", ex.getLocalizedMessage());
 		map.put("code", String.valueOf(ex.getErrorCode()));
 		return new ResponseEntity<Map<String, String>>(map, HttpStatus.INTERNAL_SERVER_ERROR);
 
