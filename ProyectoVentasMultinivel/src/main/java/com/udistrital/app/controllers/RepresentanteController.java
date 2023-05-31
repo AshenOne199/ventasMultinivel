@@ -52,14 +52,16 @@ public class RepresentanteController {
 				r.getApellidoCompleto(), r.getEmail(), r.getTelefono(), r.getFechaCreacion(), r.getRegion(),
 				r.getGenero(), r.getFNacimiento(), r.getDireccion());
 
-		personaService.save(personaRep);
+		Persona personaRe = personaService.save(personaRep);
 
-		RepresentanteVentaId repId = new RepresentanteVentaId(r.getTipoId(), r.getNumeroId());
+		RepresentanteVentaId repId = new RepresentanteVentaId(personaRe.getTipoId(), personaRe.getNumeroId());
 
-		RepresentanteVenta rep = new RepresentanteVenta(repId, personaRep, repJefeEncontrado, r.getTipo(),r.getEstado());
-		System.out.println();
+		RepresentanteVenta rep = new RepresentanteVenta(repId, personaRe, repJefeEncontrado, r.getTipo(), r.getEstado());
+		
+		System.out.println("--------");
 		System.out.println("REP actual: " + rep.toString());
-		System.out.println();
+		System.out.println("--------");
+		
 		representanteService.save(rep);
 
 		return new ResponseEntity<>(HttpStatus.CREATED);

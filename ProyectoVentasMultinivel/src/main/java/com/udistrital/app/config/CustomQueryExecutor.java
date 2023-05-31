@@ -34,9 +34,9 @@ public class CustomQueryExecutor {
 
 	@Transactional
 	public void executeRepresentanteCreation(String username, String password) {
-		String tablespaceName = "";
-		String tmpTableSpaceName = "";
-		String quota = "";
+		String tablespaceName = "MULTINIVELDEF";
+		String tmpTableSpaceName = "MULTINIVELTMP";
+		String quota = "2M";
 		String createUserDdlStatement = "CREATE USER " + username + " IDENTIFIED BY " + password + " DEFAULT TABLESPACE "
 				+ tablespaceName + " TEMPORARY TABLESPACE " + tmpTableSpaceName + " QUOTA "+ quota + " ON " + tablespaceName
 				+ " PASSWORD EXPIRE";
@@ -53,9 +53,9 @@ public class CustomQueryExecutor {
 
 	@Transactional
 	public void executeRepresentanteMasterCreation(String username, String password) {
-		String tablespaceName = "";
-		String tmpTableSpaceName = "";
-		String quota = "";
+		String tablespaceName = "MULTINIVELDEF";
+		String tmpTableSpaceName = "MULTINIVELTMP";
+		String quota = "2M";
 		String createUserDdlStatement = "CREATE USER " + username + " IDENTIFIED BY " + password + " DEFAULT TABLESPACE "
 				+ tablespaceName + " TEMPORARY TABLESPACE " + tmpTableSpaceName + " QUOTA "+ quota +" ON " + tablespaceName
 				+ " PASSWORD EXPIRE";

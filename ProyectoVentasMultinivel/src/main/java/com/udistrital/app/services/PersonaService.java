@@ -14,7 +14,8 @@ public class PersonaService {
 		this.personaRepository = personaRepository;
 	}
 
-	public void save(Persona representante) {
-		personaRepository.save(representante);
+	public Persona save(Persona representante) {
+		
+		return personaRepository.save(representante);
 	}
 }
