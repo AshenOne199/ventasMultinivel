@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.udistrital.app.entity.Periodo;
+import com.udistrital.app.exceptions.NotFoundException;
 import com.udistrital.app.repository.PeriodoRepository;
 
 @RestController
@@ -31,19 +32,26 @@ public class PeriodoController {
 	}
 
 	@GetMapping("/ultimo")
-	public Periodo getPeriodoUltimo() {
-		return periodoRepository.getUltimoPeriodo();
+	public ResponseEntity<?> getPeriodoUltimo() {
+
+		Optional<Periodo> periodoObtenido = periodoRepository.getUltimoPeriodo();
+
+		if (periodoObtenido.isEmpty()) {
+			throw new NotFoundException();
+		}
+
+		return ResponseEntity.status(HttpStatus.OK).body(periodoObtenido.get());
 	}
 
 	@GetMapping("/findById/{periodo}")
-	public ResponseEntity<Periodo> getPeriodos(@PathVariable String periodo) {
-		
+	public ResponseEntity<?> getPeriodos(@PathVariable String periodo) {
+
 		Optional<Periodo> periodoObtenido = periodoRepository.findById(periodo);
-		
-		if(periodoObtenido.isEmpty()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+
+		if (periodoObtenido.isEmpty()) {
+			throw new NotFoundException();
 		}
-		
+
 		return ResponseEntity.status(HttpStatus.OK).body(periodoObtenido.get());
 	}
 

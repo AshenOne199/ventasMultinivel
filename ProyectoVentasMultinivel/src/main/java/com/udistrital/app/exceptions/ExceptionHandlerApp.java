@@ -31,4 +31,14 @@ public class ExceptionHandlerApp extends ResponseEntityExceptionHandler{
                 .body("Error de acceso a datos en la base de datos | " + ex.getMessage());
     }
 	
+	@ExceptionHandler(NotFoundException.class)
+	public ResponseEntity<Map<String, String>> handleSQLException(NotFoundException ex) {
+
+		Map<String, String> map = new HashMap<>();
+		map.put("message", ex.getLocalizedMessage());
+		map.put("code", String.valueOf(0));
+		return new ResponseEntity<Map<String, String>>(map, HttpStatus.INTERNAL_SERVER_ERROR);
+
+    }
+	
 }
