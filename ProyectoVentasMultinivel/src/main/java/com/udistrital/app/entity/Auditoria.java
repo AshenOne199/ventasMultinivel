@@ -6,7 +6,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,30 +25,29 @@ public class Auditoria {
     private Short id;
 
     @Size(max = 50)
-    @NotNull
     @Column(name = "N_TABLA", nullable = false, length = 50)
-    private String nTabla;
+    private String nombreTabla;
 
     @Column(name = "Q_CALIFICACION")
-    private Boolean qCalificacion;
+    private Boolean calificacion;
 
     @Column(name = "K_IDORDEN")
-    private Integer kIdorden;
+    private Integer idOrden;
 
     @Column(name = "K_IDPRODUCTO")
-    private Short kIdproducto;
+    private Short idProducto;
 
     @Column(name = "K_IDREGION")
-    private Short kIdregion;
+    private Short idRegion;
 
     @Column(name = "Q_COMISION", precision = 4, scale = 2)
-    private BigDecimal qComision;
+    private BigDecimal comision;
 
     @Column(name = "K_NUMERO_ID_REP")
-    private Long kNumeroIdRep;
+    private Long numeroIdRep;
 
     @Size(max = 3)
     @Column(name = "K_TIPO_ID_REP", length = 3)
-    private String kTipoIdRep;
+    private String tipoIdRep;
 
 }

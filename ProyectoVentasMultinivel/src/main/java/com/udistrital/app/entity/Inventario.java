@@ -10,7 +10,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,19 +30,17 @@ public class Inventario {
     @MapsId("id")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "K_IDPRODUCTO", nullable = false)
-    private Producto kIdproducto;
-
+    private Producto idProducto;
+	
     @MapsId("id")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "K_IDREGION", nullable = false)
-    private Region kIdregion;
+    private Region idRegion;
 
-    @NotNull
     @Column(name = "Q_STOCK", nullable = false)
-    private Short qStock;
+    private Short stock;
 
-    @NotNull
     @Column(name = "V_PRECIOPRODUCTO", nullable = false, precision = 10, scale = 2)
-    private BigDecimal vPrecioproducto;
+    private BigDecimal precioProducto;
 
 }

@@ -7,41 +7,40 @@ import org.hibernate.Hibernate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Embeddable
+@ToString
 public class PersonaId implements Serializable {
     private static final long serialVersionUID = -2714467248349022237L;
     @Size(max = 3)
-    @NotNull
     @Column(name = "K_TIPO_ID", nullable = false, length = 3)
-    private String kTipoId;
+    private String tipoId;
 
-    @NotNull
     @Column(name = "K_NUMERO_ID", nullable = false)
-    private Long kNumeroId;
+    private Long numeroId;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         PersonaId entity = (PersonaId) o;
-        return Objects.equals(this.kTipoId, entity.kTipoId) &&
-                Objects.equals(this.kNumeroId, entity.kNumeroId);
+        return Objects.equals(this.tipoId, entity.tipoId) &&
+                Objects.equals(this.numeroId, entity.numeroId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(kTipoId, kNumeroId);
+        return Objects.hash(tipoId, numeroId);
     }
 
 }

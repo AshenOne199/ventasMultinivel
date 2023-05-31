@@ -20,22 +20,26 @@ import lombok.Setter;
 @Entity
 @NamedStoredProcedureQueries({
     @NamedStoredProcedureQuery(
-        name = "ProductosTopDTO.findTopProductos",
-        procedureName = "PR_TOP_PRODUCTO",
-        resultClasses = ProductosTopDTO.class,
+        name = "RegionesTopDTO.findTopRegiones",
+        procedureName = "PR_TOP_REGION",
+        resultClasses = RegionesTopDTO.class,
         parameters = {
           @StoredProcedureParameter(mode=ParameterMode.IN, name="L_IDPERIODO", type=String.class),
           @StoredProcedureParameter(mode=ParameterMode.REF_CURSOR, name="P_CURSOR", type=void.class)
     })
 })
-public class ProductosTopDTO {
+public class RegionesTopDTO {
 
 	@Id
 	@GeneratedValue
-	@Column(name = "PRODUCTO")
-	private String producto;
+	@Column(name = "REGION")
+	private String region;
 	
-	@Column(name = "VENDIDO")
-	private String vendido;
+	@Column(name = "VENTAS")
+	private String ventas;
+	
+	@Column(name = "PERIODO")
+	private String periodo;
+	
 	
 }

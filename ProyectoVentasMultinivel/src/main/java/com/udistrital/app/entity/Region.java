@@ -8,7 +8,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,13 +27,11 @@ public class Region {
     private Short id;
 
     @MapsId("id")
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "K_IDPAIS", nullable = false)
     private Pais idPais;
 
     @Size(max = 50)
-    @NotNull
     @Column(name = "N_NOMBRE", nullable = false, length = 50)
     private String nombre;
 

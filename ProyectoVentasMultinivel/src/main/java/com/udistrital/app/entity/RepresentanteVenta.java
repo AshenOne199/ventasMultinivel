@@ -10,18 +10,19 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@ToString
 @Table(name = "REPRESENTANTE_VENTAS")
 public class RepresentanteVenta {
 	
@@ -45,13 +46,11 @@ public class RepresentanteVenta {
     private RepresentanteVenta representanteVentas;
 
     @Size(max = 15)
-    @NotNull
     @Column(name = "I_TIPO", nullable = false, length = 15)
-    private String iTipo;
+    private String tipo;
 
     @Size(max = 15)
-    @NotNull
     @Column(name = "I_ESTADO", nullable = false, length = 15)
-    private String iEstado;
+    private String estado;
 
 }

@@ -1,5 +1,7 @@
 package com.udistrital.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -10,7 +12,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,7 @@ public class Cliente {
     @EmbeddedId
     private ClienteId id;
 
+    @JsonIgnore
     @MapsId("id")
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumns({
@@ -35,12 +37,11 @@ public class Cliente {
     })
     private Persona persona;
 
-    @NotNull
     @Column(name = "Q_CUENTA", nullable = false)
-    private Long qCuenta;
+    private Long cuenta;
 
+    @JsonIgnore
     @MapsId("id")
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumns({
             @JoinColumn(name = "I_TIPO_ID_REP", referencedColumnName = "K_TIPO_ID", nullable = false),

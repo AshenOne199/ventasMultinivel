@@ -11,7 +11,7 @@ public class DynamicDataSource extends AbstractDataSource {
     private String username;
     private String password;
     
-    private String url="jdbc:oracle:thin:@localhost:1521/orcl";
+    private String url="jdbc:oracle:thin:@localhost:1521/dbmultinivel";
 
     public void setCredentials(String username, String password) {
         this.username = username;
@@ -20,8 +20,6 @@ public class DynamicDataSource extends AbstractDataSource {
 
     @Override
     public Connection getConnection() throws SQLException {
-        username = "system";
-        password = "pass";
         return DriverManager.getConnection(url, username, password);
     }
 

@@ -8,7 +8,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,19 +27,16 @@ public class Producto {
     private Short id;
 
     @MapsId("id")	
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "K_IDCATEGORIA", nullable = false)
-    private Categoria kIdcategoria;
+    private Categoria idCategoria;
 
     @Size(max = 80)
-    @NotNull
     @Column(name = "N_NOMBRE", nullable = false, length = 80)
-    private String nNombre;
+    private String nombre;
 
     @Size(max = 200)
-    @NotNull
     @Column(name = "N_URLIMAGEN", nullable = false, length = 200)
-    private String nUrlimagen;
+    private String urlImagen;
 
 }

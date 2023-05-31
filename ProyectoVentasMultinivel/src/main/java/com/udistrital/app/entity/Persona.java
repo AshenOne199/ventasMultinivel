@@ -1,23 +1,23 @@
 package com.udistrital.app.entity;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Entity
 @Table(name = "PERSONA")
 public class Persona {
@@ -27,57 +27,42 @@ public class Persona {
 
     @Size(max = 3)
     @Column(name = "I_TIPO_ID", length = 3)
-    private String iTipoId;
+    private String tipoId;
 
     @Column(name = "Q_NUMERO_ID")
-    private Long qNumeroId;
+    private Long numeroId;
 
     @Size(max = 150)
-    @NotNull
     @Column(name = "N_NOMBRECOMPLETO", nullable = false, length = 150)
-    private String nNombrecompleto;
+    private String nombreCompleto;
 
     @Size(max = 150)
-    @NotNull
     @Column(name = "N_APELLIDOCOMPLETO", nullable = false, length = 150)
-    private String nApellidocompleto;
+    private String apellidoCompleto;
 
     @Size(max = 150)
-    @NotNull
     @Column(name = "O_EMAIL", nullable = false, length = 150)
-    private String oEmail;
+    private String email;
 
-    @NotNull
     @Column(name = "Q_TELEFONO", nullable = false)
-    private Long qTelefono;
+    private Long telefono;
 
-    @NotNull
     @Column(name = "F_FECHACREACION", nullable = false)
-    private LocalDate fFechacreacion;
+    private Date fechaCreacion;
 
     @Size(max = 100)
-    @NotNull
     @Column(name = "N_CIUDAD", nullable = false, length = 100)
-    private String nCiudad;
+    private String ciudad;
 
     @Size(max = 3)
-    @NotNull
     @Column(name = "I_GENERO", nullable = false, length = 3)
-    private String iGenero;
+    private String genero;
 
-    @NotNull
     @Column(name = "F_NACIMIENTO", nullable = false)
-    private LocalDate fNacimiento;
+    private Date fechaNacimiento;
 
     @Size(max = 150)
-    @NotNull
     @Column(name = "O_DIRECCION", nullable = false, length = 150)
-    private String oDireccion;
-
-    @OneToOne(mappedBy = "persona")
-    private Cliente cliente;
-
-    @OneToOne(mappedBy = "persona")
-    private RepresentanteVenta representanteVenta;
+    private String direccion;
 
 }

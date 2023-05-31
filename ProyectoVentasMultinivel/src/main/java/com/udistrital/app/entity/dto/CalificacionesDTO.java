@@ -20,22 +20,30 @@ import lombok.Setter;
 @Entity
 @NamedStoredProcedureQueries({
     @NamedStoredProcedureQuery(
-        name = "ProductosTopDTO.findTopProductos",
-        procedureName = "PR_TOP_PRODUCTO",
-        resultClasses = ProductosTopDTO.class,
+        name = "CalificacionesDTO.findCalificaciones",
+        procedureName = "PR_CALIFICACIONES",
+        resultClasses = CalificacionesDTO.class,
         parameters = {
           @StoredProcedureParameter(mode=ParameterMode.IN, name="L_IDPERIODO", type=String.class),
           @StoredProcedureParameter(mode=ParameterMode.REF_CURSOR, name="P_CURSOR", type=void.class)
     })
 })
-public class ProductosTopDTO {
-
+public class CalificacionesDTO {
+	
 	@Id
 	@GeneratedValue
-	@Column(name = "PRODUCTO")
-	private String producto;
+	@Column(name = "CLIENTE")
+	private String cliente;
 	
-	@Column(name = "VENDIDO")
-	private String vendido;
+	@Column(name = "CALIFICACION")
+	private String calificacion;
+
+	@Column(name = "FECHA")
+	private String fecha;
 	
+	@Column(name = "TIPO_ID")
+	private String tipoId;
+	
+	@Column(name = "NUMERO_ID")
+	private String numeroId;
 }

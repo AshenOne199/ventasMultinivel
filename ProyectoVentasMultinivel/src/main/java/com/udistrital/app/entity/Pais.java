@@ -4,7 +4,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,8 +23,7 @@ public class Pais {
     private Short id;
 
     @Size(max = 50)
-    @NotNull
     @Column(name = "N_NOMBRE", nullable = false, length = 50)
-    private String nNombre;
+    private String nombre;
 
 }

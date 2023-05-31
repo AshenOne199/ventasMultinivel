@@ -21,7 +21,7 @@ public class RegionService {
         List<RegionDTO> regionDtos = new ArrayList<>();
         List<Region> regiones = regionRepository.findAll();
         for (Region region : regiones) {
-            RegionDTO regionDto = new RegionDTO(region.getId(), region.getIdPais().getNNombre(), region.getNombre());
+            RegionDTO regionDto = new RegionDTO(region.getId(), region.getIdPais().getNombre(), region.getNombre());
             regionDtos.add(regionDto);
         }
         return regionDtos;

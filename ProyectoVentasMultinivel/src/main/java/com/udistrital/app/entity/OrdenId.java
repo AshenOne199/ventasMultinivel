@@ -7,7 +7,6 @@ import org.hibernate.Hibernate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,42 +22,37 @@ public class OrdenId implements Serializable {
 	
     private static final long serialVersionUID = 4731382458593458597L;
     
-    @NotNull
     @Column(name = "K_IDORDEN", nullable = false)
-    private Integer kIdorden;
+    private Integer idOrden;
 
-    @NotNull
     @Column(name = "K_IDPRODUCTO", nullable = false)
-    private Short kIdproducto;
+    private Short idProducto;
 
-    @NotNull
     @Column(name = "K_IDREGION", nullable = false)
-    private Short kIdregion;
+    private Short idRegion;
 
     @Size(max = 3)
-    @NotNull
     @Column(name = "K_TIPO_ID", nullable = false, length = 3)
-    private String kTipoId;
+    private String tipoId;
 
-    @NotNull
     @Column(name = "K_NUMERO_ID", nullable = false)
-    private Long kNumeroId;
+    private Long numeroId;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         OrdenId entity = (OrdenId) o;
-        return Objects.equals(this.kTipoId, entity.kTipoId) &&
-                Objects.equals(this.kNumeroId, entity.kNumeroId) &&
-                Objects.equals(this.kIdproducto, entity.kIdproducto) &&
-                Objects.equals(this.kIdregion, entity.kIdregion) &&
-                Objects.equals(this.kIdorden, entity.kIdorden);
+        return Objects.equals(this.tipoId, entity.tipoId) &&
+                Objects.equals(this.numeroId, entity.numeroId) &&
+                Objects.equals(this.idProducto, entity.idProducto) &&
+                Objects.equals(this.idRegion, entity.idRegion) &&
+                Objects.equals(this.idOrden, entity.idOrden);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(kTipoId, kNumeroId, kIdproducto, kIdregion, kIdorden);
+        return Objects.hash(tipoId, numeroId, idProducto, idRegion, idOrden);
     }
 
 }
