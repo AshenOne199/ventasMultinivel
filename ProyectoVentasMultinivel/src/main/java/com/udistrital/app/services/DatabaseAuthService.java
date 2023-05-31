@@ -30,7 +30,7 @@ public class DatabaseAuthService {
 
 		try {
 			
-			String dbURL = "jdbc:oracle:thin:@localhost:1521/dbmultinivel";
+			String dbURL = "jdbc:oracle:thin:@localhost:1521/orcl";
 			String username = newUsername;
 			String password = newPassword;
 			Connection conn = DriverManager.getConnection(dbURL, username, password);
@@ -94,7 +94,7 @@ public class DatabaseAuthService {
 	}
 	
 	public void logout() {
-		testConnectionAndUpdate("U_ADMIN", "pass");
+		testConnectionAndUpdate("system", "pass");
 	}
 
 	public Map<String, String> updateOCIPassword(String username, String oldPassword, String newPassword) {
@@ -106,7 +106,7 @@ public class DatabaseAuthService {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			Properties props = new Properties();
 
-			String dbURL = "jdbc:oracle:oci:@localhost:1521/dbmultinivel";
+			String dbURL = "jdbc:oracle:oci:@localhost:1521/orcl";
 			props.put("user", username);
 			props.put("password", oldPassword);
 

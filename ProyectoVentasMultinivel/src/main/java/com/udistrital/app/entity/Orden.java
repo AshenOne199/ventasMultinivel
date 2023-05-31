@@ -69,7 +69,7 @@ public class Orden {
     private Cliente cliente1;
 
     @Column(name = "Q_CALIFICACION")
-    private Boolean qCalificacion;
+    private boolean qCalificacion;
 
     @NotNull
     @Column(name = "Q_CANTIDAD", nullable = false)
