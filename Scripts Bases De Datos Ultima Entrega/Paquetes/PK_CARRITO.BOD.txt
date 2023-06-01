@@ -1,0 +1,155 @@
+create or replace PACKAGE BODY PK_CARRITO IS
+/*----------------------------------------------------------------------------------------------------------- 
+
+    Paquete que incluye la definición de los procedimientos y funciones asociados a la gestión del carrito en el aplicativo web. 
+
+    Aplicativo web NatAmE 
+
+    Autores: 
+
+    -Andrés Camilo Jiménez Mantilla 
+    -José Andrés Sanabria Arias
+    -William Alejandro Ardila Sánchez
+    -Laura Tatiana Ramírez Rodríguez
+    -Jackson Luna Bonilla 
+
+ ------------------------------------------------------------------------------------------------------------- */ 
+
+/*------------------------------------------------------------------------------ 
+
+     Procedimiento para obtener los totales de el carrito 
+
+
+     Parametros de Entrada: pr_orden Tipo de dato que contiene el id de la orden, el estado de la orden, el tipo de 								 documento y número del cliente que reliza la orden. 
+
+     Parametros de Salida : pm_error :Mensaje de error si hay error o null en caso contrario 
+
+                            pc_error :1 si no existe, 0 en caso contrario 
+
+    -------------------------------------------------------------------------------*/
+    PROCEDURE PR_TOTALIZAR_CARRITO( pr_orden IN gtr_orden,
+                                    pm_error OUT VARCHAR,
+                                    pc_error OUT NUMBER)
+    IS
+        lv_calculadoproducto NUMBER;
+        lv_calculadoiva NUMBER;
+        lv_totalproductos NUMBER;
+        lv_totaliva NUMBER;
+        lv_total NUMBER;
+
+        CURSOR c_calculartotalproductos IS
+            SELECT O.k_idproducto, I.v_precioproducto, O.q_cantidad
+            FROM orden O, inventario I
+            WHERE O.k_idproducto = I.k_idproducto AND O.k_idregion = I.k_idregion 
+            AND O.k_idorden=pr_orden.k_idorden AND k_tipo_id=pr_orden.k_tipo_id AND O.k_numero_id=pr_orden.k_numero_id
+            AND O.i_estado='EN PROCESO';
+
+        lc_calculartotalproductos c_calculartotalproductos%ROWTYPE;
+    BEGIN
+        lv_calculadoproducto := 0;
+        lv_calculadoiva := 0;
+        lv_totalproductos := 0;
+        lv_totaliva := 0;
+        lv_total := 0;
+
+        FOR lc_calculartotalproductos IN c_calculartotalproductos LOOP
+            lv_calculadoproducto := FU_TOTAL_PRODUCTO(lc_calculartotalproductos.v_precioproducto,
+                                                lc_calculartotalproductos.q_cantidad,
+                                                pm_error, 
+                                                pc_error);
+
+            lv_totalproductos := lv_totalproductos + lv_calculadoproducto;
+
+            lv_calculadoiva := FU_BUSCAR_IVA(lv_calculadoproducto, 
+                                            lc_calculartotalproductos.k_idproducto,
+                                            pm_error, 
+                                            pc_error);
+
+            lv_totaliva := lv_totaliva + lv_calculadoiva;    
+        END LOOP;
+
+        lv_total := lv_totalproductos + lv_totaliva;
+
+        DBMS_OUTPUT.PUT_LINE('Total sin IVA' || ' = ' || lv_totalproductos);
+        DBMS_OUTPUT.PUT_LINE('Total IVA' || ' = ' || lv_totaliva);
+        DBMS_OUTPUT.PUT_LINE('Total + IVA' || ' = ' || lv_total);
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            pc_error := 1;
+            pm_error := 'No hay datos para el carrito';
+        WHEN OTHERS THEN
+             RAISE_APPLICATION_ERROR(sqlcode, sqlerrm);
+    END PR_TOTALIZAR_CARRITO;
+
+/*------------------------------------------------------------------------------ 
+
+     Funcion para retornar el total de producto 
+
+
+     Parametros de Entrada: pv_precioproducto: Corresponde al precio del producto
+
+				  pq_cantidad: Corresponde a la cantidad solicitada de un producto
+
+     Parametros de Salida : pm_error :Mensaje de error si hay error o null en caso contrario 
+
+                            pc_error :1 si no existe, 0 en caso contrario 
+
+     Valor de retorno      : Valor total del producto
+
+    -------------------------------------------------------------------------------*/
+    FUNCTION FU_TOTAL_PRODUCTO( pv_precioproducto IN inventario.v_precioproducto%TYPE,
+                                pq_cantidad       IN orden.q_cantidad%TYPE,
+                                pm_error          OUT VARCHAR,
+                                pc_error          OUT NUMBER) RETURN NUMBER
+    IS
+        lv_calculadoproducto NUMBER;
+    BEGIN
+        lv_calculadoproducto := pv_precioproducto * pq_cantidad;
+
+        RETURN lv_calculadoproducto;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            pc_error := 1;
+            pm_error := 'No hay productos';
+        WHEN OTHERS THEN
+             RAISE_APPLICATION_ERROR(sqlcode, sqlerrm);
+    END FU_TOTAL_PRODUCTO;
+
+/*------------------------------------------------------------------------------ 
+
+     Funcion para retornar el total de IVA  de un producto
+
+
+     Parametros de Entrada:  pv_totalproducto : Corresponde al total de un producto de multiplicar su cantidad solicitada por su precio
+
+			        pk_idproducto : Corresponde al id del producto
+
+     Parametros de Salida :  pm_error :Mensaje de error si hay error o null en caso contrario 
+
+                             pc_error :1 si no existe, 0 en caso contrario 
+
+     Valor de retorno      : Valor total del producto
+
+    -------------------------------------------------------------------------------*/
+    FUNCTION FU_BUSCAR_IVA( pv_totalproducto IN NUMBER,
+                            pk_id_producto   IN orden.k_idproducto%TYPE,
+                            pm_error         OUT VARCHAR,
+                            pc_error         OUT NUMBER) RETURN NUMBER
+    IS
+        lv_calculadoiva NUMBER;
+        lq_iva NUMBER;
+    BEGIN
+        SELECT C.q_iva INTO lq_iva FROM producto P, Categoria C
+        WHERE P.k_idcategoria=c.k_idcategoria AND P.k_idproducto=pk_id_producto;
+
+        lv_calculadoiva := pv_totalproducto * (lq_iva/100);
+
+        RETURN lv_calculadoiva;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            pc_error := 1;
+            pm_error := 'No hay productos';
+        WHEN OTHERS THEN
+             RAISE_APPLICATION_ERROR(sqlcode, sqlerrm);
+    END FU_BUSCAR_IVA;
+END PK_CARRITO;

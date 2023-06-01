@@ -43,9 +43,9 @@ public class RepresentanteController {
 	public ResponseEntity<RepresentanteVenta> save(@RequestBody RepresentanteSaveDTO r) {
 
 		PersonaId personaRepId = new PersonaId(r.getTipoId(), r.getNumeroId());
-		System.out.println(personaRepId.toString());
+
 		RepresentanteVentaId repJefe = new RepresentanteVentaId(r.getTipoIdJefe(), r.getNumeroIdJefe());
-		System.out.println(repJefe.toString());
+
 		RepresentanteVenta repJefeEncontrado = representanteService.getRepresentante(repJefe);
 
 		Persona personaRep = new Persona(personaRepId, r.getTipoIdJefe(), r.getNumeroIdJefe(), r.getNombreCompleto(),
@@ -57,11 +57,7 @@ public class RepresentanteController {
 		RepresentanteVentaId repId = new RepresentanteVentaId(personaRe.getTipoId(), personaRe.getNumeroId());
 
 		RepresentanteVenta rep = new RepresentanteVenta(repId, personaRe, repJefeEncontrado, r.getTipo(), r.getEstado());
-		
-		System.out.println("--------");
-		System.out.println("REP actual: " + rep.toString());
-		System.out.println("--------");
-		
+	
 		representanteService.save(rep);
 
 		return new ResponseEntity<>(HttpStatus.CREATED);

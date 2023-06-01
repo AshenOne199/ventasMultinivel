@@ -1,0 +1,122 @@
+create or replace PACKAGE BODY PK_ESTADISTICAS IS 
+/*----------------------------------------------------------------------------------------------------------- 
+    Paquete que incluye las estadisticas periodicas que se pueden generar desde el aplicativo. 
+
+    Aplicativo web NatAmE 
+
+    Autores: 
+
+    -Andrés Camilo Jiménez Mantilla 
+    -José Andrés Sanabria Arias
+    -William Alejandro Ardila Sánchez
+    -Laura Tatiana Ramírez Rodríguez
+    -Jackson Luna Bonilla 
+
+ ------------------------------------------------------------------------------------------------------------- */ 
+ 
+/*------------------------------------------------------------------------------ 
+
+     Procedimiento para obtener el top de productos por periodo
+
+
+     Parametros de Entrada: L_IDPERIODO ID del periodo del que se quiere generar el top
+                            P_CURSOR Cursos para mandar los datos desde el backend en formato JSON
+
+     Parametros de Salida : pm_error :Mensaje de error si hay error o null en caso contrario 
+
+                            pc_error :1 si no existe, 0 en caso contrario 
+
+    -------------------------------------------------------------------------------*/
+PROCEDURE PR_TOP_PRODUCTO (L_IDPERIODO IN VARCHAR,
+                            P_CURSOR OUT SYS_REFCURSOR,
+                            pm_error OUT VARCHAR,
+                            pc_error OUT NUMBER) 
+AS
+BEGIN
+   OPEN p_cursor FOR
+      SELECT P.N_NOMBRE AS PRODUCTO, SUM(O.Q_CANTIDAD) AS VENDIDO, P.K_IDPERIODO
+      FROM ORDEN O
+      JOIN INVENTARIO I ON O.K_IDPRODUCTO = I.K_IDPRODUCTO AND O.K_IDREGION = I.K_IDREGION
+      JOIN PRODUCTO P ON O.K_IDPRODUCTO = P.K_IDPRODUCTO
+      INNER JOIN PERIODO P ON O.K_IDPERIODO = L_IDPERIODO
+      WHERE O.I_ESTADO = 'COMPLETADO'
+      GROUP BY P.N_NOMBRE, P.K_IDPERIODO
+      ORDER BY VENDIDO DESC;
+EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            pc_error := 1;
+            pm_error := 'No hay datos para el top productos';
+        WHEN OTHERS THEN
+             RAISE_APPLICATION_ERROR(sqlcode, sqlerrm);
+END PR_TOP_PRODUCTO;
+
+/*------------------------------------------------------------------------------ 
+
+     Procedimiento para obtener el top de regiones con mas ventas por periodo
+
+
+     Parametros de Entrada: L_IDPERIODO ID del periodo del que se quiere generar el top
+                            P_CURSOR Cursos para mandar los datos desde el backend en formato JSON
+
+     Parametros de Salida : pm_error :Mensaje de error si hay error o null en caso contrario 
+
+                            pc_error :1 si no existe, 0 en caso contrario 
+
+    -------------------------------------------------------------------------------*/
+PROCEDURE PR_TOP_REGION (L_IDPERIODO IN VARCHAR, P_CURSOR OUT SYS_REFCURSOR, pm_error OUT VARCHAR,
+                                    pc_error OUT NUMBER) 
+AS
+BEGIN
+   OPEN P_CURSOR FOR
+      SELECT R.N_NOMBRE AS REGION, SUM(O.Q_CANTIDAD * I.V_PRECIOPRODUCTO) AS VENTAS, P.K_IDPERIODO AS PERIODO
+      FROM ORDEN O
+      INNER JOIN INVENTARIO I ON O.K_IDPRODUCTO = I.K_IDPRODUCTO AND O.K_IDREGION = I.K_IDREGION
+      INNER JOIN REGION R ON O.K_IDREGION = R.K_IDREGION
+      INNER JOIN PERIODO P ON O.K_IDPERIODO = L_IDPERIODO
+      WHERE O.I_ESTADO = 'COMPLETADO'
+      GROUP BY R.N_NOMBRE, P.K_IDPERIODO
+      ORDER BY VENTAS DESC;
+EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            pc_error := 1;
+            pm_error := 'No hay datos para el top regiones';
+        WHEN OTHERS THEN
+             RAISE_APPLICATION_ERROR(sqlcode, sqlerrm);
+END PR_TOP_REGION;
+
+/*------------------------------------------------------------------------------ 
+
+     Procedimiento para obtener el top de representantes con mas ventas por periodo
+
+
+     Parametros de Entrada: L_IDPERIODO ID del periodo del que se quiere generar el top
+                            P_CURSOR Cursos para mandar los datos desde el backend en formato JSON
+
+     Parametros de Salida : pm_error :Mensaje de error si hay error o null en caso contrario 
+
+                            pc_error :1 si no existe, 0 en caso contrario 
+
+    -------------------------------------------------------------------------------*/
+PROCEDURE PR_TOP_RV (L_IDPERIODO IN VARCHAR, P_CURSOR OUT SYS_REFCURSOR, pm_error OUT VARCHAR,
+                                    pc_error OUT NUMBER) 
+  AS
+  BEGIN
+   OPEN P_CURSOR FOR
+      SELECT DISTINCT(PER.N_NOMBRECOMPLETO || ' ' ||PER.N_APELLIDOCOMPLETO) AS REPRESENTANTE, SUM(O.Q_CANTIDAD) AS PRODUCTO, P.K_IDPERIODO AS PERIODO
+      FROM REPRESENTANTE_VENTAS RV
+      INNER JOIN ORDEN O ON RV.K_TIPO_ID = O.I_TIPO_ID_REP AND RV.K_NUMERO_ID = O.Q_NUMERO_ID_REP
+      INNER JOIN PERIODO P ON O.K_IDPERIODO = L_IDPERIODO
+      INNER JOIN PERSONA PER ON RV.K_TIPO_ID = PER.K_TIPO_ID AND RV.K_NUMERO_ID = PER.K_NUMERO_ID
+      INNER JOIN CLIENTE C ON RV.K_TIPO_ID = C.I_TIPO_ID_REP AND RV.K_NUMERO_ID = C.Q_NUMERO_ID_REP
+      WHERE O.I_ESTADO = 'COMPLETADO'
+      GROUP BY PER.N_NOMBRECOMPLETO || ' ' ||PER.N_APELLIDOCOMPLETO, P.K_IDPERIODO
+      ORDER BY PRODUCTO DESC;
+EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            pc_error := 1;
+            pm_error := 'No hay datos para el top representantes';
+        WHEN OTHERS THEN
+             RAISE_APPLICATION_ERROR(sqlcode, sqlerrm);
+END PR_TOP_RV;
+
+END PK_ESTADISTICAS;

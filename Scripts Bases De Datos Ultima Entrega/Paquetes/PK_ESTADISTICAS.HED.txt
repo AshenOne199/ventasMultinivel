@@ -1,0 +1,74 @@
+create or replace PACKAGE PK_ESTADISTICAS IS 
+/*----------------------------------------------------------------------------------------------------------- 
+    Paquete que incluye las estadisticas periodicas que se pueden generar desde el aplicativo. 
+
+    Aplicativo web NatAmE 
+
+    Autores: 
+
+    -Andrés Camilo Jiménez Mantilla 
+    -José Andrés Sanabria Arias
+    -William Alejandro Ardila Sánchez
+    -Laura Tatiana Ramírez Rodríguez
+    -Jackson Luna Bonilla 
+
+ ------------------------------------------------------------------------------------------------------------- */ 
+
+/*------------------------------------------------------------------------------ 
+
+     Procedimiento para obtener el top de productos por periodo
+
+
+     Parametros de Entrada: L_IDPERIODO ID del periodo del que se quiere generar el top
+                            P_CURSOR Cursos para mandar los datos desde el backend en formato JSON
+
+     Parametros de Salida : pm_error :Mensaje de error si hay error o null en caso contrario 
+
+                            pc_error :1 si no existe, 0 en caso contrario 
+
+    -------------------------------------------------------------------------------*/
+ PROCEDURE PR_TOP_PRODUCTO (
+   L_IDPERIODO IN VARCHAR,
+   P_CURSOR OUT SYS_REFCURSOR,
+   pm_error OUT VARCHAR,
+   pc_error OUT NUMBER);
+
+/*------------------------------------------------------------------------------ 
+
+     Procedimiento para obtener el top de regiones con mas ventas por periodo
+
+
+     Parametros de Entrada: L_IDPERIODO ID del periodo del que se quiere generar el top
+                            P_CURSOR Cursos para mandar los datos desde el backend en formato JSON
+
+     Parametros de Salida : pm_error :Mensaje de error si hay error o null en caso contrario 
+
+                            pc_error :1 si no existe, 0 en caso contrario 
+
+    -------------------------------------------------------------------------------*/
+  PROCEDURE PR_TOP_REGION (
+    L_IDPERIODO IN VARCHAR, 
+    P_CURSOR OUT SYS_REFCURSOR,
+    pm_error OUT VARCHAR,
+    pc_error OUT NUMBER);
+
+/*------------------------------------------------------------------------------ 
+
+     Procedimiento para obtener el top de representantes con mas ventas por periodo
+
+
+     Parametros de Entrada: L_IDPERIODO ID del periodo del que se quiere generar el top
+                            P_CURSOR Cursos para mandar los datos desde el backend en formato JSON
+
+     Parametros de Salida : pm_error :Mensaje de error si hay error o null en caso contrario 
+
+                            pc_error :1 si no existe, 0 en caso contrario 
+
+    -------------------------------------------------------------------------------*/
+  PROCEDURE PR_TOP_RV (
+    L_IDPERIODO IN VARCHAR, 
+    P_CURSOR OUT SYS_REFCURSOR,
+    pm_error OUT VARCHAR,
+    pc_error OUT NUMBER);
+
+END PK_ESTADISTICAS;

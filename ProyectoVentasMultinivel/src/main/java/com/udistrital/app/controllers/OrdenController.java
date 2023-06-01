@@ -18,7 +18,6 @@ import com.udistrital.app.entity.ClienteId;
 import com.udistrital.app.entity.Inventario;
 import com.udistrital.app.entity.InventarioId;
 import com.udistrital.app.entity.Orden;
-import com.udistrital.app.entity.OrdenId;
 import com.udistrital.app.entity.Periodo;
 import com.udistrital.app.entity.dto.OrdenSaveDto;
 import com.udistrital.app.exceptions.NoFoundClientException;
@@ -54,8 +53,6 @@ public class OrdenController {
 	@PostMapping("/nuevaOrden")
 	public ResponseEntity<Orden> saveNuevaOrden(@RequestBody OrdenSaveDto o) {
 
-		OrdenId ordenId = new OrdenId(o.getIdOrden(), o.getIdProducto(), o.getIdRegion(), o.getTipoId(),
-				o.getNumeroId());
 
 		InventarioId inventarioId = new InventarioId(o.getIdProductoInv(), o.getIdRegionInv());
 		Optional<Inventario> inventario = inventarioRepository.findById(inventarioId);
@@ -80,11 +77,7 @@ public class OrdenController {
 		if (clienteCalifica.isEmpty()) {
 			throw new NoFoundClientException();
 		}
-
-		Orden orden = new Orden(ordenId, inventario.get(), cliente.get(), periodo.get(),
-				convertLocalDate(o.getFechaRegistro()), o.getEstado(), clienteCalifica.get(), o.getCalificacion(),
-				o.getCantidad(), o.getTipoIdRep(), o.getNumeroIdRep());
-
+		
 		// ordenRepository.save(orden);
 		someUpdate(o);
 

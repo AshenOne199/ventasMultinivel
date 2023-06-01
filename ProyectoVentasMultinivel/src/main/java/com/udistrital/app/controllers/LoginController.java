@@ -3,7 +3,6 @@ package com.udistrital.app.controllers;
 import java.io.IOException;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,15 +11,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.udistrital.app.entity.Persona;
 import com.udistrital.app.services.DatabaseAuthService;
+import com.udistrital.app.services.PersonaService;
 
 @RestController
 @CrossOrigin
 @RequestMapping("/api/auth")
 public class LoginController {
 
-	@Autowired
-	private DatabaseAuthService loginService;
+	final private DatabaseAuthService loginService;
+	final private PersonaService personaService;
+	
+	public LoginController(DatabaseAuthService loginService, PersonaService personaService) {
+		this.loginService = loginService;
+		this.personaService = personaService;
+	}
 
 	@PostMapping("/database_login")
 	public ResponseEntity<Map<String, String>> databaseLoginAttempt(@RequestParam String username,
@@ -41,6 +47,18 @@ public class LoginController {
 	public ResponseEntity<String> logout(){
 		loginService.logout();
 		return new ResponseEntity<String>("Logout exitoso", HttpStatus.OK);
+	}
+	
+	@PostMapping("getUsuario")
+	public ResponseEntity<Persona> getUsuarioPorUsername(@RequestParam String username) {
+		String [] cadenaUsername = username.split("_");
+		Persona persona = personaService.getUsuarioPorUsername(cadenaUsername[0], cadenaUsername[1]);
+		if(persona != null) {
+			return ResponseEntity.status(HttpStatus.OK).body(persona);
+		}else {
+			return ResponseEntity.notFound().build();
+		}
+		
 	}
 
 }

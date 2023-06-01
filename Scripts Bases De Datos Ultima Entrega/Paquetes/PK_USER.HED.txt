@@ -1,0 +1,29 @@
+create or replace PACKAGE PK_USER IS
+/*-----------------------------------------------------------------------------------------------------------
+  Incluye la definición de los procedimiento y funciones asociados a la gestión de los usuarios en el Sistema 
+  de multiventas NatAmE.
+  Autores: Andrés Camilo Jiménez Mantilla
+           William Alejandro Ardila Sánchez
+           Laura Tatiana Ramírez Rodríguez
+           Jackson Luna Bonilla
+           José Andrés Sanabria Arias
+  Fecha de creación: 2023/05/31
+  Fecha de modificación:  2023/05/31
+*/
+
+    /*------------------------------------------------------------------------------
+     Procedimiento para obetener los permisos del usuario actualmente logeado en la
+     base de datos del sistema de ventas multinivel NatAme.
+
+     Parametros de Salida : p_cursor        Cursor con los permisos del usuario.
+                            pm_error        Mensaje de error si hay error o null en caso contrario
+                            pc_error        = 1 si no hay permisos,
+                                              0, en caso contrario
+    */
+    PROCEDURE PR_PRIVILEGIOS_USUARIO(p_cursor OUT SYS_REFCURSOR,
+                                     pm_error       OUT VARCHAR,
+                                     pc_error       OUT NUMBER);
+
+
+
+END PK_USER;

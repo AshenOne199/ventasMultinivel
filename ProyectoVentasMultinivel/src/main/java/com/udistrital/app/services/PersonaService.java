@@ -1,5 +1,7 @@
 package com.udistrital.app.services;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import com.udistrital.app.entity.Persona;
@@ -18,4 +20,14 @@ public class PersonaService {
 		
 		return personaRepository.save(representante);
 	}
+
+	public Persona getUsuarioPorUsername(String nombreCompleto, String apellidoCompleto) {
+	    Optional<Persona> p = personaRepository.findByNombreCompletoAndApellidoCompleto(nombreCompleto, apellidoCompleto);
+	    if (p.isPresent()) {
+	        return p.get();
+	    } else {
+	        return null;
+	    }
+	}
+
 }

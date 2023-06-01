@@ -52,10 +52,10 @@ public class RepresentanteService {
 		representanteRepository.save(representante);
 		if (representante.getTipo().equalsIgnoreCase("MASTER")) {
 			System.out.println(representante.getPersona().getNombreCompleto());
-			ddlExecutor.executeRepresentanteMasterCreation((representante.getPersona().getNombreCompleto() + representante.getPersona().getApellidoCompleto()).trim(), "pass");
+			ddlExecutor.executeRepresentanteMasterCreation((representante.getPersona().getNombreCompleto() + "_" + representante.getPersona().getApellidoCompleto()).trim(), "pass");
 		} else {
 			System.out.println(representante.getPersona().getNombreCompleto());
-			ddlExecutor.executeRepresentanteCreation((representante.getPersona().getNombreCompleto() + representante.getPersona().getApellidoCompleto()).trim(), "pass");
+			ddlExecutor.executeRepresentanteCreation((representante.getPersona().getNombreCompleto() + "_" + representante.getPersona().getApellidoCompleto()).trim(), "pass");
 		}
 	}
 

@@ -1,0 +1,250 @@
+create or replace PACKAGE BODY PK_REPRESENTANTES IS 
+/*----------------------------------------------------------------------------------------------------------- 
+    Paquete que incluye los procedimientos y funciones que se pueden utilizar para generar los resumenes periodicos de cada representante
+
+    Aplicativo web NatAmE 
+
+    Autores: 
+
+    -Andrés Camilo Jiménez Mantilla 
+    -José Andrés Sanabria Arias
+    -William Alejandro Ardila Sánchez
+    -Laura Tatiana Ramírez Rodríguez
+    -Jackson Luna Bonilla 
+
+ ------------------------------------------------------------------------------------------------------------- */ 
+
+/*------------------------------------------------------------------------------
+     Procedimiento para mostrar las calificaciones de cada representante
+     de ventas con respecto a su respectivo periodo.
+     Parametros de Salida : p_cursor        Cursor con los promedios de los R.V
+                            pm_error        Mensaje de error si hay error o null en caso contrario
+                            pc_error        = 1 si no hay calificaciones,
+                                              0, en caso contrario
+*/
+  PROCEDURE PR_CALIFICACIONES (L_IDPERIODO IN VARCHAR, P_CURSOR OUT SYS_REFCURSOR, pm_error  OUT VARCHAR,
+        pc_error          OUT NUMBER)
+  AS
+  BEGIN
+   OPEN P_CURSOR FOR
+      SELECT 
+      P.N_NOMBRECOMPLETO ||' '|| P.N_APELLIDOCOMPLETO AS CLIENTE, 
+      O.Q_CALIFICACION AS CALIFICACION, 
+      O.F_FECHAREGISTRO AS FECHA, 
+      O.I_TIPO_ID_REP, 
+      O.Q_NUMERO_ID_REP
+      FROM 
+      ORDEN O
+      LEFT JOIN CLIENTE C ON O.K_TIPO_ID = C.K_TIPO_ID AND O.K_NUMERO_ID = C.K_NUMERO_ID
+      INNER JOIN PERSONA P ON C.K_TIPO_ID = P.K_TIPO_ID AND C.K_NUMERO_ID = P.K_NUMERO_ID
+      WHERE 
+      O.I_ESTADO = 'COMPLETADO' AND O.Q_CALIFICACION IS NOT NULL;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            pc_error := 1;
+            pm_error := 'No hay datos de calificaciones';
+        WHEN OTHERS THEN
+             RAISE_APPLICATION_ERROR(sqlcode, sqlerrm);
+  END PR_CALIFICACIONES;
+  
+  
+  /*------------------------------------------------------------------------------
+     Procedimiento para calcular el promedio de las calificaciones para cada representante
+     de ventas con respecto a su respectivo periodo.
+     Parametros de Salida : p_cursor        Cursor con los promedios de los R.V
+                            pm_error        Mensaje de error si hay error o null en caso contrario
+                            pc_error        = 1 si no hay calificaciones,
+                                              0, en caso contrario
+*/
+    PROCEDURE PR_PROMEDIAR_CALIFICACIONES(p_cursor       OUT SYS_REFCURSOR,
+                                          pm_error       OUT VARCHAR,
+                                          pc_error       OUT NUMBER) IS
+    BEGIN
+        OPEN p_cursor FOR
+          SELECT 
+            PERSONA.N_NOMBRECOMPLETO || ' ' || PERSONA.N_APELLIDOCOMPLETO AS "REPRESENTANTE DE VENTAS", 
+            AVG(ORDEN.Q_CALIFICACION) AS CALIFICACION,
+            ORDEN.K_IDPERIODO AS PERIODO
+          FROM 
+            ORDEN, PERSONA, PERIODO
+          WHERE 
+            (ORDEN.I_TIPO_ID_REP = PERSONA.K_TIPO_ID) AND (ORDEN.Q_NUMERO_ID_REP = PERSONA.K_NUMERO_ID) AND (ORDEN.K_IDPERIODO = PERIODO.K_IDPERIODO)
+            AND ORDEN.I_ESTADO = 'COMPLETADO'
+          GROUP BY 
+            PERSONA.N_NOMBRECOMPLETO, PERSONA.N_APELLIDOCOMPLETO, ORDEN.K_IDPERIODO
+          ORDER BY 
+            CALIFICACION DESC;
+      EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            pc_error := 1;
+            pm_error := 'No hay calificaciones';
+        WHEN OTHERS THEN
+            pc_error := 0;        
+            RAISE_APPLICATION_ERROR(sqlcode, sqlerrm);
+            pc_error := sqlerrm;
+           
+    END PR_PROMEDIAR_CALIFICACIONES;
+
+/*------------------------------------------------------------------------------ 
+     Funcion para retornar total de la comision de un representante al momento de registrarse una orden completa
+
+
+     Parametros de Entrada: pi_tipo_id_rep: Corresponde al tipo de id del representante
+     
+                            pq_numero_id_rep: Corresponde al numero de id del representante
+
+                            pi_tipo: Corresponde al cargo del representante
+                            
+                            pf_fechainicio: Corresponde a la fecha desde la que se va a generar la comision
+                            
+                            pf_fechafin: Corresponde a la fecha hasta la que se va a generar la comision
+
+     Parametros de Salida : pm_error :Mensaje de error si hay error o null en caso contrario 
+
+                            pc_error :1 si no existe, 0 en caso contrario 
+
+     Valor de retorno      : Valor total del producto
+
+    -------------------------------------------------------------------------------*/
+
+  FUNCTION FU_CALCULAR_COMISION(
+    pi_tipo_id_rep        IN orden.i_tipo_id_rep%TYPE,
+    pq_numero_id_rep      IN orden.q_numero_id_rep%TYPE,
+    pi_tipo           IN representante_ventas.i_tipo%TYPE,
+    pf_fechainicio      IN periodo.f_fechainicio%TYPE,
+    pf_fechafin      IN periodo.f_fechafin%TYPE,
+    pm_error          OUT VARCHAR,
+    pc_error          OUT NUMBER)RETURN NUMBER
+  IS
+    lq_porcComision NUMBER;
+    lq_porcRepresentante NUMBER;
+    lv_calculadoproducto NUMBER;
+    lv_calculadoiva NUMBER;
+    lv_totalproductos NUMBER;
+    lv_totaliva NUMBER;
+    lv_totalVentas NUMBER;
+    lv_totalcomision NUMBER;
+
+    CURSOR c_calcularcomisiones IS
+        SELECT O.q_cantidad, I.v_precioproducto, O.k_idproducto FROM orden O, inventario I, periodo P
+        WHERE O.k_idproducto=I.k_idproducto AND O.k_idperiodo=P.k_idperiodo AND O.i_tipo_id_rep=pi_tipo_id_rep 
+        AND O.q_numero_id_rep=pq_numero_id_rep AND P.f_fechainicio=pf_fechainicio AND P.f_fechafin=pf_fechafin AND O.i_estado='COMPLETADO'; 
+    lc_calcularcomisiones c_calcularcomisiones%ROWTYPE;
+  BEGIN
+    lv_calculadoproducto := 0;
+    lv_calculadoiva := 0;
+    lv_totalproductos := 0;
+    lv_totaliva := 0;
+    lv_totalVentas := 0;
+    lv_totalcomision := 0;
+
+    SELECT q_comision INTO lq_porcComision FROM periodo WHERE f_fechainicio=pf_fechainicio AND f_fechafin=pf_fechafin;
+
+    IF pi_tipo='MASTER' THEN
+      lq_porcRepresentante := lq_porcComision;
+    ELSIF pi_tipo='SENIOR' THEN
+      lq_porcRepresentante := lq_porcComision * 0.8;
+    ELSIF pi_tipo='JUNIOR'  THEN
+      lq_porcRepresentante := lq_porcComision * 0.6;
+    ELSE
+      lq_porcRepresentante := lq_porcComision * 0.4;
+    END IF;
+
+    FOR lc_calcularcomisiones IN c_calcularcomisiones LOOP
+        lv_calculadoproducto := PK_CARRITO.FU_TOTAL_PRODUCTO(lc_calcularcomisiones.v_precioproducto,
+                                                                lc_calcularcomisiones.q_cantidad,
+                                                                pm_error, 
+                                                                pc_error);
+
+        lv_totalproductos := lv_totalproductos + lv_calculadoproducto;
+
+        lv_calculadoiva := PK_CARRITO.FU_BUSCAR_IVA(lv_calculadoproducto, 
+                                                    lc_calcularcomisiones.k_idproducto,
+                                                    pm_error, 
+                                                    pc_error);
+
+        lv_totaliva := lv_totaliva + lv_calculadoiva;
+
+        lv_totalVentas := lv_totalVentas + (lv_totalproductos + lv_totaliva);
+    END LOOP;
+
+    lv_totalcomision := lv_totalVentas * lq_porcRepresentante;
+    DBMS_OUTPUT.PUT_LINE('% Representante' || ' = ' || lq_porcRepresentante);
+    DBMS_OUTPUT.PUT_LINE('Total + IVA' || ' = ' || lv_totalVentas);
+    DBMS_OUTPUT.PUT_LINE('Total Comision' || ' = ' || lv_totalcomision);
+
+    RETURN lv_totalcomision;
+  EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            pc_error := 1;
+            pm_error := 'No hay datos para calcular comisiones';
+        WHEN OTHERS THEN
+             RAISE_APPLICATION_ERROR(sqlcode, sqlerrm);
+  END FU_CALCULAR_COMISION;
+
+/*------------------------------------------------------------------------------ 
+     Funcion para retornar la nomina de todos los representantes en un periodo dado
+
+
+     Parametros de Entrada: pk_idperiodo: Corresponde al id del periodo
+
+     Parametros de Salida : pm_error :Mensaje de error si hay error o null en caso contrario 
+
+                            pc_error :1 si no existe, 0 en caso contrario 
+
+     Valor de retorno      : registro de la nomina
+
+    -------------------------------------------------------------------------------*/
+  FUNCTION FU_MOSTRAR_NOMINA(
+        pk_idperiodo     IN orden.k_idperiodo%TYPE,
+        pm_error            OUT VARCHAR,
+        pc_error          OUT NUMBER)RETURN gtr_nomina
+  IS
+    lr_nomina gtr_nomina;
+
+     CURSOR c_mostrarnomina IS
+            SELECT 
+              P.N_NOMBRECOMPLETO AS NOMBRE, 
+              P.N_APELLIDOCOMPLETO AS APELLIDO, 
+              R.I_TIPO AS CARGO, 
+              COALESCE(SUM(O.Q_CANTIDAD), 0) AS NUM_VENTAS, 
+              COALESCE(ROUND(AVG(O.Q_CALIFICACION), 2),0) AS CALIFICACION, 
+              ROUND(COALESCE(SUM(CASE 
+                            WHEN R.I_TIPO = 'BEGINNER' THEN O.Q_CALIFICACION * I.V_PRECIOPRODUCTO * 0.05
+                            WHEN R.I_TIPO = 'JUNIOR' THEN O.Q_CALIFICACION * I.V_PRECIOPRODUCTO * 0.1
+                            WHEN R.I_TIPO = 'SENIOR' THEN O.Q_CALIFICACION * I.V_PRECIOPRODUCTO * 0.15
+                            ELSE O.Q_CALIFICACION * I.V_PRECIOPRODUCTO * 0.2
+                         END), 0), 2) AS COMISION_TOTAL,
+
+              CASE 
+                WHEN COALESCE(SUM(O.Q_CANTIDAD), 0) <= 5 THEN 'BAJA'
+                WHEN COALESCE(SUM(O.Q_CANTIDAD), 0) >= 6 AND COALESCE(SUM(O.Q_CANTIDAD), 0) <= 10 THEN 'IGUAL'
+                ELSE 'SUBE'
+              END AS ESTADO INTO lr_nomina
+            FROM REPRESENTANTE_VENTAS R
+            LEFT JOIN ORDEN O ON R.K_TIPO_ID = O.I_TIPO_ID_REP AND R.K_NUMERO_ID = O.Q_NUMERO_ID_REP AND O.K_IDPERIODO = pk_idperiodo 
+            AND O.I_ESTADO = 'COMPLETADO' AND O.Q_CALIFICACION IS NOT NULL
+            LEFT JOIN INVENTARIO I ON O.K_IDPRODUCTO = I.K_IDPRODUCTO AND O.K_IDREGION = I.K_IDREGION
+            LEFT JOIN PERSONA P ON P.K_TIPO_ID=R.K_TIPO_ID AND P.K_NUMERO_ID=R.K_NUMERO_ID
+            GROUP BY P.N_NOMBRECOMPLETO, P.N_APELLIDOCOMPLETO, R.I_TIPO
+            ORDER BY P.N_NOMBRECOMPLETO, P.N_APELLIDOCOMPLETO;
+
+        lc_mostrarnomina c_mostrarnomina%ROWTYPE;
+  BEGIN
+    FOR lc_mostrarnomina IN c_mostrarnomina LOOP
+        DBMS_OUTPUT.PUT_LINE('Nombre:' || lc_mostrarnomina.nombre || ' - Apellido:' || lc_mostrarnomina.apellido ||
+                             ' - Cargo:' || lc_mostrarnomina.cargo || ' - Ventas:' || lc_mostrarnomina.Num_ventas ||
+                             ' - Calificacion:' || lc_mostrarnomina.calificacion || ' - Comision:' || lc_mostrarnomina.comision_total ||
+                             ' - Estado:' || lc_mostrarnomina.estado);
+    END LOOP;
+
+    RETURN lr_nomina;
+  EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            pc_error := 1;
+            pm_error := 'No hay datos para la nomina';
+        WHEN OTHERS THEN
+             RAISE_APPLICATION_ERROR(sqlcode, sqlerrm);
+  END FU_MOSTRAR_NOMINA;
+
+END PK_REPRESENTANTES;
