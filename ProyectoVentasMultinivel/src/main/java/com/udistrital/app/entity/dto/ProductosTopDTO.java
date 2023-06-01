@@ -25,7 +25,9 @@ import lombok.Setter;
         resultClasses = ProductosTopDTO.class,
         parameters = {
           @StoredProcedureParameter(mode=ParameterMode.IN, name="L_IDPERIODO", type=String.class),
-          @StoredProcedureParameter(mode=ParameterMode.REF_CURSOR, name="P_CURSOR", type=void.class)
+          @StoredProcedureParameter(mode=ParameterMode.REF_CURSOR, name="P_CURSOR", type=void.class),
+          @StoredProcedureParameter(mode=ParameterMode.OUT, name="pm_error", type=String.class),
+          @StoredProcedureParameter(mode=ParameterMode.OUT, name="pc_error", type=String.class)
     })
 })
 public class ProductosTopDTO {
@@ -37,5 +39,12 @@ public class ProductosTopDTO {
 	
 	@Column(name = "VENDIDO")
 	private String vendido;
+	
+	@Column(name = "pm_error")
+	private String pm_error;
+	
+	@Column(name = "pc_error")
+	private String pc_error;
+	
 	
 }

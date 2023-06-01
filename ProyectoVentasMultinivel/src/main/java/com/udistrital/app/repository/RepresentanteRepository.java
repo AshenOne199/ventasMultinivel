@@ -10,8 +10,6 @@ import com.udistrital.app.entity.RepresentanteVentaId;
 public interface RepresentanteRepository extends JpaRepository<RepresentanteVenta, RepresentanteVentaId> {
 	
 	List<RepresentanteVenta> findByPersona_CiudadAndTipo(String ciudad, String tipo);
-
-
 	List<RepresentanteVenta> findByTipo(String tipo);
 
 }
