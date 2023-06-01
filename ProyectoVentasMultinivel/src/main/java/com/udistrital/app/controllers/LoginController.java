@@ -29,9 +29,9 @@ public class LoginController {
 	}
 
 	@PostMapping("/database_login")
-	public ResponseEntity<Map<String, String>> databaseLoginAttempt(@RequestParam String username,
+	public ResponseEntity<Map<String, String>> databaseLoginAttempt(@RequestParam String nombre, @RequestParam String apellido,
 			@RequestParam String password) throws IOException {
-		return new ResponseEntity<Map<String, String>>(loginService.testConnectionAndUpdate(username, password),
+		return new ResponseEntity<Map<String, String>>(loginService.testConnectionAndUpdate(nombre, apellido, password),
 				HttpStatus.OK);
 	}
 

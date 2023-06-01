@@ -25,15 +25,24 @@ public class DatabaseAuthService {
 		this.dataSourceService = dataSourceService;
 	}
 
-	public Map<String, String> testConnectionAndUpdate(String newUsername, String newPassword) {
+	public Map<String, String> testConnectionAndUpdate(String nombre, String apellido, String newPassword) {
 
 		Map<String, String> message = new HashMap<>();
 		String finalMessage = null;
+		String username = "";
 		List<String> roles = new ArrayList<>();
 
 		try {
 			String dbURL = "jdbc:oracle:thin:@localhost:1521/dbmultinivel";
-			String username = newUsername;
+			
+			username = nombre.concat("_").concat(apellido);
+			
+			if(apellido.isBlank() || apellido.isEmpty()) {
+				username = nombre;
+			}else {
+				username = nombre.concat("_").concat(apellido);
+			}
+			
 			String password = newPassword;
 			Connection conn = DriverManager.getConnection(dbURL, username, password);
 			
@@ -84,7 +93,7 @@ public class DatabaseAuthService {
 
 		try {
 
-			updateDatasource(newUsername, newPassword);
+			updateDatasource(username, newPassword);
 
 			finalMessage = "Success";
 			message.put("message", finalMessage);
@@ -154,6 +163,7 @@ public class DatabaseAuthService {
 			int errorCode = e.getErrorCode();
 			finalMessage = "Failed,ORA: " + String.valueOf(errorCode);
 			message.put("message", finalMessage);
+			message.put("codeError", String.valueOf(errorCode));
 			return message;
 		} catch (ClassNotFoundException e) {
 			finalMessage = "OCI Driver configuration error";

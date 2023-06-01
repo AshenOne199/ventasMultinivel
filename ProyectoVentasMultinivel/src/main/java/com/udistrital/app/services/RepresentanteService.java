@@ -1,5 +1,6 @@
 package com.udistrital.app.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -57,6 +58,18 @@ public class RepresentanteService {
 			System.out.println(representante.getPersona().getNombreCompleto());
 			ddlExecutor.executeRepresentanteCreation((representante.getPersona().getNombreCompleto() + "_" + representante.getPersona().getApellidoCompleto()).trim(), "pass");
 		}
+	}
+
+	public List<RepresentanteVenta> findAll() {
+		return representanteRepository.findAll();
+	}
+
+	public List<RepresentanteVenta> findByPersona_CiudadAndTipo(String nombreRegion, String rango) {
+		return representanteRepository.findByPersona_CiudadAndTipo(nombreRegion, rango);
+	}
+
+	public List<RepresentanteVenta> findByTipo(String rango) {
+		return representanteRepository.findByTipo(rango);
 	}
 
 }

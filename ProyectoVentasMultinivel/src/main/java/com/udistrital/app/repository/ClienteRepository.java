@@ -16,5 +16,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, ClienteId> {
 	@Modifying
 	@Query("update Cliente c set c.representanteVentas.id = ?2 WHERE c.id = ?1")
 	void updateRV(ClienteId clienteId, RepresentanteVentaId id);
+	
+	
 
 }

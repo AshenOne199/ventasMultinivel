@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductoPorRegionDto {
+public class ProductoPorRegionDTO {
 
 	private Short id;
 	private String nombreProducto;
