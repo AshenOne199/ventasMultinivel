@@ -4,21 +4,12 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import com.udistrital.app.entity.*;
+import com.udistrital.app.entity.dto.OrdenIdDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.udistrital.app.entity.Cliente;
-import com.udistrital.app.entity.ClienteId;
-import com.udistrital.app.entity.Inventario;
-import com.udistrital.app.entity.InventarioId;
-import com.udistrital.app.entity.Orden;
-import com.udistrital.app.entity.Periodo;
 import com.udistrital.app.entity.dto.OrdenSaveDto;
 import com.udistrital.app.exceptions.NoFoundClientException;
 import com.udistrital.app.exceptions.NoFoundInventraioException;
@@ -106,33 +97,60 @@ public class OrdenController {
 				o.getTipoIdRep(), o.getNumeroIdRep());
 	}
 
-	/*
-	 * @PutMapping("/orden/estado/{estado}") public ResponseEntity<Optional<Orden>>
-	 * setEstado(@PathVariable String estado, @RequestBody OrdenId id) {
-	 * ordenRepository.updateestadoById(estado, id); return
-	 * ResponseEntity.ok().build(); }
-	 *//*
-		 * @PutMapping("/calificacion/{calificacion}") public
-		 * ResponseEntity<Optional<Orden>> setCalificacion(@PathVariable Boolean
-		 * calificacion, @RequestBody OrdenId id) {
-		 * ordenRepository.updateCalificacion(calificacion, id); return
-		 * ResponseEntity.ok().build(); }
-		 */
-	@GetMapping("/orden/maxima")
+
+	 @PutMapping("/estado/{estado}")
+	 public ResponseEntity<Optional<Orden>> setEstado(@PathVariable String estado, @RequestBody OrdenIdDto id) {
+
+		Optional<Orden> ordOld = ordenRepository.findById(new OrdenId(id.getIdOrden(), id.getIdProducto(),id.getIdRegion(),id.getTipoId(),id.getNumeroId()));
+
+		Orden ordNew = ordOld.get();
+
+		ordNew.setIEstado(estado);
+
+	  	ordenRepository.save(ordNew);
+	  	return ResponseEntity.ok().build();
+	}
+
+
+	@PutMapping("/calificacion/{calificacion}") public ResponseEntity<Optional<Orden>> setCalificacion(@PathVariable Short calificacion, @RequestBody OrdenIdDto id) {
+
+		Optional<Orden> ordOld = ordenRepository.findById(new OrdenId(id.getIdOrden(), id.getIdProducto(),id.getIdRegion(),id.getTipoId(),id.getNumeroId()));
+
+		Orden ordNew = ordOld.get();
+
+		ordNew.setQCalificacion(calificacion);
+		ordenRepository.save(ordNew);
+
+		  return ResponseEntity.ok().build();
+	}
+
+	@GetMapping("/maxima")
 	public ResponseEntity<Orden> getPrimeraOrden() {
 		List<Orden> ordenes = ordenRepository.findAll();
 		Optional<Orden> ordenMaxima = ordenes.stream().reduce((first, second) -> second);
 		return ResponseEntity.ok(ordenMaxima.get());
 	}
-	/*
-	 * @GetMapping("/orden/enCarrito/{idOrden}") public ResponseEntity<List<Orden>>
-	 * getAllOrdenesCarrito(@PathVariable Integer idOrden) { List<Orden>
-	 * ordenesEnCarrito = ordenService.findByid_idOrdenAndEstado(idOrden,
-	 * "EN PROCESO"); return ResponseEntity.ok(ordenesEnCarrito); }
-	 * 
-	 * @PutMapping("/orden/cantidad/{cantidad}") public
-	 * ResponseEntity<Optional<Orden>> setCantidad(@PathVariable Short
-	 * cantidad, @RequestBody OrdenId id) { ordenRepository.updateCantidad(cantidad,
-	 * id); return ResponseEntity.ok().build(); }
-	 */
+
+	 @GetMapping("/enCarrito/{idOrden}")
+	 public ResponseEntity<List<Orden>>	 getAllOrdenesCarrito(@PathVariable Integer idOrden) {
+
+		List<Orden> ordenesEnCarrito = ordenRepository.findAllById(idOrden);
+
+		return ResponseEntity.ok(ordenesEnCarrito);
+	}
+
+	 @PutMapping("/cantidad/{cantidad}")
+	 public ResponseEntity<Optional<Orden>> setCantidad(@PathVariable Short cantidad, @RequestBody OrdenIdDto id) {
+
+		 Optional<Orden> ordOld = ordenRepository.findById(new OrdenId(id.getIdOrden(), id.getIdProducto(),id.getIdRegion(),id.getTipoId(),id.getNumeroId()));
+
+		 Orden ordNew = ordOld.get();
+
+		 ordNew.setQCantidad(cantidad);
+
+		 ordenRepository.save(ordNew);
+
+		 return ResponseEntity.ok().build();
+	 }
+
 }
