@@ -1,5 +1,7 @@
 package com.udistrital.app.controllers;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -61,6 +63,25 @@ public class RepresentanteController {
 		representanteService.save(rep);
 
 		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/rangoRegion/{nombreRegion}/{rango}")
+	public ResponseEntity<List<RepresentanteVenta>> getRepresentantesPorRegionRango(@PathVariable String nombreRegion,
+			@PathVariable String rango) {
+		List<RepresentanteVenta> representantes = representanteService.findByPersona_CiudadAndTipo(nombreRegion, rango);
+		return new ResponseEntity<List<RepresentanteVenta>>(representantes, HttpStatus.OK);
+	}
+
+	@GetMapping("/rango/{rango}")
+	public ResponseEntity<List<RepresentanteVenta>> getRepresentantesPorRango(@PathVariable String rango) {
+		List<RepresentanteVenta> representantes = representanteService.findByTipo(rango);
+		return new ResponseEntity<List<RepresentanteVenta>>(representantes, HttpStatus.OK);
+	}
+	
+	@GetMapping("/all")
+	public ResponseEntity<List<RepresentanteVenta>> getAll() {
+		List<RepresentanteVenta> representantes = representanteService.findAll();
+		return new ResponseEntity<List<RepresentanteVenta>>(representantes, HttpStatus.OK);
 	}
 
 }

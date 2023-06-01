@@ -16,12 +16,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@ToString
 @Table(name = "CLIENTE")
 public class Cliente {
 	
@@ -37,9 +39,6 @@ public class Cliente {
     })
     private Persona persona;
 
-    @Column(name = "Q_CUENTA", nullable = false)
-    private Long cuenta;
-
     @JsonIgnore
     @MapsId("id")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -49,4 +48,7 @@ public class Cliente {
     })
     private RepresentanteVenta representanteVentas;
 
+    @Column(name = "Q_CUENTA", nullable = false)
+    private Long cuenta;
+    
 }

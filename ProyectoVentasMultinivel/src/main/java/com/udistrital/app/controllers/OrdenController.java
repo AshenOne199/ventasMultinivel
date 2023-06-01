@@ -69,7 +69,6 @@ public class OrdenController {
 			throw new NoFoundClientException();
 		}
 		
-		// ordenRepository.save(orden);
 		someUpdate(o);
 
 		return ResponseEntity.ok().build();
