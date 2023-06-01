@@ -2,8 +2,6 @@ package com.udistrital.app.entity;
 
 import java.time.LocalDate;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -13,6 +11,7 @@ import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,7 +29,6 @@ public class Orden {
     @EmbeddedId
     private OrdenId id;
 
-    @JsonIgnore
     @MapsId("id")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumns({
@@ -48,16 +46,19 @@ public class Orden {
     private Cliente cliente;
 
     @MapsId("id")
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "K_IDPERIODO", nullable = false)
-    private Periodo idPeriodo;
+    private Periodo kIdperiodo;
 
+    @NotNull
     @Column(name = "F_FECHAREGISTRO", nullable = false)
-    private LocalDate fechaRegistro;
+    private LocalDate fFecharegistro;
 
     @Size(max = 20)
+    @NotNull
     @Column(name = "I_ESTADO", nullable = false, length = 20)
-    private String estado;
+    private String iEstado;
 
     @MapsId("id")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -65,19 +66,20 @@ public class Orden {
             @JoinColumn(name = "K_TIPO_ID_CALIF", referencedColumnName = "K_TIPO_ID"),
             @JoinColumn(name = "K_NUMERO_ID_CALIF", referencedColumnName = "K_NUMERO_ID")
     })
-    private Cliente clienteCalifica;
+    private Cliente cliente1;
 
     @Column(name = "Q_CALIFICACION")
-    private Short calificacion;
+    private Short qCalificacion;
 
+    @NotNull
     @Column(name = "Q_CANTIDAD", nullable = false)
-    private Short cantidad;
+    private Short qCantidad;
 
     @Size(max = 3)
     @Column(name = "I_TIPO_ID_REP", length = 3)
-    private String tipoIdRep;
+    private String iTipoIdRep;
 
     @Column(name = "Q_NUMERO_ID_REP")
-    private Long numeroIdRep;
+    private Long qNumeroIdRep;
 
 }

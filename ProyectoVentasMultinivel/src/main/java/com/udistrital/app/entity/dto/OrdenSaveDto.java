@@ -1,12 +1,5 @@
 package com.udistrital.app.entity.dto;
 
-import java.time.LocalDate;
-import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,7 +32,7 @@ public class OrdenSaveDto {
 	private String tipoIdClienteCal;
 	private Long numeroIdClienteCal;
 
-	private Boolean calificacion;
+	private Short calificacion;
 
 	private Short cantidad;
 
